@@ -1,0 +1,29 @@
+:root{
+    
+}
+
+.test#test2{
+    flex-grow: 2;
+    background-color: red;
+    margin-right: 10vw;
+    margin-left: 10vw;
+}
+
+.test {
+    background-color: blue;
+    margin: 3px;
+    text-align: center;
+}
+
+.barra-superior {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    min-height: 6vh; 
+    background: orange;
+}
+
