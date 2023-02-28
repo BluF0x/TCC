@@ -10,18 +10,18 @@ function BarraSuperior() {
     return(
         <div class="barra-superior">
             {/*Barra de navegação lateral*/}
-            <div class="test">1</div> 
+            <div class="items-barra-superior">1</div> 
             {/*Barra de pesquisa*/}
-            <div class="test" id="test2">
+            <div class="items-barra-superior" id="barra-pesquisa">
             <form>
                 <input type="text" id="pesquisar"></input>
                 <input type="button" id="pesquisar-btn" value="pesquisar"></input>
             </form>
             </div>
             {/*Modo escuro*/}
-            <div class="test">4</div>
+            <div class="items-barra-superior">4</div>
             {/*Perfil*/}
-            <div class="test">5</div>
+            <div class="items-barra-superior">5</div>
         </div>
     )
 }
