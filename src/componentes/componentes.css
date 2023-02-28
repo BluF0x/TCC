@@ -14,9 +14,13 @@
     background: var(--cor-primaria);
 }
 
+.icon {
+    height: 4vh;
+}
+
 
 #barra-pesquisa{
-    flex-grow: 2;
+    flex-grow: 1;
     margin-right: 10vw;
     margin-left: 10vw;
     display: flex;
@@ -24,6 +28,9 @@
     min-height: 4vh;
     background-color: lightgrey;
     border-radius: 10px;
+}
+#item1 {
+    width: 10vw;
 }
 
 #pesquisar {
@@ -38,7 +45,12 @@
     background-color: white;
     border: none;
     border-radius: 0px 10px 10px 0px;
-        
+    transition: 100ms;
+}
+
+#btn-filtrar:hover {
+    background-color: lightgrey;
+    transition: 100ms;
 }
 
 .items-barra-superior {
