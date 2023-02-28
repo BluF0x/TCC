@@ -13,10 +13,8 @@ function BarraSuperior() {
             <div class="items-barra-superior">1</div> 
             {/*Barra de pesquisa*/}
             <div class="items-barra-superior" id="barra-pesquisa">
-            <form>
                 <input type="text" id="pesquisar"></input>
-                <input type="button" id="pesquisar-btn" value="pesquisar"></input>
-            </form>
+                <input type="button" id="btn-filtrar" value="filtrar"></input>
             </div>
             {/*Modo escuro*/}
             <div class="items-barra-superior">4</div>

@@ -2,27 +2,6 @@
     --cor-primaria: #F4540F
 }
 
-.items-barra-superior#barra-pesquisa{
-    flex-grow: 2;
-    background-color: lightgray;
-    margin-right: 10vw;
-    margin-left: 10vw;
-    display: flex;
-    align-items: left;
-}
-
-#pesquisar {
-    background-color: lightgrey ;
-    border-radius: 5px;
-    border: none;
-}
-
-.items-barra-superior {
-    background-color: blue;
-    margin: 3px;
-    text-align: center;
-}
-
 .barra-superior {
     position: absolute;
     left: 0;
@@ -31,7 +10,40 @@
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    min-height: 6vh; 
+    min-height: 7vh; 
     background: var(--cor-primaria);
+}
+
+
+#barra-pesquisa{
+    flex-grow: 2;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    display: flex;
+    align-items: left;
+    min-height: 4vh;
+    background-color: lightgrey;
+    border-radius: 10px;
+}
+
+#pesquisar {
+    flex:content;
+    background-color: white ;
+    border-radius: 10px 0px 0px 10px;
+    margin-right: 2px;
+    border: none;
+}
+
+#btn-filtrar {
+    background-color: white;
+    border: none;
+    border-radius: 0px 10px 10px 0px;
+        
+}
+
+.items-barra-superior {
+    background-color: blue;
+    margin: 3px;
+    text-align: center;
 }
 
