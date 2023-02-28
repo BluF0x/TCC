@@ -1,36 +1,26 @@
-:root {
-    --cor-primaria: #F4540F
-}
-
 .barra-superior {
     position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    min-height: 7vh; 
+    min-height: var(--altura-barra-superior); 
     background: var(--cor-primaria);
 }
 
 .icon {
-    height: 4vh;
+    height: calc(var(--altura-barra-superior) * 0.6);
 }
 
-
 #barra-pesquisa{
-    flex-grow: 1;
+    flex-grow: 2;
     margin-right: 10vw;
     margin-left: 10vw;
     display: flex;
     align-items: left;
-    min-height: 4vh;
+    height: calc(var(--altura-barra-superior) * 0.6);
     background-color: lightgrey;
     border-radius: 10px;
-}
-#item1 {
-    width: 10vw;
 }
 
 #pesquisar {

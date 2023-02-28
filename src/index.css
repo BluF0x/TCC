@@ -1,4 +1,26 @@
+:root {
+    --altura-barra-superior: 50px;
+    --cor-primaria: #F4540F;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
 .App {
     display: flex;
     justify-content: center;
+}
+
+.flex0 {
+    flex-grow: 0;
+}
+
+.flex1 {
+    flex-grow: 1;
+}
+
+.flex2 {
+    flex-grow: 2;
 }
