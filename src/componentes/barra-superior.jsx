@@ -11,8 +11,7 @@ function BarraSuperior() {
     return(
         <div class="barra-superior">
 
-            {/*Barra de navegação lateral*/}
-            <div class="items-barra-superior flex0" id="item1">1</div> 
+            <MenuNav></MenuNav>
 
             <BarraDePesquisa></BarraDePesquisa>
 
@@ -21,6 +20,14 @@ function BarraSuperior() {
 
             {/*Perfil*/}
             <div class="items-barra-superior">5</div>
+        </div>
+    )
+}
+
+function MenuNav() {
+    return (
+        <div className='flex1 menu-nav'>
+
         </div>
     )
 }

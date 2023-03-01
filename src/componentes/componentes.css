@@ -8,9 +8,6 @@
     background: var(--cor-primaria);
 }
 
-.icon {
-    height: calc(var(--altura-barra-superior) * 0.6);
-}
 
 #barra-pesquisa{
     flex-grow: 2;
@@ -27,7 +24,8 @@
     flex:content;
     background-color: white ;
     border-radius: 10px 0px 0px 10px;
-    margin-right: 2px;
+    margin-right: 1px;
+    margin-bottom: 2px;
     border: none;
 }
 
@@ -35,12 +33,20 @@
     background-color: white;
     border: none;
     border-radius: 0px 10px 10px 0px;
+    margin-right: 2px;
+    margin-bottom: 2px;
     transition: 100ms;
 }
 
 #btn-filtrar:hover {
     background-color: lightgrey;
     transition: 100ms;
+}
+
+.menu-nav {
+    width: 10px;
+    height: 10px;
+    background-color: red;
 }
 
 .items-barra-superior {

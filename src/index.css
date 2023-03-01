@@ -8,6 +8,10 @@ body, html {
     margin: 0;
 }
 
+.icon {
+    height: calc(var(--altura-barra-superior) * 0.6);
+}
+
 .App {
     display: flex;
     justify-content: center;
