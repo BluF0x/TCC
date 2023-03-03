@@ -1,6 +1,7 @@
 :root {
-    --altura-barra-superior: 50px;
+    --altura-barra-superior: 60px;
     --cor-primaria: #F4540F;
+    --cor-secundaria: #FFC6AD;
 }
 
 body, html {
@@ -8,14 +9,20 @@ body, html {
     margin: 0;
 }
 
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
 .icon {
     height: calc(var(--altura-barra-superior) * 0.6);
 }
 
-.App {
-    display: flex;
-    justify-content: center;
-}
 
 .flex0 {
     flex-grow: 0;

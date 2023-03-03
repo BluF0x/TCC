@@ -1,5 +1,5 @@
 .barra-superior {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     display: flex; 
     justify-content: space-between;
@@ -8,6 +8,7 @@
     background: var(--cor-primaria);
 }
 
+/* Barra de pesquisa */
 
 #barra-pesquisa{
     flex-grow: 2;
@@ -25,7 +26,6 @@
     background-color: white ;
     border-radius: 10px 0px 0px 10px;
     margin-right: 1px;
-    margin-bottom: 2px;
     border: none;
 }
 
@@ -33,9 +33,7 @@
     background-color: white;
     border: none;
     border-radius: 0px 10px 10px 0px;
-    margin-right: 2px;
-    margin-bottom: 2px;
-    transition: 100ms;
+    transition: 200ms;
 }
 
 #btn-filtrar:hover {
@@ -44,14 +42,19 @@
 }
 
 .menu-nav {
-    width: 10px;
-    height: 10px;
-    background-color: red;
+    height: calc(var(--altura-barra-superior) * 0.60);
+    border-radius: 50%;
+    background-color: var(--cor-secundaria);
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    margin: 10px;
+    padding: 2px;
+    transition: filter 300ms;
 }
 
-.items-barra-superior {
-    background-color: blue;
-    margin: 3px;
-    text-align: center;
+.menu-nav:hover {
+    filter: brightness(1.2);
 }
+
 
