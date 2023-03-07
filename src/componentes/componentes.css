@@ -29,14 +29,14 @@
     border: none;
 }
 
-#btn-filtrar {
+.btn-filtrar {
     background-color: white;
     border: none;
     border-radius: 0px 10px 10px 0px;
     transition: 200ms;
 }
 
-#btn-filtrar:hover {
+.btn-filtrar:hover {
     background-color: lightgrey;
     transition: 100ms;
 }
@@ -50,11 +50,36 @@
     justify-content: center;
     margin: 10px;
     padding: 2px;
-    transition: filter 300ms;
+    transition: background-color 300ms;
 }
 
 .menu-nav:hover {
-    filter: brightness(1.2);
+    background-color: rgb(190, 130, 94);
+}
+
+.drop-nav {
+    position: absolute;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--cor-primaria);
+    transform: translateY(10px);
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.item-drop-nav {
+    padding: 5%;
+    margin-top: 8px;
+    border-radius: 10px;
+    color: white;
+    transition: background-color, 300ms;
+}
+
+.item-drop-nav:hover {
+    background-color: var(--cor-secundaria);
 }
 
 

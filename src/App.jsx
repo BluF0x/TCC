@@ -14,6 +14,7 @@ function App() {
       <div>
         <BarraSuperior />
       </div>
+      <h1>Hello World</h1>
     </div>
   )
 }
