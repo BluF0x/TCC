@@ -1,10 +1,25 @@
+@font-face {
+    font-family: 'Epilogue';
+    src: url(./assets/fonts/Epilogue-VariableFont_wght.ttf), format("truetype-variations");
+    font-weight: 100 900;
+}
+@font-face {
+    font-family: 'Epilogue-Italic';
+    src: url(./assets/fonts/Epilogue-Italic-VariableFont_wght.ttf), format('truetype-variations');
+}
 :root {
     --altura-barra-superior: 60px;
     --cor-primaria: #e48c28;
     --cor-secundaria: #FFC6AD;
+    --fonte-primaria: 'Epilogue';
+    --fonte-primaria-italico: 'Epilogue-Italic';
 }
 
+
+
 body, html {
+    font-family: 'Epilogue';
+    font-variation-settings: 'wght' 500;
     padding: 0;
     margin: 0;
 }
@@ -22,7 +37,6 @@ a {
 .icon {
     height: calc(var(--altura-barra-superior) * 0.6);
 }
-
 
 .flex0 {
     flex-grow: 0;

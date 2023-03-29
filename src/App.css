@@ -1,5 +1,15 @@
 .App {
     display: flex;
     flex-direction: column;
-    background-color: red;
 }
+
+.conteudo {
+    display: grid;
+    grid-template-columns: 1fr 2fr ;
+    margin-top: var(--altura-barra-superior);
+}
+
+.tela-bem-vindo {
+    padding: 10px;
+}
+

@@ -1,11 +1,11 @@
 import {React, useState, createRef} from 'react'
-import filter_fill from '../assets/filter_fill.svg' 
-import menu_icon from '../assets/menu_icon.svg'
-import conta_icon from '../assets/conta_icon.svg'
-import logo from '../assets/logo.svg'
-import nightMode from '../assets/night_mode.svg'
-import './componentes.css'
-import '../index.css'
+import filter_fill from '../../assets/svg/filter_fill.svg' 
+import menu_icon from '../../assets/svg/menu_icon.svg'
+import conta_icon from '../../assets/svg/conta_icon.svg'
+import logo from '../../assets/svg/logo.svg'
+import nightMode from '../../assets/svg/night_mode.svg'
+import './barra-superior.css'
+import '../../index.css'
 
 /*
  * Barra superior do site
@@ -21,8 +21,8 @@ function BarraSuperior() {
                     <ItemDropNav href={"#"} icone={nightMode}> 
                         Modo escuro
                     </ItemDropNav>
-                    <ItemDropNav href={"#"} icone={"🏴‍☠️"}> BB  </ItemDropNav>
-                    <ItemDropNav href={"#"} icone={"🏴‍☠️"}> BB  </ItemDropNav>
+                    <ItemDropNav href={"#"} > BB  </ItemDropNav>
+                    <ItemDropNav href={"#"} > BB  </ItemDropNav>
             </ItemNav>
             <ItemNav icon={conta_icon} alt="test" link="./test.html" />
 
@@ -52,6 +52,7 @@ function ItemNav(props) {
     let referencia = createRef()
 
     function handleClickOutside(e) {
+        console.log(e.target)
         if (referencia.current && !referencia.current.contains(e.target)) {
             setNav(!itemAberto)
         }
