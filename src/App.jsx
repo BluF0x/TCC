@@ -17,8 +17,11 @@ function App() {
         <div className='tela-bem-vindo'>
           <TelaBemVindo />
         </div>
-        <SelectTenis />
-        <ItemTenis />
+        <SelectTenis >
+          <ItemTenis></ItemTenis>
+          <ItemTenis></ItemTenis>
+          <ItemTenis></ItemTenis>
+        </SelectTenis>
       </div>
     </div>
   )

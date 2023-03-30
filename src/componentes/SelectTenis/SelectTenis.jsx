@@ -1,11 +1,12 @@
 import React from "react";
+import "./select-tenis.css"
 
-function SelectTenis() {
+function SelectTenis(props) {
 
     return(
-        <div>
-            <h1>Select Tenis</h1>
-            <h1>Select Tenis</h1>
+        <div className="select-container">
+        <h1>Select tenis</h1>
+            {props.children}
         </div>
     )
 }
