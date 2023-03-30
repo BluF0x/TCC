@@ -1,6 +1,28 @@
+
 .container-bem-vindo {
-    background-color: lightgrey;
+    /* border: solid black 2px; */
     height: 100%;
-    border-radius: 20px;
-    display: flex;
+    width: 90vw;
+    margin: 5vw;
+    margin-top: 0;
+    overflow: hidden;
+    max-height: 60vh;
+    /* display: flex; */
+}
+
+.titulo {
+    background-color: orangered;
+    margin: 0;
+    padding: 30px;
+    width: 100%;
+    border-radius: 0px 20px;
+    color: white;
+}
+
+#img-tela {
+    transform: translate(100%, -25%) ;
+    width: 50%;
+    height: 50%;
+    border-radius: 0px 0px 20px 20px;
+    object-fit: cover;
 }
