@@ -14,6 +14,8 @@
     --altura-barra-superior: 60px;
     --cor-primaria: #e48c28;
     --cor-secundaria: #FFC6AD;
+    --cor-contraste: rgb(236, 42, 8);
+    --cor-contraste-realce: rgb(157, 24, 0) ;
     --fonte-primaria: 'Epilogue';
     --fonte-primaria-italico: 'Epilogue-Italic';
 }

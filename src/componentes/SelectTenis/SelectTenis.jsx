@@ -5,8 +5,10 @@ function SelectTenis(props) {
 
     return(
         <div className="select-container">
-        <h1>Select tenis</h1>
-            {props.children}
+            <h1>{props.titulo}</h1>
+            <div className="cards">
+                {props.children}
+            </div>
         </div>
     )
 }

@@ -1,3 +1,11 @@
-.item-tenis {
+.select-container {
+    margin: 30px;
+}
+
+.cards {
+    padding-left: 20px;
+
     display: flex;
+    align-items: center;
+    overflow: hidden;
 }

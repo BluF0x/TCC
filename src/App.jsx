@@ -17,10 +17,22 @@ function App() {
         <div className='tela-bem-vindo'>
           <TelaBemVindo />
         </div>
-        <SelectTenis >
-          <ItemTenis></ItemTenis>
-          <ItemTenis></ItemTenis>
-          <ItemTenis></ItemTenis>
+        <SelectTenis titulo="Tênis de corrida">
+          <ItemTenis price={500} desc="Tênis adidas " review={5} />
+          <ItemTenis price={300} desc="Tênis adidas " review={2} />
+          <ItemTenis price={100} desc="Tênis adidas " review={0} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
+          <ItemTenis price={69} desc="Tênis adidas " review={4} />
         </SelectTenis>
       </div>
     </div>
