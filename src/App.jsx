@@ -1,41 +1,28 @@
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Home from "./Home"
+import {Login} from "./Login/Login.jsx"
 import './App.css'
-import BarraSuperior from './componentes/BarraSuperior.jsx/barra-superior.jsx'
-import TelaBemVindo from './componentes/TelaBemVindo/TelaBemVindo'
-import SelectTenis from './componentes/SelectTenis/SelectTenis'
-import tenisPlaceholder from './assets/imgs/tenis_placeholder.jpeg'
-import ItemTenis from './componentes/ItemTenis/ItemTenis.jsx'
 
 function App() {
-  const itens = [tenisPlaceholder, tenisPlaceholder, tenisPlaceholder]
+  /*
+  * O React funciona como uma "single page aplication",
+  * ou seja, ele não possibilita link para outras páginas
+  * portanto, é necessário uma biblioteca para implementar
+  * essa funcionalidade, como react-router-dom, que roteia
+  * para páginas separadas.
+  */
 
   return (
-    <div className="App">
-      <div>
-        <BarraSuperior />
-      </div>
-      <div className='conteudo'>
-        <div className='tela-bem-vindo'>
-          <TelaBemVindo />
-        </div>
-        <SelectTenis titulo="Tênis de corrida">
-          <ItemTenis price={500} desc="Tênis adidas " review={5} />
-          <ItemTenis price={300} desc="Tênis adidas " review={2} />
-          <ItemTenis price={100} desc="Tênis adidas " review={0} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-          <ItemTenis price={69} desc="Tênis adidas " review={4} />
-        </SelectTenis>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" Component={Home} />
+        <Route path="/Login" Component={Login} />
+      </Routes>
+    </Router>
   )
 }
 

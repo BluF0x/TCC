@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import SneakerTecLogo from './img/SneakerTecLogo.png';
-import './styles.css';
+import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
+import './login.css';
 
 
-function App() {
+export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -57,4 +57,3 @@ function App() {
   );
 }
 
-export default App;

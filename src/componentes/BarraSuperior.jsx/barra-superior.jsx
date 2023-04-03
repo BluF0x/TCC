@@ -1,8 +1,9 @@
 import {React, useState, createRef} from 'react'
+import {Link} from 'react-router-dom'
 import filter_fill from '../../assets/svg/filter_fill.svg' 
 import menu_icon from '../../assets/svg/menu_icon.svg'
 import conta_icon from '../../assets/svg/conta_icon.svg'
-import logo from '../../assets/svg/logo.svg'
+import logo from '../../assets/imgs/SneakerTecLogo.png'
 import nightMode from '../../assets/svg/night_mode.svg'
 import './barra-superior.css'
 import '../../index.css'
@@ -18,17 +19,15 @@ function BarraSuperior() {
 
 
             <ItemNav icon={menu_icon} alt="test" link="#">
-                    <ItemDropNav href={"#"} icone={nightMode}> 
+                    <ItemDropNav href={'/'} icone={nightMode}> 
                         Modo escuro
                     </ItemDropNav>
-                    <ItemDropNav href={"#"} > BB  </ItemDropNav>
-                    <ItemDropNav href={"#"} > BB  </ItemDropNav>
             </ItemNav>
-            <ItemNav icon={conta_icon} alt="test" link="./test.html" />
+            <ItemNav icon={conta_icon} alt="test" link="/Login" />
 
             <BarraDePesquisa></BarraDePesquisa>
 
-            <ItemNav icon={logo} alt="test" link="../index.html" />
+            <ItemNav icon={logo} alt="test" link="/" />
 
         </div>
     )
@@ -44,28 +43,29 @@ function ItemNav(props) {
 
     function DropNav(props) {
         return (
-            <div className='drop-nav' ref={referencia} >
+            <div className='drop-nav' ref={referenciaDrop} >
                 {props.children}
             </div>
         )
     }
-    let referencia = createRef()
+    const referenciaDrop = createRef()
+    const referenciaItem = createRef()
 
-    function handleClickOutside(e) {
-        console.log(e.target)
-        if (referencia.current && !referencia.current.contains(e.target)) {
+    function handleClick(e) {
+        if (referenciaDrop.current && !referenciaDrop.current.contains(e.target)) {
             setNav(!itemAberto)
-        }
+            console.log("Drop:" + referenciaDrop.current)
+        } 
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClick);
 
     return (
-        <div className={props.class}>
+        <div className={props.class} ref={referenciaItem}>
             <ul>
-                <a href={props.link} onClick={() => {setNav(!itemAberto)}} >
+                <Link to={props.link} onClick={() => {setNav(!itemAberto)}} >
                     <img src={props.icon} alt={props.alt}  className="icon"></img>
-                </a>
+                </Link>
                     {/* Se o componente tem elementos filhos e itemAberto é verdadiero,
                         ele adiciona DropNav e passa os elementos filho */}
                     {itemAberto && props.children && <DropNav> {props.children} </DropNav>}
@@ -74,11 +74,12 @@ function ItemNav(props) {
         
     )
 }
+
 function ItemDropNav(props) {return (
-        <a href={props.href} className='item-drop-nav'>
+        <Link to={props.href} className='item-drop-nav'>
             {props.icon}
             {props.children}
-        </a>
+        </Link>
 
     )
 }

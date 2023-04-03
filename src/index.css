@@ -12,8 +12,11 @@
 
 :root {
     --altura-barra-superior: 60px;
-    --cor-primaria: #e48c28;
-    --cor-secundaria: #FFC6AD;
+    --cor-primaria: #FF8100;
+    --cor-secundaria: #FFAD5C;
+    /* --cor-secundaria: #FFC6AD; */
+    --cor-realce: #3CBDE6;
+    --cor-realce2: #007FB5;
     --cor-contraste: rgb(236, 42, 8);
     --cor-contraste-realce: rgb(157, 24, 0) ;
     --fonte-primaria: 'Epilogue';

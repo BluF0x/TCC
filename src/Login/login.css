@@ -23,18 +23,18 @@
     justify-content: center;
 
     padding: 15px;
-    background-color: cornflowerblue;
+    background-color: goldenrod;
 }
 
 .wrap-login {
     width: 390px;
-    background-color: goldenrod;
+    background-color: white;
     border-radius: 10px;
 
     overflow:hidden;
     padding: 55px 55px 33px 55px;
 
-    box-shadow: 0 5px 10px 0px rgb(232, 193, 121);
+    box-shadow: 0 5px 10px 0px var(--cor-secundaria);
 }
 
 .login-form {
@@ -44,7 +44,7 @@
 .login-form-title {
     display: block;
     font-size: 30px;
-    color: orange;
+    color: rgb(129, 96, 36);
 
     line-height: 1.2;
     text-align: center;
@@ -102,10 +102,10 @@
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
 
-    background: -webkit-linear-gradient(to left, rgb(255, 217, 0), rgb(250, 255, 98));
-    background: -o-linear-gradient(to left, rgb(255, 217, 0), rgb(250, 255, 98));
-    background: -moz-linear-gradient(to left, rgb(255, 217, 0), rgb(250, 255, 98));
-    background: linear-gradient(to left, rgb(255, 217, 0), rgb(250, 255, 98));
+    /* background: -webkit-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
+    background: -o-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
+    background: -moz-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria)); */
+    background: linear-gradient(to left,  #e2f0a6, #c2ec07 );
 }
 
 .focus-input::after {
@@ -160,7 +160,7 @@
     font-size: 15px;
     border: none;
     border-radius: 10px;
-    color: gold;
+    color: rgb(112, 98, 20);
 
     line-height: 1.2;
 
@@ -173,10 +173,10 @@
     width: 100%;
     height: 50px;
 
-    background: -webkit-linear-gradient(to left, rgb(255, 217, 0), rgb(250, 255, 98));
-    background: -o-linear-gradient(to left, rgb(255, 217, 0), rgb(250, 255, 98));
-    background: -moz-linear-gradient(to left, rgb(255, 217, 0), rgb(250, 255, 98));
-    background: linear-gradient(to left, rgb(255, 217, 0), rgb(250, 255, 98));
+    /* background: -webkit-linear-gradient(to left, , var(--cor-secundaria));
+    background: -o-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
+    background: -moz-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria)); */
+    background: linear-gradient(to left,  #e2f0a6, #c2ec07 );
 }
 
 .login-form-btn:hover {

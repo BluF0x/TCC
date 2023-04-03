@@ -18,7 +18,9 @@
     min-height: 250px;
 
 
-    padding: 5px;
+    padding: 15px;
+    padding-bottom: 0;
+    padding-top: 0;
 
     margin: 10px;
     border-radius: 6px;
@@ -48,10 +50,15 @@
 
 }
 
+#desc {
+    margin: 6px;
+}
+
 .propriedade-tenis {
     color: white;
     padding: 1%;
     margin-bottom: 0.2em;
+    padding: 2px;
 }
 
 .left {
@@ -63,7 +70,8 @@
     border: none;
     border-radius: 5px;
     background-color: rebeccapurple;
-    padding: 4px;
+    margin: 10px;
+    padding: 5px;
     transition: 300ms background-color;
 }
 
