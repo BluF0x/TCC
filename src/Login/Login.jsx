@@ -69,6 +69,7 @@ export function Login() {
         </form>
         )
     }
+
     function CadastrarForm() {
         return (
             <form className="login-form">

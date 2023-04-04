@@ -1,16 +1,19 @@
 
 .container-bem-vindo {
-    /* border: solid black 2px; */
-    height: 100%;
-    width: 90vw;
     margin: 5vw;
+    margin-right: 0;
     margin-top: 0;
-    overflow: hidden;
     max-height: 60vh;
-    /* display: flex; */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(10, 30px);
 }
 
 .titulo {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 4;
     background-color: orangered;
     margin: 0;
     padding: 30px;
@@ -18,11 +21,23 @@
     border-radius: 0px 20px;
     color: white;
 }
+.img{
+
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 11;
+}
 
 #img-tela {
-    transform: translate(100%, -25%) ;
-    width: 50%;
-    height: 50%;
     border-radius: 0px 0px 20px 20px;
     object-fit: cover;
+    width: 100%;
+    height: 300px;
+}
+
+.menus {
+    background-color: lightgray;
+    grid-column-start: 2;    
+    grid-column-end: 3;    
 }
