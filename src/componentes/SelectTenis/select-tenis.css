@@ -8,5 +8,5 @@
 
     display: flex;
     align-items: center;
-    overflow: hidden;
+    overflow: scroll;
 }

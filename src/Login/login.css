@@ -24,6 +24,8 @@
 
     padding: 15px;
     background-color: goldenrod;
+
+    overflow: hidden;
 }
 
 .wrap-login {
@@ -35,6 +37,8 @@
     padding: 55px 55px 33px 55px;
 
     box-shadow: 0 5px 10px 0px var(--cor-secundaria);
+    animation-duration: 500ms;
+    animation-name: mudar-login;
 }
 
 .login-form {
@@ -204,4 +208,51 @@
     color: rgb(255, 30, 0);
     line-height: 1.5;
     text-decoration: none;
+}
+
+.voltar {
+    color: var(--cor-realce2);
+}
+
+
+
+
+/* FORM CADASTRO */
+
+.wrap-cadastro{
+    background-color: white;
+    border-radius: 10px;
+
+    overflow:hidden;
+    padding: 55px 55px 33px 55px;
+
+    box-shadow: 0 5px 10px 0px var(--cor-secundaria);
+
+    min-width: 90vw;
+    animation-duration: 500ms;
+    animation-name: mudar-cadastro;
+}
+
+/* TRANSIÇÃO */
+
+@keyframes mudar-login {
+    
+    from {
+        transform: scale(0.7);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes mudar-cadastro {
+    from {
+        transform: scale(0.7);
+    }
+
+    to {
+        transform: scale(1);
+    }
+    
 }

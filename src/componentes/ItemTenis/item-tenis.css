@@ -14,7 +14,7 @@
 
     max-width: 200px;
 
-    min-width: 150px;
+    min-width: 180px;
     min-height: 250px;
 
 
@@ -24,7 +24,8 @@
 
     margin: 10px;
     border-radius: 6px;
-    box-shadow: 19px 25px 73px -3px rgba(148,148,148,0.7);
+    box-shadow: 16px 17px 34px -7px rgba(191,191,191,1);
+
 
     transition: transform 300ms;
     cursor: pointer;
@@ -43,11 +44,12 @@
     min-width: 120px;
     min-height: 100px;
 
-    border-radius: 10px;
+    border-radius: 20px;
     object-fit: cover;
 
     align-self: center;
 
+    padding: 10px;
 }
 
 #desc {
