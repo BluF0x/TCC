@@ -12,12 +12,16 @@ function TelaBemVindo() {
             <div className="img">
                 <img src={homen} id="img-tela"></img>
             </div>
-            <div className="menus">
-                <div>
-                    <Link>
-                        Meu Perfil
-                    </Link>
-                </div>
+            <div className="background">
+            </div>
+            <div className="menus menu-entrar">
+                <Link >Entrar</Link>
+            </div>
+            <div className="menus menu-reviews">
+                <Link >Reviews</Link>
+            </div>
+            <div className="menus menu-gerenciar">
+                <Link >Gerenciar comentários</Link>
             </div>
         </div>
     )
