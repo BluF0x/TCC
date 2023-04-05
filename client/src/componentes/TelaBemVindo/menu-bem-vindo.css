@@ -58,13 +58,13 @@
     grid-column-start: 4;
     grid-column-end: 14;
     z-index: 3;
-    transform: scale(1.2);
+    transform: scale(1.2, 1.4);
     color: var(--cor-contraste);
-    transition: 350ms;
+    transition: 350ms ease-out;
 }
 
 .menus:hover {
-    transform: scale(1.2) translateX(-15%);
+    transform: scale(1.2, 1.4) translateX(-16%);
     background-color: var(--cor-primaria);
 }
 
