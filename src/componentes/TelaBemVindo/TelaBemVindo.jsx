@@ -14,15 +14,15 @@ function TelaBemVindo() {
             </div>
             <div className="background">
             </div>
-            <div className="menus menu-entrar">
-                <Link >Entrar</Link>
-            </div>
-            <div className="menus menu-reviews">
-                <Link >Reviews</Link>
-            </div>
-            <div className="menus menu-gerenciar">
-                <Link >Gerenciar comentários</Link>
-            </div>
+            <Link to="/Login" className="menus menu-entrar">
+                Entrar
+            </Link>
+            <Link className="menus menu-reviews">
+                Reviews
+            </Link>
+            <Link className="menus menu-gerenciar">
+                Gerenciar comentários
+            </Link>
         </div>
     )
 }

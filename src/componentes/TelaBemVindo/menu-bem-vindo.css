@@ -58,6 +58,14 @@
     grid-column-start: 4;
     grid-column-end: 14;
     z-index: 3;
+    transform: scale(1.2);
+    color: var(--cor-contraste);
+    transition: 350ms;
+}
+
+.menus:hover {
+    transform: scale(1.2) translateX(-15%);
+    background-color: var(--cor-primaria);
 }
 
 .menu-entrar {
