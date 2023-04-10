@@ -5,6 +5,9 @@ import {
 } from "react-router-dom";
 import Home from "./Home"
 import {Login} from "./Login/Login.jsx"
+import {TelaUsuario} from './TelaUsuario/TelaUsuario.jsx'
+import {TelaADM} from './TelaAdm/TelaADM.jsx'
+import {TelaTenis} from './TelaTenis/TelaTenis.jsx'
 import './App.css'
 
 function App() {
@@ -21,6 +24,9 @@ function App() {
       <Routes>
         <Route exact path="/" Component={Home} />
         <Route path="/Login" Component={Login} />
+        <Route path="/TelaUsuario" Component={TelaUsuario} />
+        <Route path="/TelaADM" Component={TelaADM} />
+        <Route path="/TelaTenis" Component={TelaTenis} />
       </Routes>
     </Router>
   )

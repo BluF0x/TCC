@@ -23,7 +23,7 @@ function BarraSuperior() {
                         Modo escuro
                     </ItemDropNav>
             </ItemNav>
-            <ItemNav icon={conta_icon} alt="test" link="/Login" />
+            <ItemNav icon={conta_icon} alt="test" link="/TelaUsuario" />
 
             <BarraDePesquisa></BarraDePesquisa>
 
