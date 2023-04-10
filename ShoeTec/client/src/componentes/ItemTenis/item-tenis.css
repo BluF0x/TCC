@@ -1,3 +1,4 @@
+
 .item-tenis {
     background-color: var(--cor-contraste); 
     position: relative;
@@ -63,9 +64,6 @@
     padding: 2px;
 }
 
-.left {
-    margin-right: auto;
-}
 
 .compartilhar {
     color: white;
@@ -80,4 +78,15 @@
 .compartilhar:hover {
     background-color: purple;
     cursor: pointer;
+}
+
+.star {
+    width: 10%;
+    filter: invert(77%) sepia(75%) saturate(520%) hue-rotate(3deg) brightness(95%) contrast(100%);
+}
+
+.nota {
+    flex-direction: row;
+    align-items: center;
+    
 }
