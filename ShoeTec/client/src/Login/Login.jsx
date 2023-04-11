@@ -16,6 +16,14 @@ export function Login() {
   const [feminino, setFeminino] = useState("");
   const [outro, setOutro] = useState("");
   const [naoidentificado, setNaoIdentificado] = useState("");
+  const [futebol, setFutebol] = useState("");
+  const [futsal, setFutsal] = useState("");
+  const [corrida, setCorrida] = useState("");
+  const [volei, setVolei] = useState("");
+  const [basquete, setBasquete] = useState("");
+  const [tenis, setTenis] = useState("");
+  const [handebol, setHandebol] = useState("");
+  const [musculacao, setMusculacao] = useState("");
   const [estadoLogin, setEstadoLogin] = useState(true)
 
   function loginOuCriar() {
@@ -146,7 +154,7 @@ export function Login() {
                     value = {password}
                     onChange = {e => setPassword(e.target.value)}
                     />
-                    <span className="focus-input" data-placeholder="Password"></span>
+                    <span className="focus-input" data-placeholder="Senha"></span>
                 </div>
 
                 <div className="wrap-input-cadastro">
@@ -156,7 +164,7 @@ export function Login() {
                     value = {confirmPassword}
                     onChange = {e => setConfirmPassword(e.target.value)}
                     />
-                    <span className="focus-input" data-placeholder="Confirm password"></span>
+                    <span className="focus-input" data-placeholder="Confirme senha"></span>
                 </div>
 
                 <div className="wrap-input-cadastro">
@@ -196,6 +204,85 @@ export function Login() {
                         value = {naoidentificado}
                         />
                         <label className="label-radio" for="naoidentificado">Não quero identificar</label>
+                </div>
+
+                <div className="wrap-input-cadastro">
+                    <h3 className='titulo-genero'>Esportes que você pratica:</h3>
+                        <input 
+                        className = 'input-btn'
+                        id="futebol"
+                        name="esporte"
+                        type = "checkbox"
+                        value = {futebol}
+                        />
+                        <label className="label-radio"  for="futebol">Futebol</label>
+
+                        <input 
+                        className = 'input-btn'
+                        id="futsal"
+                        name="esporte"
+                        type = "checkbox"
+                        value = {futsal}
+                        />
+                        <label className="label-radio" for="futsal">Futsal</label>
+
+                        <input 
+                        className = 'input-btn'
+                        id="corrida"
+                        name="esporte"
+                        type = "checkbox"
+                        value = {corrida}
+                        />
+                        <label className="label-radio" for="corrida">Corrida</label>
+
+                        <input 
+                        className = 'input-btn'
+                        id="volei"
+                        name="esporte"
+                        type = "checkbox"
+                        value = {volei}
+                        />
+                        <label className="label-radio" for="volei">Voleibol</label>
+
+                        <input 
+                        className = 'input-btn'
+                        id="basquete"
+                        name="esporte"
+                        type = "checkbox"
+                        value = {basquete}
+                        />
+                        <label className="label-radio" for="basquete">Basquete</label>
+
+                        <br />
+                        <br />
+
+                        <input 
+                        className = 'input-btn'
+                        id="tenis"
+                        name="esporte"
+                        type = "checkbox"
+                        value = {tenis}
+                        />
+                        <label className="label-radio" for="tenis">Tênis</label>
+
+                        <input 
+                        className = 'input-btn'
+                        id="handebol"
+                        name="esporte"
+                        type = "checkbox"
+                        value = {handebol}
+                        />
+                        <label className="label-radio" for="handebol">Handebol</label>
+
+                        <input 
+                        className = 'input-btn'
+                        id="musculacao"
+                        name="esporte"
+                        type = "checkbox"
+                        value = {musculacao}
+                        />
+                        <label className="label-radio" for="musculacao">Musculação</label>
+                        
                 </div>
 
                 <div className="container-login-form-btn">

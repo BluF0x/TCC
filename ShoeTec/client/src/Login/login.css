@@ -229,7 +229,6 @@
 
     box-shadow: 0 5px 10px 0px var(--cor-secundaria);
 
-    /*min-width: 90vw;*/ 
     animation-duration: 500ms;
     animation-name: mudar-cadastro;
 }
@@ -243,7 +242,7 @@
 }
 
 .label-radio {
-    margin-right: 70px;
+    margin-right: 80px;
 }
 
 .wrap-input-cadastro {
