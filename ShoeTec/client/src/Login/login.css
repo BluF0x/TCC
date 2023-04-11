@@ -220,6 +220,7 @@
 /* FORM CADASTRO */
 
 .wrap-cadastro{
+    width: 1000px;
     background-color: white;
     border-radius: 10px;
 
@@ -228,10 +229,31 @@
 
     box-shadow: 0 5px 10px 0px var(--cor-secundaria);
 
-    min-width: 90vw;
+    /*min-width: 90vw;*/ 
     animation-duration: 500ms;
     animation-name: mudar-cadastro;
 }
+
+.titulo-genero {
+    margin-bottom: 13px;
+}
+
+.input-btn{
+    margin-right: 4px;
+}
+
+.label-radio {
+    margin-right: 70px;
+}
+
+.wrap-input-cadastro {
+    width: 90%;
+    position: relative;
+    border-bottom: 2px solid orangered;
+    margin: 0 auto;
+    margin-bottom: 45px;
+}
+
 
 /* TRANSIÇÃO */
 
