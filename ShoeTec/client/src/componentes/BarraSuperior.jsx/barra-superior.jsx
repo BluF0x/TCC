@@ -1,4 +1,4 @@
-import {React, useState, createRef} from 'react'
+import {React, useState, createRef, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import filter_fill from '../../assets/svg/filter_fill.svg' 
 import menu_icon from '../../assets/svg/menu_icon.svg'
@@ -13,13 +13,25 @@ import '../../index.css'
 */ 
 
 function BarraSuperior() {
+    const [darkMode, setDarkMode] = useState()
+
+    useEffect(() =>{
+        if(!localStorage.getItem("darkMode")){
+            localStorage.setItem("darkMode", "light")
+        } 
+        setDarkMode(localStorage.getItem("darkMode"))
+    }, [localStorage])
+
+    function toggleDarkMode() {
+        darkMode == "light" ? localStorage.setItem("darkMode", "dark") : localStorage.setItem("darkMode", "light")
+    }
 
     return(
-        <div class="barra-superior">
+        <div className="barra-superior">
 
 
             <ItemNav icon={menu_icon} alt="test" link="#">
-                    <ItemDropNav href={'/'} icone={nightMode}> 
+                    <ItemDropNav href={'/'} icone={nightMode} onClick={toggleDarkMode()}> 
                         Modo escuro
                     </ItemDropNav>
             </ItemNav>
@@ -77,8 +89,8 @@ function ItemNav(props) {
 
 function ItemDropNav(props) {return (
         <Link to={props.href} className='item-drop-nav'>
-            {props.icon}
             {props.children}
+            <img src={props.icone} className='iconeBtn'></img>
         </Link>
 
     )
@@ -88,7 +100,7 @@ function ItemDropNav(props) {return (
 
 function BarraDePesquisa() {
     return (
-        <div class="items-barra-superior" id="barra-pesquisa">
+        <div className="items-barra-superior" id="barra-pesquisa">
             <input type="text" placeholder="Pesquisar" id="pesquisar"></input>
             {/* <button id="btn-filtrar" >
                 <img src={filter_fill} className="icon" alt="filtrar"></img>

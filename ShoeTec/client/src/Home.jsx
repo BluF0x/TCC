@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BarraSuperior from './componentes/BarraSuperior.jsx/barra-superior.jsx'
 import TelaBemVindo from './componentes/TelaBemVindo/TelaBemVindo.jsx'
 import SelectTenis from './componentes/SelectTenis/SelectTenis.jsx'
@@ -7,6 +7,10 @@ import './App.css'
 
 function Home() {
   const [listaTenis, setListaTenis] = useState([])
+  const [darkMode, setDarkMode] = useState()
+
+  useEffect(() =>{
+  },[])
 
   /**
    *  "Lista" é um placeholder temporário
@@ -40,7 +44,7 @@ function Home() {
 
 
   return (
-    <div className="App">
+    <div className={`App ${darkMode}`}>
       <div>
         <BarraSuperior />
       </div>
@@ -48,11 +52,7 @@ function Home() {
         <div className='tela-bem-vindo'>
           <TelaBemVindo />
         </div>
-        <SelectTenis titulo="Tênis de corrida">
-          {lista.map((val) =>{
-            return <ItemTenis desc={val.desc} review={val.review} price={val.price}></ItemTenis>
-          })}
-        </SelectTenis>
+        <SelectTenis titulo="Tênis de corrida" lista={lista} />
       </div>
     </div>
   )

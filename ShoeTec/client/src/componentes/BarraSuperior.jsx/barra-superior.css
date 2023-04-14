@@ -67,12 +67,16 @@
     flex-direction: column;
     background-color: var(--cor-primaria);
     transform: translateY(10px);
-    width: 150px;
+    width: 200px;
     border-radius: 10px;
     padding: 10px;
 }
 
 .item-drop-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
     padding: 5%;
     margin-top: 8px;
     border-radius: 10px;
@@ -84,4 +88,6 @@
     background-color: var(--cor-secundaria);
 }
 
-
+.iconeBtn {
+    width: 20%;
+}

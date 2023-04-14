@@ -7,4 +7,10 @@
     margin-top: var(--altura-barra-superior);
 }
 
+.dark{
+    background-color: darkmagenta;
+}
 
+.light{
+    background-color: white;
+}

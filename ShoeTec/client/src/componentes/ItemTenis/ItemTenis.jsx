@@ -4,13 +4,20 @@ import estrelaCheia from '../../assets/svg/star_full.svg';
 import estrelaMeia from '../../assets/svg/half_star.svg';
 import estrela from '../../assets/svg/star.svg';
 import "./item-tenis.css";
+import { Link, useNavigate } from "react-router-dom";
 
 function ItemTenis(props) {
     const [totalReview, setTotalReview] = useState()
 
+    const navigate = useNavigate()
+
+    const redirectPagTenis= (idTenis) => {
+        navigate('/TelaTenis', {state: {id: idTenis}})
+    }
+
     useEffect(()=>{
         setTotalReview(Math.floor(props.review * 10) / 10)
-    })
+    }, [])
 
     const addEstrela=() =>{
         let listaEstrela = []
@@ -55,19 +62,21 @@ function ItemTenis(props) {
     }
 
     return (
-        <div className="item-tenis">
-            <img id="image-tenis" src={tenis}></img>
-            
-                <span className="propriedade-tenis" id="desc">
-                    {props.desc}
-                </span>
-                <span className="propriedade-tenis nota">
-                    Nota: {addEstrela()} 
-                </span>
-                <span className="propriedade-tenis " id="preço">
-                    Preço: R${props.price}
-                </span>
-            <span><button className="compartilhar">compartilhar</button></span>
+        <div className="item-tenis" onClick={()=>{redirectPagTenis(props.id)}}>
+            {/* <Link to="/TelaTenis"> */}
+                <img id="image-tenis" src={tenis}></img>
+                
+                    <span className="propriedade-tenis" id="desc">
+                        {props.desc}
+                    </span>
+                    <span className="propriedade-tenis nota">
+                        Nota: {addEstrela()} 
+                    </span>
+                    <span className="propriedade-tenis " id="preço">
+                        Preço: R${props.price}
+                    </span>
+                <span><button className="compartilhar">compartilhar</button></span>
+            {/* </Link> */}
         </div>
     )
 }
