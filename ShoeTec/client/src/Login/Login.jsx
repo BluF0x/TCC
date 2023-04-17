@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Link} from "react-router-dom"
 // import LoginFrom from './LoginForm.jsx'
 import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
@@ -9,18 +9,35 @@ import './login.css';
 export function Login() {
     const [estadoLogin, setEstadoLogin] = useState(true)
 
-    const [credenciais, setCredenciais] = useState({})
+    const [credenciais, setCredenciais] = useState({esporte: []})
 
     const handleCredenciais = (e) =>{
         const nome = e.target.name
         const valor = e.target.value
-        console.log(`NOME: ${nome}; VALOR: ${valor}`)
-        setCredenciais({
-            ...credenciais,
-            [nome] : valor
-        })
-        console.log(credenciais)
+
+        if(e.target.type !== "checkbox"){
+            setCredenciais({
+                ...credenciais,
+                [nome] : valor
+            })
+        } else {
+            const checked = e.target.checked
+            if (checked) {
+                setCredenciais({
+                    ...credenciais,
+                    esporte: [...credenciais.esporte, valor]
+                })
+            } else {
+                const filtrado = credenciais.esporte.filter(esporte=>{return esporte !== valor})
+                console.log(filtrado)
+                setCredenciais({
+                    ...credenciais,
+                    esporte:  filtrado 
+                })
+            }
+        }
     } 
+
 
     function loginOuCriar() {
         setEstadoLogin(!estadoLogin)
@@ -34,25 +51,21 @@ export function Login() {
             <div className="container-login">
                 <div className={estadoLogin ? "wrap-login" : "wrap-cadastro "}>
                     {
-                    // estadoLogin ?  
-                        // <LoginForm 
-                        //     cred={credenciais} 
-                        //     setCred={handleCredenciais} 
-                        //     estadoLog={estadoLogin} 
-                        //     setEstadoLog={setEstadoLogin} 
-                        // /> : 
-                        // <CadastrarForm
-                        //     cred={credenciais} 
-                        //     setCred={handleCredenciais} 
-                        //     estadoLog={estadoLogin} 
-                        //     setEstadoLog={setEstadoLogin} 
-                        // />
+                    estadoLogin ?  
                         <LoginForm 
                             cred={credenciais} 
                             setCred={handleCredenciais} 
                             estadoLog={estadoLogin} 
                             setEstadoLog={setEstadoLogin} 
-                        /> 
+                        /> : 
+                        <CadastrarForm
+                            cred={credenciais} 
+                            setCred={handleCredenciais} 
+                            estadoLog={estadoLogin} 
+                            setEstadoLog={setEstadoLogin} 
+                        />
+                    }
+                    {
                     }
                 </div>
             </div>
@@ -212,7 +225,7 @@ function CadastrarForm(props) {
                 id="masc"
                 name="genero"
                 type = "radio"
-                value = {"masculino"}
+                value = {"M"}
                 />
                 <label className="label-radio"  for="masc">Masculino</label>
 
@@ -221,7 +234,7 @@ function CadastrarForm(props) {
                 id="fem"
                 name="genero"
                 type = "radio"
-                value = {"feminino"}
+                value = {"F"}
                 />
                 <label className="label-radio" for="fem">Feminino</label>
 
@@ -230,7 +243,7 @@ function CadastrarForm(props) {
                 id="outro"
                 name="genero"
                 type = "radio"
-                value = {"outro"}
+                value = {"O"}
                 />
                 <label className="label-radio" for="outro">Outro</label>
 
@@ -239,7 +252,7 @@ function CadastrarForm(props) {
                 id="naoidentificado"
                 name="genero"
                 type = "radio"
-                value = {"naoidentificado"}
+                value = {"N"}
                 />
                 <label className="label-radio" for="naoidentificado">Não quero identificar</label>
             </div>
@@ -251,7 +264,8 @@ function CadastrarForm(props) {
                     id="futebol"
                     name="esporte"
                     type = "checkbox"
-                    // value = {futebol}
+                    value = "futebol"
+                    onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio"  for="futebol">Futebol</label>
 
@@ -260,7 +274,8 @@ function CadastrarForm(props) {
                     id="futsal"
                     name="esporte"
                     type = "checkbox"
-                    // value = {futsal}
+                    value = "futsal"
+                    onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="futsal">Futsal</label>
 
@@ -269,7 +284,8 @@ function CadastrarForm(props) {
                     id="corrida"
                     name="esporte"
                     type = "checkbox"
-                    // value = {corrida}
+                    value = "corrida"
+                    onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="corrida">Corrida</label>
 
@@ -278,7 +294,8 @@ function CadastrarForm(props) {
                     id="volei"
                     name="esporte"
                     type = "checkbox"
-                    // value = {volei}
+                    value = "volei"
+                    onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="volei">Voleibol</label>
 
@@ -287,7 +304,8 @@ function CadastrarForm(props) {
                     id="basquete"
                     name="esporte"
                     type = "checkbox"
-                    // value = {basquete}
+                    value = "basquete"
+                    onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="basquete">Basquete</label>
 
@@ -299,7 +317,8 @@ function CadastrarForm(props) {
                     id="tenis"
                     name="esporte"
                     type = "checkbox"
-                    // value = {tenis}
+                    value = "tenis"
+                    onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="tenis">Tênis</label>
 
@@ -308,7 +327,8 @@ function CadastrarForm(props) {
                     id="handebol"
                     name="esporte"
                     type = "checkbox"
-                    // value = {handebol}
+                    value = "handebol"
+                    onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="handebol">Handebol</label>
 
@@ -317,7 +337,8 @@ function CadastrarForm(props) {
                     id="musculacao"
                     name="esporte"
                     type = "checkbox"
-                    // value = {musculacao}
+                    value = "musculacao"
+                    onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="musculacao">Musculação</label>
                     
