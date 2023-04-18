@@ -1,0 +1,22 @@
+.space{
+    min-height: var(--altura-barra-superior);
+    max-height: var(--altura-barra-superior);
+}
+
+.container-content{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin: 10px;
+    gap: 1%;
+}
+
+.perfil-container {
+    background-color: red;
+    grid-column: 1/3;
+}
+
+.comentarios-container {
+    background-color: red;
+    grid-column: 3/8;
+    grid-row: 1/4;
+}

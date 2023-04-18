@@ -8,13 +8,19 @@ import './login.css';
 
 export function Login() {
     const [estadoLogin, setEstadoLogin] = useState(true)
-
     const [credenciais, setCredenciais] = useState({esporte: []})
 
+    // Função para adicionar o input as credenciais
     const handleCredenciais = (e) =>{
         const nome = e.target.name
         const valor = e.target.value
 
+        /* Primeiro, é checado se o tipo de input não é uma checkbox, 
+         * já que a maioria dos inputs não é, esse caso é melhor ser 
+         * checado primeiro. Caso o input seja uma checkbox, é verificado
+         * se a checkbox em si está marcada, caso esteja, ela é adicionada 
+         * a um array, caso não, ela é filtrada do array.
+         */
         if(e.target.type !== "checkbox"){
             setCredenciais({
                 ...credenciais,
@@ -37,7 +43,6 @@ export function Login() {
             }
         }
     } 
-
 
     function loginOuCriar() {
         setEstadoLogin(!estadoLogin)
@@ -64,8 +69,6 @@ export function Login() {
                             estadoLog={estadoLogin} 
                             setEstadoLog={setEstadoLogin} 
                         />
-                    }
-                    {
                     }
                 </div>
             </div>
@@ -170,7 +173,7 @@ function CadastrarForm(props) {
                 value = {credenciais.pais}
                 onChange = {e => handleCredenciais(e)}
                 />
-                <span className="focus-input" data-placeholder="País"></span>
+                <span className="focus-input" data-placeholder="País*"></span>
             </div>
 
             <div className="wrap-input-cadastro">
@@ -181,7 +184,7 @@ function CadastrarForm(props) {
                 value = {credenciais.estado}
                 onChange = {e => handleCredenciais(e)}
                 />
-                <span className="focus-input" data-placeholder="Estado"></span>
+                <span className="focus-input" data-placeholder="Estado*"></span>
             </div>
 
             <div className="wrap-input-cadastro">
@@ -192,7 +195,7 @@ function CadastrarForm(props) {
                 value = {credenciais.cidade}
                 onChange = {e => handleCredenciais(e)}
                 />
-                <span className="focus-input" data-placeholder="Cidade"></span>
+                <span className="focus-input" data-placeholder="Cidade*"></span>
             </div>
 
             <div className="wrap-input-cadastro">
@@ -218,7 +221,7 @@ function CadastrarForm(props) {
             </div>
 
             <div className="wrap-input-cadastro" onChange={e=>handleCredenciais(e)}>
-                <h3 className='titulo-genero'>Gênero:3</h3>
+                <h3 className='titulo-genero'>Gênero</h3>
 
                 <input 
                 className = 'input-btn'
@@ -258,7 +261,7 @@ function CadastrarForm(props) {
             </div>
 
         <div className="wrap-input-cadastro">
-            <h3 className='titulo-genero'>Esportes que você pratica:</h3>
+            <h3 className='titulo-genero'>Esportes que você pratica</h3>
                     <input 
                     className = 'input-btn'
                     id="futebol"
