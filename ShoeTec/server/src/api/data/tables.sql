@@ -1,5 +1,5 @@
 
---@block
+-- @block
 -- Criação das tabelas 
 
 -- "pass" é a senha do usuário. Ela NÃO deve ser armazenada em plaintext
@@ -35,7 +35,7 @@ CREATE TABLE Tenis(
 -- uma tabela separada. Se caso for um comentário, ele terá um ID de um 
 -- "parente" que é o comentário a quem foi respondido. O DEFAULT é que seja
 -- um comentário.
---@block
+-- @block
 
 CREATE TABLE Post(
     review_id       INT UNSIGNED NOT NULL PRIMARY KEY,
@@ -47,7 +47,7 @@ CREATE TABLE Post(
     parent_id       INT UNSIGNED DEFAULT NULL,
     tenis_id        INT UNSIGNED NOT NULL,
     FOREIGN KEY(tenis_id) REFERENCES Tenis(tenis_id),
-    FOREIGN KEY(reviewer_id) REFERENCES Users(id_usuario),
+    FOREIGN KEY(reviewer_id) REFERENCES Users(usuario_id),
     FOREIGN KEY(parent_id) REFERENCES Post(review_id)
 );
 
@@ -60,3 +60,20 @@ CREATE TABLE Post(
 DROP TABLE Users;
 DROP TABLE Post;
 DROP TABLE Tenis;
+
+--@block
+-- Test insert
+
+INSERT INTO users(email, pass, pais, estado, cidade, genero, esportes ) VALUES(
+    "abacateVoador@hotmail.com",
+    "123456",
+    "Brasil",
+    "RS",
+    "Torres",
+    "M",
+    '["a", "b", "c"]'
+);
+
+--@block
+
+SELECT * FROM Users;
