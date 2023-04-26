@@ -241,8 +241,12 @@
     margin-right: 4px;
 }
 
+.input-p{
+    margin-bottom: 8px;
+}
+
 .label-radio {
-    margin-right: 80px;
+    margin-right: 20px;
 }
 
 .wrap-input-cadastro {
