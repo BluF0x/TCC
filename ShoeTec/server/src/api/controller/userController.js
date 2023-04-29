@@ -7,7 +7,16 @@ const getUsers = async (req, res) =>{
 }
 
 const setUsers = async (req, res) =>{
-    return res.status(201).json(req.body)
+    const createUser = await userModel.createUser(req.body)
+
+    return res.status(201).json({"msg": "OK", "body": createUser})
 }
 
-module.exports = {getUsers}
+const deleteUsers = async (req, res) =>{
+    const {id} = req.params
+    await userModel.delUser(id)
+
+    return res.status(204).json()
+}
+
+module.exports = {getUsers, setUsers, deleteUsers}

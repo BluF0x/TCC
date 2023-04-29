@@ -1,5 +1,6 @@
 const express = require('express')
 const usersController = require('../controller/userController')
+const userMiddleware = require('../middleware/userMiddleware')
 const router = express.Router()
 
 router.get('/', (req, res)=>{
@@ -7,6 +8,7 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/users', usersController.getUsers)
-router.post('/users', usersController.setUsers)
+router.post('/users', userMiddleware.validateInput, usersController.setUsers)
+router.delete('/users/:id', usersController.deleteUsers)
 
 module.exports = router

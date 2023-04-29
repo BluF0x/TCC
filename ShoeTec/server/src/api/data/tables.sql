@@ -9,6 +9,7 @@
 -- "bio" é a descrição de perfil do usuário
 CREATE TABLE Users(
     usuario_id      INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name            varchar(255) NOT NULL,
     email           VARCHAR(255) NOT NULL UNIQUE,
     pass            VARCHAR(255) NOT NULL,
     pais            VARCHAR(255) NOT NULL,
@@ -51,17 +52,22 @@ CREATE TABLE Post(
     FOREIGN KEY(parent_id) REFERENCES Post(review_id)
 );
 
+CREATE TABLE test(
+    test_id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    arr JSON NOT NULL,
+    nullabale BOOLEAN
+);
 
 
 
 
---@block
 
 DROP TABLE Users;
 DROP TABLE Post;
 DROP TABLE Tenis;
 
---@block
+DROP TABLE test;
 -- Test insert
 
 INSERT INTO users(email, pass, pais, estado, cidade, genero, esportes ) VALUES(
@@ -74,6 +80,5 @@ INSERT INTO users(email, pass, pais, estado, cidade, genero, esportes ) VALUES(
     '["a", "b", "c"]'
 );
 
---@block
 
 SELECT * FROM Users;
