@@ -223,6 +223,7 @@ function CadastrarForm(props) {
             <div className="wrap-input-cadastro" onChange={e=>handleCredenciais(e)}>
                 <h3 className='titulo-genero'>Gênero</h3>
 
+                <p className='input-p'>
                 <input 
                 className = 'input-btn'
                 id="masc"
@@ -231,7 +232,9 @@ function CadastrarForm(props) {
                 value = {"M"}
                 />
                 <label className="label-radio"  for="masc">Masculino</label>
+                </p>
 
+                <p className='input-p'>
                 <input 
                 className = 'input-btn'
                 id="fem"
@@ -240,7 +243,9 @@ function CadastrarForm(props) {
                 value = {"F"}
                 />
                 <label className="label-radio" for="fem">Feminino</label>
+                </p>
 
+                <p className='input-p'>
                 <input 
                 className = 'input-btn'
                 id="outro"
@@ -249,7 +254,9 @@ function CadastrarForm(props) {
                 value = {"O"}
                 />
                 <label className="label-radio" for="outro">Outro</label>
+                </p>
 
+                <p className='input-p'>
                 <input 
                 className = 'input-btn'
                 id="naoidentificado"
@@ -258,10 +265,12 @@ function CadastrarForm(props) {
                 value = {"N"}
                 />
                 <label className="label-radio" for="naoidentificado">Não quero identificar</label>
+                </p>
             </div>
 
         <div className="wrap-input-cadastro">
             <h3 className='titulo-genero'>Esportes que você pratica</h3>
+                    <p className='input-p'>
                     <input 
                     className = 'input-btn'
                     id="futebol"
@@ -271,7 +280,9 @@ function CadastrarForm(props) {
                     onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio"  for="futebol">Futebol</label>
+                    </p>
 
+                    <p className='input-p'>
                     <input 
                     className = 'input-btn'
                     id="futsal"
@@ -281,7 +292,9 @@ function CadastrarForm(props) {
                     onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="futsal">Futsal</label>
+                    </p>
 
+                    <p className='input-p'>
                     <input 
                     className = 'input-btn'
                     id="corrida"
@@ -291,7 +304,9 @@ function CadastrarForm(props) {
                     onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="corrida">Corrida</label>
+                    </p>
 
+                    <p className='input-p'>
                     <input 
                     className = 'input-btn'
                     id="volei"
@@ -301,7 +316,9 @@ function CadastrarForm(props) {
                     onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="volei">Voleibol</label>
+                    </p>
 
+                    <p className='input-p'>
                     <input 
                     className = 'input-btn'
                     id="basquete"
@@ -311,10 +328,9 @@ function CadastrarForm(props) {
                     onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="basquete">Basquete</label>
+                    </p>
 
-                    <br />
-                    <br />
-
+                    <p className='input-p'>
                     <input 
                     className = 'input-btn'
                     id="tenis"
@@ -324,7 +340,9 @@ function CadastrarForm(props) {
                     onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="tenis">Tênis</label>
+                    </p>
 
+                    <p className='input-p'>
                     <input 
                     className = 'input-btn'
                     id="handebol"
@@ -334,7 +352,9 @@ function CadastrarForm(props) {
                     onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="handebol">Handebol</label>
+                    </p>
 
+                    <p className='input-p'>
                     <input 
                     className = 'input-btn'
                     id="musculacao"
@@ -344,6 +364,7 @@ function CadastrarForm(props) {
                     onChange={e=>handleCredenciais(e)}
                     />
                     <label className="label-radio" for="musculacao">Musculação</label>
+                    </p>
                     
             </div>
 
