@@ -11,7 +11,7 @@ CREATE TABLE Users(
     usuario_id      INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name            varchar(255) NOT NULL,
     email           VARCHAR(255) NOT NULL UNIQUE,
-    pass            VARCHAR(255) NOT NULL,
+    password        VARCHAR(255) NOT NULL,
     pais            VARCHAR(255) NOT NULL,
     estado          VARCHAR(255),
     cidade          VARCHAR(255),
@@ -70,7 +70,8 @@ DROP TABLE Tenis;
 DROP TABLE test;
 -- Test insert
 
-INSERT INTO users(email, pass, pais, estado, cidade, genero, esportes ) VALUES(
+INSERT INTO users(name, email, pass, pais, estado, cidade, genero, esportes ) VALUES(
+    "Josu",
     "abacateVoador@hotmail.com",
     "123456",
     "Brasil",

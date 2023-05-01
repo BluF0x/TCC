@@ -5,15 +5,19 @@ const getUsers= async()=>{
     return users
 }
 
+const getSpecificUser = async(field, email)=>{
+    const args = `SELECT * FROM Users WHERE ${field} = ?`
+    const [user] = await connection.execute(args, [email])
+    return user
+}
+
 const createUser = async(userData)=>{
 
     const data = userData
-    const esportes = data.esportes
-    console.log(data.esportes)
-    
+    const values = [data.name, data.email, data.password, data.pais, data.estado, data.cidade, data.genero, data.esportes, null]
 
-    const args = `INSERT INTO Users(name, email, pass, pais, estado, cidade, genero, esportes, bio ) VALUES(${data.name},${data.email}, ${data.pass}, ${data.pais}, ${data.estado}, ${data.cidade}, ${data.genero}, ${esportes}, ${null})`
-    const [createUser] = await connection.execute(args)
+    const args = `INSERT INTO Users(name, email, password, pais, estado, cidade, genero, esportes, bio ) VALUES(?,?,?,?,?,?,?,?,?)`
+    const [createUser] = await connection.execute(args, values)
 
     return createUser
 }
@@ -25,4 +29,4 @@ const delUser = async(id) =>{
     return deleteUser
 }
 
-module.exports = {getUsers, createUser, delUser}
+module.exports = {getUsers, createUser, delUser, getSpecificUser}

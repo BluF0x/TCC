@@ -8,6 +8,7 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/users', usersController.getUsers)
+// router.get('/user/:id', usersController.getSpecificUser) 
 router.post('/users', userMiddleware.validateInput, usersController.setUsers)
 router.delete('/users/:id', usersController.deleteUsers)
 
