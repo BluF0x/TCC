@@ -11,12 +11,12 @@ function Home() {
   const [darkMode, setDarkMode] = useState()
 
   useEffect(() =>{
-    axios.get('https://zetcode.com/javascript/axios/', {
-       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      }
-    }).then( (res)=>{console.log(res)} ).catch(console.log("n funcionou"))
+    const getColors=async()=>{
+      const response=await fetch('http://localhost:3001/users')
+      const data=await response.json();
+      console.log({data});
+    }
+    getColors()
   },[])
 
   const lista = []
