@@ -4,6 +4,7 @@ import Arthur from '../assets/imgs/arthur.jpg';
 import './tela-usuario.css'
 
 export function TelaUsuario() {
+    const [ultimosPosts, setUltimosPosts] = []
 
     return (
         <div className="container-tela-usuario">
@@ -45,6 +46,12 @@ export function TelaUsuario() {
                 </div>
                 
                 
+                <div className="wrap-pfp">
+                    <img className="pfp"></img>
+                </div>
+                <div className="container-bio">
+
+                </div>
             </div>
         )
     }
@@ -52,9 +59,17 @@ export function TelaUsuario() {
     function ListaComentarios() {
         return(
             <div className="comentarios-container">
-                Comentarios
+
             </div>
         )
+
+        function Posts() {
+            return(
+                <div className="post">
+                    Teste
+                </div>
+            )
+        }
     }
 
 }

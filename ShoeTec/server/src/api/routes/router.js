@@ -1,5 +1,7 @@
 const express = require('express')
 const usersController = require('../controller/userController')
+const commentController = require('../controller/commentController')
+const tenisController = require('../controller/tenisController')
 const userMiddleware = require('../middleware/userMiddleware')
 const router = express.Router()
 
@@ -11,5 +13,9 @@ router.get('/users', usersController.getUsers)
 // router.get('/user/:id', usersController.getSpecificUser) 
 router.post('/users', userMiddleware.validateInput, usersController.setUsers)
 router.delete('/users/:id', usersController.deleteUsers)
+
+router.post('/comment',  commentController.createComment)
+
+router.get('/tenis', tenisController.getTenis)
 
 module.exports = router

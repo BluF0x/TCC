@@ -3,6 +3,7 @@ import BarraSuperior from './componentes/BarraSuperior.jsx/barra-superior.jsx'
 import TelaBemVindo from './componentes/TelaBemVindo/TelaBemVindo.jsx'
 import SelectTenis from './componentes/SelectTenis/SelectTenis.jsx'
 import ItemTenis from './componentes/ItemTenis/ItemTenis.jsx'
+import axios from 'axios'
 import './App.css'
 
 function Home() {
@@ -10,38 +11,15 @@ function Home() {
   const [darkMode, setDarkMode] = useState()
 
   useEffect(() =>{
+    axios.get('https://zetcode.com/javascript/axios/', {
+       headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      }
+    }).then( (res)=>{console.log(res)} ).catch(console.log("n funcionou"))
   },[])
 
-  /**
-   *  "Lista" é um placeholder temporário
-   *  para simular os dados pegos da db.
-   *  Por enquanto, "img" e "id" não são
-   *  usados, porém serão ao ligar a db.
-   */
-
-  const lista=[{
-    id:0, 
-    img: ["", ""],
-    desc: 'Tenis adidas',
-    review: 3.14,
-    price: 300
-  }, 
-  {
-    id:1,
-    img: '',
-    desc: 'Tenis Nike',
-    review: 4.725,
-    price: 500
-  },
-  {
-    id:3,
-    img: '',
-    desc: ' Nike',
-    review: 1.12,
-    price: 1200
-  }]
-
-
+  const lista = []
 
   return (
     <div className={`App ${darkMode}`}>
