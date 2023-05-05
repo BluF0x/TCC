@@ -25,8 +25,10 @@ CREATE TABLE Users(
 CREATE TABLE Tenis(
     tenis_id        INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     img             VARCHAR(255) NOT NULL,
+    nome            VARCHAR(255) NOT NULL,
     descr           TEXT NOT NULL,
     medium_price    INT NOT NULL,
+    nota            FLOAT ,
     data_registro   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -83,3 +85,12 @@ INSERT INTO users(name, email, pass, pais, estado, cidade, genero, esportes ) VA
 
 
 SELECT * FROM Users;
+
+ALTER TABLE tenis
+DROP COLUMN nota;
+
+ALTER TABLE tenis
+ADD COLUMN nota FLOAT AFTER medium_price;
+
+ALTER TABLE tenis
+ADD COLUMN nome VARCHAR(255) AFTER  img;

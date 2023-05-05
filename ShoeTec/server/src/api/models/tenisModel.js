@@ -1,7 +1,7 @@
 const connection = require('./connection')
 
-const getTenis = async(options) =>{
-    const args = `SELECT ${options.values} FROM tenis ${options.args}`
+const getTenis = async() =>{
+    const args = `SELECT * FROM tenis ORDER BY data_registro LIMIT 20`
     const [query] = await connection.execute(args)
     return query
 }

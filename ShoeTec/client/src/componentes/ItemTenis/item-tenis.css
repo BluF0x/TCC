@@ -30,6 +30,7 @@
 
     transition: transform 300ms;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .item-tenis:hover {

@@ -3,6 +3,7 @@ const usersController = require('../controller/userController')
 const commentController = require('../controller/commentController')
 const tenisController = require('../controller/tenisController')
 const userMiddleware = require('../middleware/userMiddleware')
+const tenisMiddleware = require('../middleware/tenisMiddleware')
 const router = express.Router()
 
 router.get('/', (req, res)=>{
@@ -16,6 +17,6 @@ router.delete('/users/:id', usersController.deleteUsers)
 
 router.post('/comment',  commentController.createComment)
 
-router.get('/tenis', tenisController.getTenis)
+router.get('/tenis',  tenisController.getTenis)
 
 module.exports = router

@@ -66,6 +66,10 @@ function ItemTenis(props) {
             {/* <Link to="/TelaTenis"> */}
                 <img id="image-tenis" src={tenis}></img>
                 
+                    <span className="propriedade-tenis" id="nome">
+                        {props.nome}
+                    </span>
+                    <span className="propriedade-tenis nota"></span>
                     <span className="propriedade-tenis" id="desc">
                         {props.desc}
                     </span>

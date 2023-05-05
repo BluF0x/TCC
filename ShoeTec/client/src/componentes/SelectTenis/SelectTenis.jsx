@@ -10,7 +10,7 @@ function SelectTenis(props) {
             <h1>{props.titulo}</h1>
             <div className="cards" >
             {listaTenis.map((val, key) =>{
-                return <ItemTenis key={key} desc={val.desc} review={val.review} price={val.price} id={val.id}></ItemTenis>
+                return <ItemTenis key={key} nome={val.nome} desc={val.descr} review={val.nota} price={val.medium_price} id={val.id}></ItemTenis>
             })}
             </div>
         </div>
