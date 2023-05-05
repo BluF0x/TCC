@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {Link} from "react-router-dom"
 // import LoginFrom from './LoginForm.jsx'
 import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
+import api from '../services/api';
 import './login.css';
 // import LoginForm from './LoginForm.jsx';
 
@@ -9,11 +10,15 @@ import './login.css';
 export function Login() {
     const [estadoLogin, setEstadoLogin] = useState(true)
     const [credenciais, setCredenciais] = useState({esporte: []})
+    const [warning, setWarninng] = useState("hello")
 
     // Função para adicionar o input as credenciais
     const handleCredenciais = (e) =>{
         const nome = e.target.name
         const valor = e.target.value
+        const warning = document.createElement("div")
+        e.target.parentElement.appendChild(warning)
+
 
         /* Primeiro, é checado se o tipo de input não é uma checkbox, 
          * já que a maioria dos inputs não é, esse caso é melhor ser 
@@ -43,6 +48,7 @@ export function Login() {
             }
         }
     } 
+
 
     function loginOuCriar() {
         setEstadoLogin(!estadoLogin)
@@ -77,6 +83,78 @@ export function Login() {
     );
 }
 
+InputForm.deafaultProps = { 
+    tipo: "text"
+}
+
+function InputForm(props) {
+    if (props.tipo != "checkbox" && props.tipo != "radio"){
+        return(
+            <>
+            <div className="wrap-input-cadastro">
+                <input 
+                className = {props.var !== "" ? 'has-val input' : 'input'}
+                type = {props.tipo}
+                name = {props.nome}
+                value = {props.var}
+                onChange = {e => props.handleInput(e)}
+                required
+                />
+                <span className="focus-input" data-placeholder={props.placeholder}></span>
+            </div>
+            <div className='wrap-warning'>
+                {props.warning}
+            </div>
+            </>
+        )
+    } else if (props.tipo == "radio") {
+        return(
+            <div className="wrap-input-cadastro" onChange={e=>props.handleInput(e)}>
+                <h3 className='titulo-genero'>{props.titulo}</h3>
+                {props.membros.map(
+                v=>{
+                    return (
+                        <p className='input-p'>
+                        <input 
+                            className = 'input-btn'
+                            id={v.id}
+                            name={props.nome}
+                            type = "radio"
+                            value = {v.genero}
+                        />
+                        <label className="label-radio"  for={v.id}>{v.label}</label>
+                        </p>        
+                    )
+                }
+                )}
+            </div>
+        )
+    } else if (props.tipo == "checkbox") {
+        return(
+        <div className="wrap-input-cadastro">
+            <h3 className='titulo-genero'>{props.titulo}</h3>
+            {props.membros.map(
+                v=>{
+                    return(
+                    <p className='input-p'>
+                    <input 
+                    className = 'input-btn'
+                    id={v.id}
+                    name={props.nome}
+                    type = "checkbox"
+                    value = {v.valor}
+                    onChange={e=>props.handleInput(e)}
+                    />
+                    <label className="label-radio"  for={v.id}>{v.label}</label>
+                    </p>
+                    )
+                }
+            )}
+        </div>
+        )
+    }
+}
+
 function LoginForm(props) {
     const credenciais = props.cred
     const handleCredenciais = props.setCred
@@ -88,30 +166,14 @@ function LoginForm(props) {
         <h1 className="login-form-title">
             Bem vindo de volta!
         </h1>
+
         <span className="login-form-title">
             <img src={SneakerTecLogo} alt="Logo SneakerTec"></img>
         </span>
 
-        <div className="wrap-input">
-            <input 
-            className = {credenciais.email !== "" ? 'has-val input' : 'input'}  
-            name="email"
-            value={credenciais.email}
-            onChange={(e)=>{handleCredenciais(e)}}
-            />
-            <span className="focus-input" data-placeholder="Email"></span>
-        </div>
+        <InputForm nome={"email"} handleInput={handleCredenciais} placeholder={"Email"} var={credenciais.email}/>
 
-        <div className="wrap-input">
-            <input 
-            className = {credenciais.password !== "" ? 'has-val input' : 'input'}
-            type = "password"
-            name = "password"
-            value = {credenciais.password}
-            onChange = {e => handleCredenciais(e)}
-            />
-            <span className="focus-input" data-placeholder="Password"></span>
-        </div>
+        <InputForm nome={"password"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.password}/>
 
         <div className="container-login-form-btn">
             <button className="login-form-btn">Login</button>
@@ -134,6 +196,10 @@ function CadastrarForm(props) {
     const estadoLogin = props.estadoLog
     const setEstadoLogin = props.setEstadoLog
 
+    const cadastrar = (e) =>{
+        e.preventDefault()
+    }
+
     return (
         <form className="login-form">
             <h1 className="login-form-title">
@@ -143,130 +209,73 @@ function CadastrarForm(props) {
                 <img src={SneakerTecLogo} alt="Logo SneakerTec"></img>
             </span>
 
-            <div className="wrap-input-cadastro">
-                <input 
-                className = {credenciais.enome !== "" ? 'has-val input' : 'input'}
-                type = "text"
-                name = 'nome'
-                value = {credenciais.nome}
-                onChange = {e => handleCredenciais(e)}
-                />
-                <span className="focus-input" data-placeholder="Nome Completo"></span>
-            </div>
+            <InputForm 
+                nome={"nome"} 
+                handleInput={handleCredenciais} 
+                placeholder={"Nome"} 
+                var={credenciais.nome}
+            />
 
-            <div className="wrap-input-cadastro">
-                <input 
-                className = {credenciais.email !== "" ? 'has-val input' : 'input'}  
-                type="email"
-                name='email'
-                value={credenciais.email}
-                onChange={e => handleCredenciais(e)}
-                />
-                <span className="focus-input" data-placeholder="Email"></span>
-            </div>
+            <InputForm nome={"email"} handleInput={handleCredenciais} placeholder={"Email"} var={credenciais.email}/>
 
-            <div className="wrap-input-cadastro">
-                <input 
-                className = {credenciais.pais !== "" ? 'has-val input' : 'input'}
-                type = "text"
-                name = 'pais'
-                value = {credenciais.pais}
-                onChange = {e => handleCredenciais(e)}
-                />
-                <span className="focus-input" data-placeholder="País*"></span>
-            </div>
+            <InputForm nome={"password"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.password}/>
 
-            <div className="wrap-input-cadastro">
-                <input 
-                className = {credenciais.estado !== "" ? 'has-val input' : 'input'}
-                type = "text"
-                name = 'estado'
-                value = {credenciais.estado}
-                onChange = {e => handleCredenciais(e)}
-                />
-                <span className="focus-input" data-placeholder="Estado*"></span>
-            </div>
+            <InputForm nome={"confirmPassword"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.password}/>
 
-            <div className="wrap-input-cadastro">
-                <input 
-                className = {credenciais.cidade !== "" ? 'has-val input' : 'input'}
-                type = "text"
-                name = 'cidade'
-                value = {credenciais.cidade}
-                onChange = {e => handleCredenciais(e)}
-                />
-                <span className="focus-input" data-placeholder="Cidade*"></span>
-            </div>
+            <InputForm nome={"pais"} handleInput={handleCredenciais} placeholder={"Pais"} var={credenciais.pais}/>
 
-            <div className="wrap-input-cadastro">
-                <input 
-                className = {credenciais.password !== "" ? 'has-val input' : 'input'}
-                type = "password"
-                name='password'
-                value = {credenciais.password}
-                onChange = {e => handleCredenciais(e)}
-                />
-                <span className="focus-input" data-placeholder="Senha"></span>
-            </div>
+            <InputForm nome={"estado"} handleInput={handleCredenciais} placeholder={"Estado*"} var={credenciais.estado}/>
 
-            <div className="wrap-input-cadastro">
-                <input 
-                className = {credenciais.confirmPassword !== "" ? 'has-val input' : 'input'}
-                type = "password"
-                name = 'confirmPassword'
-                value = {credenciais.confirmPassword}
-                onChange = {e => handleCredenciais(e)}
-                />
-                <span className="focus-input" data-placeholder="Confirme senha"></span>
-            </div>
+            <InputForm nome={"cidade"} handleInput={handleCredenciais} placeholder={"Cidade*"} var={credenciais.cidade}/>
 
-            <div className="wrap-input-cadastro" onChange={e=>handleCredenciais(e)}>
-                <h3 className='titulo-genero'>Gênero</h3>
 
-                <p className='input-p'>
-                <input 
-                className = 'input-btn'
-                id="masc"
-                name="genero"
-                type = "radio"
-                value = {"M"}
-                />
-                <label className="label-radio"  for="masc">Masculino</label>
-                </p>
 
-                <p className='input-p'>
-                <input 
-                className = 'input-btn'
-                id="fem"
-                name="genero"
-                type = "radio"
-                value = {"F"}
-                />
-                <label className="label-radio" for="fem">Feminino</label>
-                </p>
+            <InputForm membros={[
+                {
+                    id: "masc",
+                    label: "Masculino",
+                    genero: "M"
+                },
+                {
+                    id: "fem",
+                    label: "Feminino",
+                    genero: "F"
+                },
+                {
+                    id: "outro",
+                    label: "Outro",
+                    genero: "O"
+                },
+                {
+                    id: "naoindentifico",
+                    label: "Não indentifico",
+                    genero: "N"
+                }
+            ]} 
+            tipo={"radio"} 
+            titulo={"Gênero"}
+            handleInput={handleCredenciais}
+            nome={"genero"}
+            />
 
-                <p className='input-p'>
-                <input 
-                className = 'input-btn'
-                id="outro"
-                name="genero"
-                type = "radio"
-                value = {"O"}
-                />
-                <label className="label-radio" for="outro">Outro</label>
-                </p>
-
-                <p className='input-p'>
-                <input 
-                className = 'input-btn'
-                id="naoidentificado"
-                name="genero"
-                type = "radio"
-                value = {"N"}
-                />
-                <label className="label-radio" for="naoidentificado">Não quero identificar</label>
-                </p>
-            </div>
+            <InputForm 
+                tipo={"checkbox"} 
+                titulo={"Esporte:"}
+                handleInput={handleCredenciais}
+                nome={"esporte"}
+                membros={[
+                    {
+                        id:"futebol",
+                        valor: "futebol",
+                        label: "Futebol"
+                    },
+                    {
+                        id:"futsal",
+                        valor: "futebol",
+                        label: "Futebol"
+                    },
+                ]}
+            />
 
         <div className="wrap-input-cadastro">
             <h3 className='titulo-genero'>Esportes que você pratica</h3>
@@ -369,7 +378,7 @@ function CadastrarForm(props) {
             </div>
 
             <div className="container-login-form-btn">
-                    <button className="login-form-btn">Criar conta</button>
+                    <button className="login-form-btn" onClick={e=>cadastrar(e)} type='submit'>Criar conta</button>
             </div>
 
             <div className="text-center">
