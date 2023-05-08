@@ -260,7 +260,7 @@ function CadastrarForm(props) {
 
             <InputForm 
                 tipo={"checkbox"} 
-                titulo={"Esporte:"}
+                titulo={"Esportes que você pratica:"}
                 handleInput={handleCredenciais}
                 nome={"esporte"}
                 membros={[
@@ -271,111 +271,42 @@ function CadastrarForm(props) {
                     },
                     {
                         id:"futsal",
-                        valor: "futebol",
-                        label: "Futebol"
+                        valor: "futsal",
+                        label: "Futsal"
+                    },
+                    {
+                        id:"corrida",
+                        valor: "corrida",
+                        label: "Corrida"
+                    },
+                    {
+                        id:"volei",
+                        valor: "voleibal",
+                        label: "Voleibal"
+                    },
+                    {
+                        id:"basquete",
+                        valor: "basquete",
+                        label: "Basquete"
+                    },
+                    {
+                        id:"tenis",
+                        valor: "tenis",
+                        label: "Tênis"
+                    },
+                    {
+                        id:"handebol",
+                        valor: "handebol",
+                        label: "Handebol"
+                    },
+                    {
+                        id:"musculacao",
+                        valor: "musculacao",
+                        label: "Musculação"
                     },
                 ]}
             />
 
-        <div className="wrap-input-cadastro">
-            <h3 className='titulo-genero'>Esportes que você pratica</h3>
-                    <p className='input-p'>
-                    <input 
-                    className = 'input-btn'
-                    id="futebol"
-                    name="esporte"
-                    type = "checkbox"
-                    value = "futebol"
-                    onChange={e=>handleCredenciais(e)}
-                    />
-                    <label className="label-radio"  for="futebol">Futebol</label>
-                    </p>
-
-                    <p className='input-p'>
-                    <input 
-                    className = 'input-btn'
-                    id="futsal"
-                    name="esporte"
-                    type = "checkbox"
-                    value = "futsal"
-                    onChange={e=>handleCredenciais(e)}
-                    />
-                    <label className="label-radio" for="futsal">Futsal</label>
-                    </p>
-
-                    <p className='input-p'>
-                    <input 
-                    className = 'input-btn'
-                    id="corrida"
-                    name="esporte"
-                    type = "checkbox"
-                    value = "corrida"
-                    onChange={e=>handleCredenciais(e)}
-                    />
-                    <label className="label-radio" for="corrida">Corrida</label>
-                    </p>
-
-                    <p className='input-p'>
-                    <input 
-                    className = 'input-btn'
-                    id="volei"
-                    name="esporte"
-                    type = "checkbox"
-                    value = "volei"
-                    onChange={e=>handleCredenciais(e)}
-                    />
-                    <label className="label-radio" for="volei">Voleibol</label>
-                    </p>
-
-                    <p className='input-p'>
-                    <input 
-                    className = 'input-btn'
-                    id="basquete"
-                    name="esporte"
-                    type = "checkbox"
-                    value = "basquete"
-                    onChange={e=>handleCredenciais(e)}
-                    />
-                    <label className="label-radio" for="basquete">Basquete</label>
-                    </p>
-
-                    <p className='input-p'>
-                    <input 
-                    className = 'input-btn'
-                    id="tenis"
-                    name="esporte"
-                    type = "checkbox"
-                    value = "tenis"
-                    onChange={e=>handleCredenciais(e)}
-                    />
-                    <label className="label-radio" for="tenis">Tênis</label>
-                    </p>
-
-                    <p className='input-p'>
-                    <input 
-                    className = 'input-btn'
-                    id="handebol"
-                    name="esporte"
-                    type = "checkbox"
-                    value = "handebol"
-                    onChange={e=>handleCredenciais(e)}
-                    />
-                    <label className="label-radio" for="handebol">Handebol</label>
-                    </p>
-
-                    <p className='input-p'>
-                    <input 
-                    className = 'input-btn'
-                    id="musculacao"
-                    name="esporte"
-                    type = "checkbox"
-                    value = "musculacao"
-                    onChange={e=>handleCredenciais(e)}
-                    />
-                    <label className="label-radio" for="musculacao">Musculação</label>
-                    </p>
-                    
-            </div>
 
             <div className="container-login-form-btn">
                     <button className="login-form-btn" onClick={e=>cadastrar(e)} type='submit'>Criar conta</button>
