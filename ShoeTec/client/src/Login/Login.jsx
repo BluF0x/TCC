@@ -10,7 +10,6 @@ import './login.css';
 export function Login() {
     const [estadoLogin, setEstadoLogin] = useState(true)
     const [credenciais, setCredenciais] = useState({esporte: []})
-    const [warning, setWarninng] = useState("hello")
 
     // Função para adicionar o input as credenciais
     const handleCredenciais = (e) =>{
@@ -88,6 +87,8 @@ InputForm.deafaultProps = {
 }
 
 function InputForm(props) {
+    const [warning, setWarninng] = useState("hello")
+
     if (props.tipo != "checkbox" && props.tipo != "radio"){
         return(
             <>
@@ -127,25 +128,33 @@ function InputForm(props) {
                     )
                 }
                 )}
+            <div className='wrap-warning'>
+                {props.warning}
+            </div>
             </div>
         )
     } else if (props.tipo == "checkbox") {
         return(
         <div className="wrap-input-cadastro">
+            <div className='wrap-warning'>
+                <div className='warning-text'>
+                    {props.warning}
+                </div>
+            </div>
             <h3 className='titulo-genero'>{props.titulo}</h3>
             {props.membros.map(
                 v=>{
                     return(
                     <p className='input-p'>
-                    <input 
-                    className = 'input-btn'
-                    id={v.id}
-                    name={props.nome}
-                    type = "checkbox"
-                    value = {v.valor}
-                    onChange={e=>props.handleInput(e)}
-                    />
-                    <label className="label-radio"  for={v.id}>{v.label}</label>
+                        <input 
+                        className = 'input-btn'
+                        id={v.id}
+                        name={props.nome}
+                        type = "checkbox"
+                        value = {v.valor}
+                        onChange={e=>props.handleInput(e)}
+                        />
+                        <label className="label-radio"  for={v.id}>{v.label}</label>
                     </p>
                     )
                 }
@@ -216,11 +225,17 @@ function CadastrarForm(props) {
                 var={credenciais.nome}
             />
 
-            <InputForm nome={"email"} handleInput={handleCredenciais} placeholder={"Email"} var={credenciais.email}/>
+            <InputForm 
+            nome={"email"} 
+            handleInput={handleCredenciais} 
+            placeholder={"Email"} 
+            var={credenciais.email}
+            warning={"test"}
+            />
 
             <InputForm nome={"password"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.password}/>
 
-            <InputForm nome={"confirmPassword"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.password}/>
+            <InputForm nome={"confirmPassword"} handleInput={handleCredenciais} placeholder={"Confirmar senha"} var={credenciais.confirmPassword}/>
 
             <InputForm nome={"pais"} handleInput={handleCredenciais} placeholder={"Pais"} var={credenciais.pais}/>
 
@@ -309,7 +324,7 @@ function CadastrarForm(props) {
 
 
             <div className="container-login-form-btn">
-                    <button className="login-form-btn" onClick={e=>cadastrar(e)} type='submit'>Criar conta</button>
+                    <button className="login-form-btn" onClick={e=>submitForm(e)} type='submit'>Criar conta</button>
             </div>
 
             <div className="text-center">
