@@ -2,14 +2,20 @@ import { useEffect, useState } from 'react';
 import {Link} from "react-router-dom"
 // import LoginFrom from './LoginForm.jsx'
 import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
-import api from '../services/api';
+import postCred from './postCred';
 import './login.css';
 // import LoginForm from './LoginForm.jsx';
 
 
 export function Login() {
     const [estadoLogin, setEstadoLogin] = useState(true)
-    const [credenciais, setCredenciais] = useState({esporte: []})
+    const [credenciais, setCredenciais] = useState(
+        {
+            esporte: [],
+            cidade: null,
+            estado: null,
+        }
+    )
 
     // Função para adicionar o input as credenciais
     const handleCredenciais = (e) =>{
@@ -207,6 +213,7 @@ function CadastrarForm(props) {
 
     const cadastrar = (e) =>{
         e.preventDefault()
+        postCred.cadastrarUsuario(credenciais)
     }
 
     return (
@@ -231,11 +238,12 @@ function CadastrarForm(props) {
             placeholder={"Email"} 
             var={credenciais.email}
             warning={"test"}
+            tipo={"email"}
             />
 
-            <InputForm nome={"password"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.password}/>
+            <InputForm nome={"password"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.password} tipo={"password"}/>
 
-            <InputForm nome={"confirmPassword"} handleInput={handleCredenciais} placeholder={"Confirmar senha"} var={credenciais.confirmPassword}/>
+            <InputForm nome={"confirmPassword"} handleInput={handleCredenciais} placeholder={"Confirmar senha"} var={credenciais.confirmPassword} tipo={"password"} />
 
             <InputForm nome={"pais"} handleInput={handleCredenciais} placeholder={"Pais"} var={credenciais.pais}/>
 
@@ -324,7 +332,7 @@ function CadastrarForm(props) {
 
 
             <div className="container-login-form-btn">
-                    <button className="login-form-btn" onClick={e=>submitForm(e)} type='submit'>Criar conta</button>
+                    <button className="login-form-btn" onClick={(e)=>cadastrar(e)} type='submit'>Criar conta</button>
             </div>
 
             <div className="text-center">

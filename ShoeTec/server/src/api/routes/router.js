@@ -18,5 +18,6 @@ router.delete('/users/:id', usersController.deleteUsers)
 router.post('/comment',  commentController.createComment)
 
 router.get('/tenis',  tenisController.getTenis)
+router.get('/tenisId/:id', tenisController.getTenisById)
 
 module.exports = router

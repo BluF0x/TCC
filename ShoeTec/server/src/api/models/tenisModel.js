@@ -6,4 +6,11 @@ const getTenis = async() =>{
     return query
 }
 
-module.exports = {getTenis}
+const getTenisById = async(id) =>{
+    const args = "SELECT * FROM tenis WHERE tenis_id=?";
+    console.log(id)
+    const [query] = await connection.execute(args, [id])
+    return query
+}
+
+module.exports = {getTenis, getTenisById}
