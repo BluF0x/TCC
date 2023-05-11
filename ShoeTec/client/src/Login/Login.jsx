@@ -226,10 +226,10 @@ function CadastrarForm(props) {
             </span>
 
             <InputForm 
-                nome={"nome"} 
+                nome={"name"} 
                 handleInput={handleCredenciais} 
                 placeholder={"Nome"} 
-                var={credenciais.nome}
+                var={credenciais.name}
             />
 
             <InputForm 
@@ -241,7 +241,7 @@ function CadastrarForm(props) {
             tipo={"email"}
             />
 
-            <InputForm nome={"password"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.password} tipo={"password"}/>
+            <InputForm nome={"pass"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.pass} tipo={"password"}/>
 
             <InputForm nome={"confirmPassword"} handleInput={handleCredenciais} placeholder={"Confirmar senha"} var={credenciais.confirmPassword} tipo={"password"} />
 

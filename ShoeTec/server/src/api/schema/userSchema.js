@@ -8,7 +8,7 @@ const signupSchema = Joi.object({
     estado: Joi.string().min(1).max(255).allow(null),
     cidade: Joi.string().min(1).max(255).allow(null),
     genero: Joi.string().required().min(1).max(1).valid('O', 'F', 'M'),
-    esportes: Joi.array().items(Joi.string())
+    esporte: Joi.array().items(Joi.string())
 })
 
 module.exports = {signupSchema}
