@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import {Link} from "react-router-dom"
-// import LoginFrom from './LoginForm.jsx'
 import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
 import postCred from './postCred';
+import inputValidation from './inputValidation';
 import './login.css';
-// import LoginForm from './LoginForm.jsx';
 
 
 export function Login() {
@@ -18,40 +17,12 @@ export function Login() {
     )
 
     // Função para adicionar o input as credenciais
-    const handleCredenciais = (e) =>{
-        const nome = e.target.name
-        const valor = e.target.value
-        const warning = document.createElement("div")
-        e.target.parentElement.appendChild(warning)
-
-
-        /* Primeiro, é checado se o tipo de input não é uma checkbox, 
-         * já que a maioria dos inputs não é, esse caso é melhor ser 
-         * checado primeiro. Caso o input seja uma checkbox, é verificado
-         * se a checkbox em si está marcada, caso esteja, ela é adicionada 
-         * a um array, caso não, ela é filtrada do array.
-         */
-        if(e.target.type !== "checkbox"){
-            setCredenciais({
-                ...credenciais,
-                [nome] : valor
-            })
-        } else {
-            const checked = e.target.checked
-            if (checked) {
-                setCredenciais({
-                    ...credenciais,
-                    esporte: [...credenciais.esporte, valor]
-                })
-            } else {
-                const filtrado = credenciais.esporte.filter(esporte=>{return esporte !== valor})
-                console.log(filtrado)
-                setCredenciais({
-                    ...credenciais,
-                    esporte:  filtrado 
-                })
-            }
-        }
+    const handleCredenciais = (e, warning) =>{
+        console.log(typeof(warning))
+        const targetComponent = e.target
+        inputValidation.setCreds(e, setCredenciais, credenciais)
+        
+        inputValidation.verifyInput(targetComponent, warning, credenciais)
     } 
 
 
@@ -93,7 +64,7 @@ InputForm.deafaultProps = {
 }
 
 function InputForm(props) {
-    const [warning, setWarninng] = useState("hello")
+    const [warning, setWarning] = useState(undefined)
 
     if (props.tipo != "checkbox" && props.tipo != "radio"){
         return(
@@ -104,19 +75,19 @@ function InputForm(props) {
                 type = {props.tipo}
                 name = {props.nome}
                 value = {props.var}
-                onChange = {e => props.handleInput(e)}
+                onChange = {e => props.handleInput(e, setWarning)}
                 required
                 />
                 <span className="focus-input" data-placeholder={props.placeholder}></span>
             </div>
             <div className='wrap-warning'>
-                {props.warning}
+                {warning}
             </div>
             </>
         )
     } else if (props.tipo == "radio") {
         return(
-            <div className="wrap-input-cadastro" onChange={e=>props.handleInput(e)}>
+            <div className="wrap-input-cadastro" onChange={e=>props.handleInput(e, setWarning)}>
                 <h3 className='titulo-genero'>{props.titulo}</h3>
                 {props.membros.map(
                 v=>{
@@ -135,18 +106,15 @@ function InputForm(props) {
                 }
                 )}
             <div className='wrap-warning'>
-                {props.warning}
+                <div className='warning-radio'>
+                    {warning}
+                </div>
             </div>
-            </div>
+        </div>
         )
     } else if (props.tipo == "checkbox") {
         return(
         <div className="wrap-input-cadastro">
-            <div className='wrap-warning'>
-                <div className='warning-text'>
-                    {props.warning}
-                </div>
-            </div>
             <h3 className='titulo-genero'>{props.titulo}</h3>
             {props.membros.map(
                 v=>{
@@ -158,13 +126,18 @@ function InputForm(props) {
                         name={props.nome}
                         type = "checkbox"
                         value = {v.valor}
-                        onChange={e=>props.handleInput(e)}
+                        onChange={e=>props.handleInput(e, setWarning)}
                         />
                         <label className="label-radio"  for={v.id}>{v.label}</label>
                     </p>
                     )
                 }
             )}
+            <div className='wrap-warning'>
+                <div className='warning-checkbox'>
+                    {warning}
+                </div>
+            </div>
         </div>
         )
     }
@@ -213,6 +186,8 @@ function CadastrarForm(props) {
 
     const cadastrar = (e) =>{
         e.preventDefault()
+        
+
         postCred.cadastrarUsuario(credenciais)
     }
 

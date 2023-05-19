@@ -260,11 +260,24 @@
 }
 
 .wrap-warning {
-    color: white;
     position: relative;
-    right: 80%;
-    width: fit-content;
-    background-color: var(--cor-primaria);
+    color: red;
+    z-index: 100;
+    bottom: 2.3em;
+    left: 5%;
+    padding: 10px;
+}
+
+.warning-radio {
+    position: relative;
+    bottom: -2em;
+    left: -5%;
+}
+
+.warning-checkbox {
+    position: relative;
+    bottom: -2em;
+    left: -5%;
 }
 
 /* TRANSIÇÃO */
