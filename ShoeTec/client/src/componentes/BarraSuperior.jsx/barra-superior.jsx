@@ -7,6 +7,7 @@ import logo from '../../assets/imgs/SneakerTecLogo.png'
 import nightMode from '../../assets/svg/night_mode.svg'
 import './barra-superior.css'
 import '../../index.css'
+import pesquisar from './pesquisar'
 
 /*
  * Barra superior do site
@@ -99,12 +100,20 @@ function ItemDropNav(props) {return (
 
 
 function BarraDePesquisa() {
+    const [queryResult, setQueryResult] = useState(undefined)
+
+    const handleInput = async (e) =>{
+        e.preventDefault()
+        const res = await pesquisar.pesquisar()
+        console.log(res)
+    }
     return (
         <div className="items-barra-superior" id="barra-pesquisa">
-            <input type="text" placeholder="Pesquisar" id="pesquisar"></input>
+            <input type="text" placeholder="Pesquisar" id="pesquisar" onChange={e=>handleInput(e)}></input>
             {/* <button id="btn-filtrar" >
                 <img src={filter_fill} className="icon" alt="filtrar"></img>
             </button> */}
+            {queryResult}
             <ItemNav class={'btn-filtrar'} icon={filter_fill} link="#">
                     <ItemDropNav>
                     </ItemDropNav>
