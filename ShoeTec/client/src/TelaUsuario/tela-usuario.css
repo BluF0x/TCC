@@ -27,7 +27,8 @@
 
 .perfil-foto {
     margin-bottom: 10px;
-    display: inline-block;
+    display: block;
+    
 }
 
 .user-foto {
@@ -39,7 +40,7 @@
 
 .perfil-cardname {
     margin-bottom: 10px;
-    display: inline-block;
+    display: block;
 }
 .perfil-nome {
     font-size: 20px;
@@ -48,14 +49,14 @@
 
 .perfil-icons {
     margin-bottom: 10px;
-    display: inline-block;
+    display: block;
 }
 
 
 
 .perfil-descricao {
     margin-bottom: 10px;
-    display: inline-block;
+    display: block;
 }
 
 
@@ -75,7 +76,7 @@
         justify-content: center;
         align-items: center;
     
-        width: 90%;
+        width: 200px;
         height: 20px;
     
         /* background: -webkit-linear-gradient(to left, , var(--cor-secundaria));
@@ -89,3 +90,16 @@
 .btn-edit-profile:hover {
     cursor: pointer;
 }
+
+@media screen and (max-width: 1000px) {
+    .container-content{
+        float: none;
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+    .perfil-container {
+        display: block;
+    }
+    
+  }
