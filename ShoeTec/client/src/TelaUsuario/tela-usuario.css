@@ -13,6 +13,8 @@
 .perfil-container {
     background-color: red;
     grid-column: 1/3;
+    text-align: center;
+  width: 100%;
 }
 
 .comentarios-container {
@@ -25,11 +27,10 @@
 
 .perfil-foto {
     margin-bottom: 10px;
+    display: inline-block;
 }
 
 .user-foto {
-    display: block;
-    margin: auto;
     border-radius: 50% !important;
     width: 250px;
 }
@@ -38,6 +39,7 @@
 
 .perfil-cardname {
     margin-bottom: 10px;
+    display: inline-block;
 }
 .perfil-nome {
     font-size: 20px;
@@ -46,12 +48,14 @@
 
 .perfil-icons {
     margin-bottom: 10px;
+    display: inline-block;
 }
 
 
 
 .perfil-descricao {
     margin-bottom: 10px;
+    display: inline-block;
 }
 
 
