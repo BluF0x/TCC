@@ -15,7 +15,7 @@ function Home() {
   useEffect(() =>{
 
     // Api.get usa Axios para requisitar os tenis com o método GET
-    api.get('/tenis')
+    api.get('/tenis/20')
     .then((res)=>{
       console.log(res)
       if(res.status == 200){

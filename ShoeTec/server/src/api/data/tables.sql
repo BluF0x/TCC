@@ -72,18 +72,6 @@ DROP TABLE Tenis;
 DROP TABLE test;
 -- Test insert
 
-INSERT INTO users(name, email, pass, pais, estado, cidade, genero, esportes ) VALUES(
-    "Josu",
-    "abacateVoador@hotmail.com",
-    "123456",
-    "Brasil",
-    "RS",
-    "Torres",
-    "M",
-    '["a", "b", "c"]'
-);
-
-
 SELECT * FROM Users;
 
 ALTER TABLE tenis
