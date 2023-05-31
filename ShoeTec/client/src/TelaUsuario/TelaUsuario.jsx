@@ -10,6 +10,7 @@ import Corrida from '../assets/icons/Corrida.png'
 import Tênis from '../assets/icons/tênis.png'
 import Handebol from '../assets/icons/handebol.png'
 import Musculacao from '../assets/icons/musculacao.png'
+import Localizacao from '../assets/icons/localizacao.png'
 import './tela-usuario.css'
 
 export function TelaUsuario() {
@@ -17,6 +18,9 @@ export function TelaUsuario() {
     const [Nome, setNome] = useState("Arthur Bauer Cardoso")
     const [Esportes, setEsportes] = useState(['https://img.icons8.com/ios-filled/25/000000/basketball.png'])
     const [Descricao, setDescricao] = useState("1º lugar 10km Giassi Sombrio 2020 sub-24")
+    const [Cidade, seCidade] = useState("São João do Sul")
+    const [Estado, setEstado] = useState("Santa Catarina")
+    const [País, setPaís] = useState("Brasil")
 
     return (
         <div className="container-tela-usuario">
@@ -42,19 +46,26 @@ export function TelaUsuario() {
                 </div>
                 
                 <div className="perfil-icons">
-                <img className="favicon" src={Basquete}/>
-                <img className="favicon" src={Futebol}/>
-                <img className="favicon" src={Futsal}/>
-                <img className="favicon" src={Voleibol}/>
-                <img className="favicon" src={Handebol}/>
-                <img className="favicon" src={Corrida}/>
-                <img className="favicon" src={Ciclismo}/>
-                <img className="favicon" src={Musculacao}/>
-                <img className="favicon" src={Tênis}/>
+                <img className="favicon" src={Basquete} alt="Basquete"/>
+                <img className="favicon" src={Futebol} alt="Futebol"/>
+                <img className="favicon" src={Futsal} alt="Futsal"/>
+                <img className="favicon" src={Voleibol} alt="Voleibol"/>
+                <img className="favicon" src={Handebol} alt="Handebol"/>
+                <img className="favicon" src={Corrida} alt="Corrida"/>
+                <img className="favicon" src={Ciclismo} alt="Ciclismo"/>
+                <img className="favicon" src={Musculacao} alt="Musculacao"/>
+                <img className="favicon" src={Tênis} alt="Tênis"/>
                 </div>
                 
                 <div className="perfil-descricao">
                     <p className="perfil-descricao-p"> {Descricao}</p>
+                </div>
+
+                <div className="perfil-localizacao">
+                    <div className="containerlocal">
+                    <img className="favicon" src={Localizacao} alt="Localização"/> 
+                    <p className="descricao-localizacao"> {Cidade}, {Estado} - {País}</p>
+                    </div>
                 </div>
 
                 <div className="perfil-edit">

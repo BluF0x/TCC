@@ -55,11 +55,23 @@
 
 
 .perfil-descricao {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     display: block;
 }
 
+.perfil-localizacao {
+    margin-bottom: 12px;
+    display: block;
+}
 
+.containerlocal{
+    display: inline-flex;
+    align-items: center;
+}
+
+.descricao-localizacao{
+    margin-left: 6px;
+}
 
 .btn-edit-profile {
         margin: 0 auto;
