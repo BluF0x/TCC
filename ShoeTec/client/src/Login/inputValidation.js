@@ -32,11 +32,34 @@ function setCreds(e, setCredenciais, credenciais) {
 
 }
 
-function verifyInput(target, warning, credenciais) {
-    warning(undefined)
-    if(target.value == "") {
-        warning("Não pode ser vazio")
-    } 
+class VerifyInput {
+    warning = '';
+    isOk = true;
+    input = '';
+    setInput(input) {
+        this.input = input
+    }
+    required(){
+        if (this.input == ""){
+            this.warning = "Campo obrigatório"
+        }
+        return this.warning
+    }
+    
 }
 
-export default {verifyInput, setCreds}
+const required = (input) => {
+    if ( input == "") {
+        return {stauts: false, warning: "Campo obrigatório"}        
+    }
+    return {status: true}
+}
+
+const minimun = (input, minNum, type = "") => {
+    if (input.length < minNum) {
+        return {stauts: false, warning: `${type} deve conter no mínimo ${minNum} caracteres`}        
+    }
+    return {status: true}
+}
+
+export default {VerifyInput, setCreds, required, minimun}

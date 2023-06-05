@@ -17,12 +17,8 @@ export function Login() {
     )
 
     // Função para adicionar o input as credenciais
-    const handleCredenciais = (e, warning) =>{
-        console.log(typeof(warning))
-        const targetComponent = e.target
-        inputValidation.setCreds(e, setCredenciais, credenciais)
-        
-        inputValidation.verifyInput(targetComponent, warning, credenciais)
+    const handleCredenciais = (e) =>{
+        inputValidation.setCreds(e, setCredenciais, credenciais) //setCreds adiciona o input a credenciais
     } 
 
 
@@ -60,22 +56,43 @@ export function Login() {
 }
 
 InputForm.deafaultProps = { 
-    tipo: "text"
+    tipo: "text",
+    steps: ['']
 }
 
 function InputForm(props) {
     const [warning, setWarning] = useState(undefined)
+    const nome = props.nome
+    const steps = props.steps 
+    let buffer = ''
 
     if (props.tipo != "checkbox" && props.tipo != "radio"){
         return(
             <>
             <div className="wrap-input-cadastro">
                 <input 
-                className = {props.var !== "" ? 'has-val input' : 'input'}
+                className = {props.var == "" ?  'input' : 'has-val input' }
                 type = {props.tipo}
                 name = {props.nome}
                 value = {props.var}
-                onChange = {e => props.handleInput(e, setWarning)}
+                onChange = {e => {
+                    const valor = e.target.value
+                    props.handleInput(e, setWarning)
+                    // Esse loop executa todas as funções dentro do array steps, que verifica o input do usuario
+                    if (steps){
+                        let isWarning = []
+                        for (let i =0; i < steps.length ; i++){
+                            const result = steps[i].params ? steps[i].function(valor, ...steps[i].params) : steps[i].function(valor)
+                            isWarning.push(result.status)
+                            if (!result.status) {
+                                setWarning(result.warning)
+                            } else if (!isWarning.includes(undefined)) {
+                                setWarning(undefined)
+                            }
+                        }
+                    }
+
+                }}
                 required
                 />
                 <span className="focus-input" data-placeholder={props.placeholder}></span>
@@ -205,6 +222,7 @@ function CadastrarForm(props) {
                 handleInput={handleCredenciais} 
                 placeholder={"Nome"} 
                 var={credenciais.name}
+                steps={[{function: inputValidation.required}]}
             />
 
             <InputForm 
@@ -212,15 +230,40 @@ function CadastrarForm(props) {
             handleInput={handleCredenciais} 
             placeholder={"Email"} 
             var={credenciais.email}
-            warning={"test"}
             tipo={"email"}
+            steps={[{function: inputValidation.required}]}
             />
 
-            <InputForm nome={"pass"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.pass} tipo={"password"}/>
+            <InputForm nome={"pass"} 
+            handleInput={handleCredenciais} 
+            placeholder={"Senha"} 
+            creds={credenciais} 
+            var={credenciais.pass} 
+            tipo={"password"} 
+            steps={[
+            {function: inputValidation.minimun, params: [8, "A senha"]},
+            {function: inputValidation.required }
+            ]}
+            />
 
-            <InputForm nome={"confirmPassword"} handleInput={handleCredenciais} placeholder={"Confirmar senha"} var={credenciais.confirmPassword} tipo={"password"} />
+            <InputForm 
+            nome={"confirmPassword"} 
+            handleInput={handleCredenciais} 
+            placeholder={"Confirmar senha"} 
+            var={credenciais.confirmPassword} 
+            tipo={"password"} 
+            steps={[
+            {function: inputValidation.required }
+            ]}
+            />
 
-            <InputForm nome={"pais"} handleInput={handleCredenciais} placeholder={"Pais"} var={credenciais.pais}/>
+            <InputForm 
+            nome={"pais"} 
+            handleInput={handleCredenciais} 
+            placeholder={"Pais"} 
+            var={credenciais.pais}
+            steps={[{function: inputValidation.required}]}
+            />
 
             <InputForm nome={"estado"} handleInput={handleCredenciais} placeholder={"Estado*"} var={credenciais.estado}/>
 
