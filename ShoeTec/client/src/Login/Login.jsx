@@ -57,21 +57,33 @@ export function Login() {
 
 InputForm.deafaultProps = { 
     tipo: "text",
-    steps: ['']
+    steps: [''],
+    var: ""
 }
 
 function InputForm(props) {
     const [warning, setWarning] = useState(undefined)
     const nome = props.nome
     const steps = props.steps 
-    let buffer = ''
 
     if (props.tipo != "checkbox" && props.tipo != "radio"){
+        /*
+        * Cada input deve ter os seguintes props:
+        * nome: 
+        * tipo: tipo de input, como por exemplo email ou password
+        * var: é o valor das credenciais, basicamente o valor do input
+        * handleInput: é a função para adicionar o valor as credenciais
+        * placeholder: é o "titulo" do input
+        * steps: etapas de verificação de input, como por exemplo, ter no minimo x caracteres.
+        * Essas etapas vem em um array de objetos, que tem no mínimo o parametro function, que 
+        * é a função a ser executada para verificar o input. Params é os parametros adicionais 
+        * da função; todas as funções vem de inputValidation.js
+        */
         return(
             <>
             <div className="wrap-input-cadastro">
                 <input 
-                className = {props.var == "" ?  'input' : 'has-val input' }
+                className = {!props.var ? 'input' : props.var == "" ?  'input' : 'has-val input' }
                 type = {props.tipo}
                 name = {props.nome}
                 value = {props.var}
@@ -203,8 +215,6 @@ function CadastrarForm(props) {
 
     const cadastrar = (e) =>{
         e.preventDefault()
-        
-
         postCred.cadastrarUsuario(credenciais)
     }
 
@@ -253,7 +263,7 @@ function CadastrarForm(props) {
             var={credenciais.confirmPassword} 
             tipo={"password"} 
             steps={[
-            {function: inputValidation.required }
+            {function: inputValidation.isEqual, params: [credenciais.pass] }
             ]}
             />
 

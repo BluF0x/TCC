@@ -62,4 +62,12 @@ const minimun = (input, minNum, type = "") => {
     return {status: true}
 }
 
-export default {VerifyInput, setCreds, required, minimun}
+const isEqual = (input, comparison, msg = undefined) => {
+    if (input !== comparison) {
+        const customWarning = msg? msg : 'Senhas devem ser iguais'
+        return {status: false, warning: customWarning}
+    }
+    return {status: true}
+}
+
+export default {VerifyInput, setCreds, required, minimun, isEqual}
