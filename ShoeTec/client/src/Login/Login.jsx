@@ -188,9 +188,20 @@ function LoginForm(props) {
             <img src={SneakerTecLogo} alt="Logo SneakerTec"></img>
         </span>
 
-        <InputForm nome={"email"} handleInput={handleCredenciais} placeholder={"Email"} var={credenciais.email}/>
+        <InputForm 
+        nome={"email"} 
+        handleInput={handleCredenciais} 
+        placeholder={"Email"} 
+        var={credenciais.email}
+        />
 
-        <InputForm nome={"password"} handleInput={handleCredenciais} placeholder={"Senha"} var={credenciais.password}/>
+        <InputForm 
+        nome={"password"} 
+        handleInput={handleCredenciais} 
+        placeholder={"Senha"} 
+        var={credenciais.password}
+        tipo={"password"} 
+        />
 
         <div className="container-login-form-btn">
             <button className="login-form-btn">Login</button>
@@ -275,9 +286,19 @@ function CadastrarForm(props) {
             steps={[{function: inputValidation.required}]}
             />
 
-            <InputForm nome={"estado"} handleInput={handleCredenciais} placeholder={"Estado*"} var={credenciais.estado}/>
+            <InputForm 
+            nome={"estado"} 
+            handleInput={handleCredenciais} 
+            placeholder={"Estado*"} 
+            var={credenciais.estado}
+            />
 
-            <InputForm nome={"cidade"} handleInput={handleCredenciais} placeholder={"Cidade*"} var={credenciais.cidade}/>
+            <InputForm 
+            nome={"cidade"} 
+            handleInput={handleCredenciais} 
+            placeholder={"Cidade*"} 
+            var={credenciais.cidade}
+            />
 
 
 

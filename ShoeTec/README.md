@@ -4,6 +4,28 @@
 
 ---
 
+# Lista TODO:
+
+## A CRIAR
+- [ ] Criar pesquisa de tenis
+  - [ ] Criar parâmetros de pesquisa
+  - [ ] Criar a rota de pesquisa
+  - [ ]  Criar a página de pesquisa
+- [ ] Criar sistema para gerenciar sessão 
+- [ ] Criar sistem para armazenar as senhas criptografadas 
+
+## BUG FIX
+- [ ] Consertar botão de compartilhar dos cards de tenis
+- [x] Consertar o background no botão de para voltar à página principal 
+
+## CSS
+- [ ] Consertar os cards de tenis
+  - [ ] Colocar limite de caracteres no titulo de um tenis
+  - [ ] Colocar limite na descrição do produto
+- [ ] Melhorar o CSS da página de usuário 
+
+---
+
 # Guia de padronização de estilo
 
 ## O que é e para que serve?

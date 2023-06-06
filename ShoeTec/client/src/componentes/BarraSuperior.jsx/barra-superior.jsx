@@ -40,7 +40,8 @@ function BarraSuperior() {
 
             <BarraDePesquisa></BarraDePesquisa>
 
-            <ItemNav icon={logo} alt="test" link="/" />
+            <ItemNav icon={logo} class={"menu-nav menu-no-bg"} alt="test" link="/" />
+            
 
         </div>
     )

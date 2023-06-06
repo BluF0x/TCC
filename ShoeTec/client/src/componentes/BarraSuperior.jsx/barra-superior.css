@@ -43,6 +43,7 @@
     transition: 100ms;
 }
 
+
 .menu-nav {
     border-radius: 50%;
     background-color: var(--cor-secundaria);
@@ -56,7 +57,19 @@
 }
 
 .menu-nav:hover {
-    background-color: rgb(190, 130, 94);
+    background-color: rgb(190, 94, 94);
+    
+}
+
+.menu-no-bg {
+    background-color: var(--cor-primaria);
+    transition: transform background-color 300ms;
+}
+
+.menu-no-bg:hover {
+    background-color: var(--cor-primaria);
+    transform: scale(1.2);
+    transition: 300ms
 }
 
 .drop-nav {
