@@ -21,6 +21,8 @@ export function TelaUsuario() {
     const [Cidade, seCidade] = useState("São João do Sul")
     const [Estado, setEstado] = useState("Santa Catarina")
     const [País, setPaís] = useState("Brasil")
+    const [AsicsNovablast, setAsicsNovablast] = useState("Tênis Asics Novablast")
+    const [DescricaoComentario, setDescricaoComentario] = useState("O tênis apresenta um bom amortecimento, mas peca quanto à estabilidade.")
 
     return (
         <div className="container-tela-usuario">
@@ -86,7 +88,35 @@ export function TelaUsuario() {
     function ListaComentarios() {
         return(
             <div className="comentarios-container">
-                <h1>olá</h1>
+                <ol className="lista-comentario">
+
+                    <li className="li-lista-comentario">
+                        <div class="comentario-user">
+                            <div class="cabecalho-comentario">
+                                <a className="calcado-review-user" href='#'>
+                                <span className="calcado">{AsicsNovablast}</span>
+                                </a>
+                            </div>
+                            <p className="descricao-comentario">
+                                {DescricaoComentario}
+                            </p>
+                        </div>
+                    </li>
+                    
+                    <li className="li-lista-comentario">
+                        <div class="comentario-user">
+                            <div class="cabecalho-comentario">
+                                <a className="calcado-review-user" href='#'>
+                                <span className="calcado">{AsicsNovablast}</span>
+                                </a>
+                            </div>
+                            <p className="descricao-comentario">
+                                {DescricaoComentario}
+                            </p>
+                        </div>
+                    </li>
+                    
+                </ol>
             </div>
         )
 
