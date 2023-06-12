@@ -6,6 +6,7 @@ async function cadastrarUsuario(cred) {
     const query = await api.post("/users", cred)
     console.log(query)
 
+    return query;
 }
 
 async function logarUsuario(cred) { 

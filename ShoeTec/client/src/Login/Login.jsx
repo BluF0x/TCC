@@ -3,7 +3,8 @@ import {Link} from "react-router-dom"
 import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
 import postCred from './postCred';
 import inputValidation from './inputValidation';
-import PopUp from '../componentes/PopUp/Popup'
+import PopUp from '../componentes/PopUp/Popup.jsx'
+import PopUpClass from '../componentes/PopUp/popup';
 import './login.css';
 
 
@@ -32,10 +33,11 @@ export function Login() {
         <>
         
         <PopUp
-            isAberto={true}
-            mensagem={"teste"}
-            result={"Resultado"}
-            status={200}
+            isAberto={false}
+            mensagem={undefined}
+            result={undefined}
+            response={0}
+            status={false}
         />
 
         <div className="container">
@@ -231,13 +233,30 @@ function CadastrarForm(props) {
     const handleCredenciais = props.setCred
     const estadoLogin = props.estadoLog
     const setEstadoLogin = props.setEstadoLog
+    const popup = {
+        aberto: false,
+        mensagem: "",
+        result: "",
+        response: 0,
+    }
 
-    const cadastrar = (e) =>{
+    const cadastrar = async (e) =>{
         e.preventDefault()
-        postCred.cadastrarUsuario(credenciais)
+        const queryResult = await postCred.cadastrarUsuario(credenciais)
+        console.log(queryResult)
     }
 
     return (
+        <>
+
+        <PopUp
+            isAberto={false}
+            mensagem={undefined}
+            result={undefined}
+            response={0}
+            status={false}
+        />
+
         <form className="login-form">
             <h1 className="login-form-title">
                 Bem vindo!
@@ -400,5 +419,6 @@ function CadastrarForm(props) {
                 <Link to="/" className='voltar'>Voltar</Link>
             </div>
         </form>
+        </>
     )
 }

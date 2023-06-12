@@ -6,20 +6,36 @@
     min-height: 10vh;
     background-color: orange;
     padding: 1%;
+    border-radius: 8px;
+    font-size: 16pt;
+    display: flex;
+    align-items: center;    
+    flex-direction: column;
+    justify-content: center;
 }
 
 .wrapper-mensagem {
-    display: flex;    
-    justify-content: center;
-    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
     margin-top: 10px;
+    margin-bottom: 0.3rem;
 }
 
 .wrapper-result {
+
     margin: 10px;
+    margin-bottom: 1rem;
 }
 
 .wrapper-status {
-    display: flex;
-    justify-content: center;
+    font-size: 0.8em;
+    margin-bottom: 0.5rem;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
 }
