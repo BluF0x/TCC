@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
 import postCred from './postCred';
 import inputValidation from './inputValidation';
+import PopUp from '../componentes/PopUp/Popup'
 import './login.css';
 
 
@@ -29,6 +30,13 @@ export function Login() {
 
     return (
         <>
+        
+        <PopUp
+            isAberto={true}
+            mensagem={"teste"}
+            result={"Resultado"}
+            status={200}
+        />
 
         <div className="container">
             <div className="container-login">

@@ -1,0 +1,25 @@
+.container-popup {
+    position: absolute;
+    left: 30vw;
+    top: 1vh;
+    width: 38.5vw;
+    min-height: 10vh;
+    background-color: orange;
+    padding: 1%;
+}
+
+.wrapper-mensagem {
+    display: flex;    
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.wrapper-result {
+    margin: 10px;
+}
+
+.wrapper-status {
+    display: flex;
+    justify-content: center;
+}

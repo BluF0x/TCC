@@ -13,6 +13,7 @@
   - [ ]  Criar a página de pesquisa
 - [ ] Criar sistema para gerenciar sessão 
 - [ ] Criar sistem para armazenar as senhas criptografadas 
+- [ ] Criar notificação pop-up
 
 ## BUG FIX
 - [ ] Consertar botão de compartilhar dos cards de tenis
