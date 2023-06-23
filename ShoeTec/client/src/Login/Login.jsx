@@ -3,8 +3,8 @@ import {Link} from "react-router-dom"
 import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
 import postCred from './postCred';
 import inputValidation from './inputValidation';
-import PopUp from '../componentes/PopUp/Popup.jsx'
-import PopUpClass from '../componentes/PopUp/popup';
+import PopUp  from '../componentes/PopUp/Popup.jsx'
+import popUpTemplate from '../componentes/PopUp/popup'
 import './login.css';
 
 
@@ -31,14 +31,6 @@ export function Login() {
 
     return (
         <>
-        
-        <PopUp
-            isAberto={false}
-            mensagem={undefined}
-            result={undefined}
-            response={0}
-            status={false}
-        />
 
         <div className="container">
             <div className="container-login">
@@ -233,28 +225,31 @@ function CadastrarForm(props) {
     const handleCredenciais = props.setCred
     const estadoLogin = props.estadoLog
     const setEstadoLogin = props.setEstadoLog
-    const popup = {
-        aberto: false,
-        mensagem: "",
-        result: "",
-        response: 0,
-    }
 
     const cadastrar = async (e) =>{
         e.preventDefault()
+
         const queryResult = await postCred.cadastrarUsuario(credenciais)
-        console.log(queryResult)
+
+        //Por enquanto, um alert será usado; mudar depois
+        if (queryResult.status > 200 && queryResult.status < 300) {
+            window.alert(`Usuário criado com sucesso!\nCod: ${queryResult.status}`)
+            setEstadoLogin(true)
+        } else {
+            console.log(queryResult)
+            window.alert(`Falha ao criar usuário.\nRazão: ${queryResult.response.data.error.details[0].message} \nCod: ${queryResult.response.status}`)
+        }
     }
 
     return (
         <>
 
         <PopUp
-            isAberto={false}
-            mensagem={undefined}
-            result={undefined}
-            response={0}
-            status={false}
+            // isAberto={popup.aberto}
+            // mensagem={popup.mensagem}
+            // result={popup.result}
+            // response={popup.response}
+            // status={popup.status}
         />
 
         <form className="login-form">

@@ -3,10 +3,14 @@ import api from "../services/api";
 async function cadastrarUsuario(cred) {
     delete cred.confirmPassword
 
-    const query = await api.post("/users", cred)
-    console.log(query)
+    try{
+        const query = await api.post("/users", cred)
+        return query;
+    } catch(err) {
+        return err
+    }
+    
 
-    return query;
 }
 
 async function logarUsuario(cred) { 

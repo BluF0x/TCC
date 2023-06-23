@@ -17,11 +17,11 @@ function PopUp(props) {
 
     })
 
-    useEffect(()=>{
-        if(isOpen)  setTimeout(() => {
-            setIsOpen(false)
-        }, 5000)
-    }, [isOpen])
+    // useEffect(()=>{
+    //     if(isOpen)  setTimeout(() => {
+    //         setIsOpen(false)
+    //     }, 5000)
+    // }, [isOpen])
     
     return(
     <>
