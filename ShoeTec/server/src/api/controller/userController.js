@@ -37,4 +37,13 @@ const deleteUsers = async (req, res) =>{
     return res.status(204).json()
 }
 
-module.exports = {getUsers, setUsers, deleteUsers, getSpecificUser}
+const loginUser = async (req, res) =>{
+    const {name, pass} = req.body
+
+    const query = await userModel.loginUser(name, pass)
+
+    console.log(query)
+    
+}
+
+module.exports = {getUsers, setUsers, deleteUsers, getSpecificUser, loginUser}

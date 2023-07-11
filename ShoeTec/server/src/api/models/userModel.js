@@ -29,4 +29,10 @@ const delUser = async(id) =>{
     return deleteUser
 }
 
-module.exports = {getUsers, createUser, delUser, getSpecificUser}
+const loginUser = async(name, pass) =>{
+
+    const args =     `SELECT * FROM users WHERE name = ? AND pass = ? `
+    const queryLogin = await connection.execute(args, [name, pass])
+}
+
+module.exports = {getUsers, createUser, delUser, getSpecificUser, loginUser}
