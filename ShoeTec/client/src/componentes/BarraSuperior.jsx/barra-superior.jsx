@@ -31,12 +31,12 @@ function BarraSuperior() {
         <div className="barra-superior">
 
 
-            <ItemNav icon={menu_icon} alt="test" link="#">
+            <ItemNav icon={menu_icon} alt="test" link="#" className="Modo-icon">
                     <ItemDropNav href={'/'} icone={nightMode} onClick={toggleDarkMode()}> 
                         Modo escuro
                     </ItemDropNav>
             </ItemNav>
-            <ItemNav icon={conta_icon} alt="test" link="/TelaUsuario" />
+            <ItemNav icon={conta_icon} alt="test" link="/TelaUsuario" className="Conta-icon"/>
 
             <BarraDePesquisa></BarraDePesquisa>
 
@@ -127,6 +127,6 @@ function BarraDePesquisa() {
             </ItemNav>
         </div>
     )
-}
+} 
 
 export default BarraSuperior

@@ -28,6 +28,7 @@
     background-color: white ;
     border-radius: 10px 0px 0px 10px;
     margin-right: 1px;
+    padding: 5px;
     border: none;
 }
 
@@ -55,6 +56,30 @@
     padding: 2px;
     transition: background-color 300ms;
 }
+
+@media screen and (max-width: 600px) {
+    #barra-pesquisa{
+        margin-right: 0vw;
+        margin-left: 1vw;
+    }
+
+    .menu-nav {
+        margin: 2px;
+        padding: 3px;
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    #barra-pesquisa{
+        margin-right: 1vw;
+        margin-left: 0vw;
+    }
+
+    .menu-nav {
+        margin: 1px;
+        padding: 1px;
+    }
+  }
 
 .menu-nav:hover {
     background-color: rgb(190, 94, 94);
