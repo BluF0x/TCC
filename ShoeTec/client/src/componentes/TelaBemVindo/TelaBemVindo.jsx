@@ -8,7 +8,7 @@ import "./menu-bem-vindo.css"
 function TelaBemVindo() {
     return (
         <div className="container-bem-vindo">
-            <h1 className="titulo">Bem Vindo</h1>
+            <h1 className="titulo">Bem-Vindo!</h1>
             <div className="img">
                 <img src={homen} id="img-tela"></img>
             </div>
