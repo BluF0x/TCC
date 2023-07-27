@@ -11,7 +11,6 @@ const options = {
 
 app.use(express.json())
 app.use(cors(options))
-app.use(router)
 app.use(cookieParser())
 
 // 24 horas em ms 
@@ -26,4 +25,5 @@ app.use(session(
     }
 ))
 
+app.use(router)
 module.exports = app

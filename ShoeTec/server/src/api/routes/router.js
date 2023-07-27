@@ -10,8 +10,8 @@ router.get('/', (req, res)=>{
     res.send('Hello World')
 })
 
+//User routes
 router.get('/users', usersController.getUsers)
-// router.get('/user/:id', usersController.getSpecificUser) 
 router.post('/users', userMiddleware.validateInput, usersController.setUsers)
 router.delete('/users/:id', usersController.deleteUsers)
 router.post('/login', usersController.loginUser)

@@ -1,4 +1,5 @@
 const userModel = require("../models/userModel")
+const connection = require('../models/connection')
 
 const getUsers = async (req, res) =>{
     const users = await userModel.getUsers()
@@ -38,11 +39,26 @@ const deleteUsers = async (req, res) =>{
 }
 
 const loginUser = async (req, res) =>{
-    const {name, pass} = req.body
+    const {email, pass} = req.body
 
-    const query = await userModel.loginUser(name, pass)
+    if (email && pass)  {
+        query = await userModel.loginUser(email, pass)
 
-    console.log(query)
+        if (query.name === "Error") {
+            return res.status(400).json({"Erro": query.message, "stack" : query.stack})
+        }
+
+        let session = req.session
+        session.username = query[0].name
+        session.userid = query[0].usuario_id
+
+        return res.status(202).json({"msg": "Ok"})
+
+    }
+    else {
+        res.status(400)
+    }
+
     
 }
 

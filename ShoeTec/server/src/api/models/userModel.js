@@ -29,10 +29,14 @@ const delUser = async(id) =>{
     return deleteUser
 }
 
-const loginUser = async(name, pass) =>{
-
-    const args =     `SELECT * FROM users WHERE name = ? AND pass = ? `
-    const queryLogin = await connection.execute(args, [name, pass])
+const loginUser = async(email, pass) =>{
+    const args = `SELECT * FROM users WHERE email = ? AND pass = ? `
+    const [queryLogin] = await connection.execute(args, [email, pass])
+    if (queryLogin[0] === undefined){
+        return new Error("Usuário não encontrado")
+    }else {
+        return queryLogin
+    }
 }
 
 module.exports = {getUsers, createUser, delUser, getSpecificUser, loginUser}
