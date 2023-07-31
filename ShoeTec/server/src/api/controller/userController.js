@@ -1,4 +1,5 @@
 const userModel = require("../models/userModel")
+const bcrypt = require('bcrypt')
 const connection = require('../models/connection')
 
 const getUsers = async (req, res) =>{
@@ -18,11 +19,12 @@ const getSpecificUser = async (req, res) =>{
     // }
 }
 
+//devias ser createUsers 
 const setUsers = async (req, res) =>{
     const emailResult = await userModel.getSpecificUser("email", req.body.email)
 
     if (emailResult[0] != undefined){
-        return res.status(400).json({"error": "Email já existe"})
+        return res.status(400).json({"error": "Email já está sendo usado"})
     }
 
     const createUser = await userModel.createUser(req.body)
@@ -41,25 +43,40 @@ const deleteUsers = async (req, res) =>{
 const loginUser = async (req, res) =>{
     const {email, pass} = req.body
 
-    if (email && pass)  {
-        query = await userModel.loginUser(email, pass)
+    try {
+        if (email && pass)  {
+            user = await userModel.getSpecificUser("email", email)
+            
+            if (user.name === "Error") {
+                return res.status(400).json({error: query.message, "stack" : query.stack})
+            }
 
-        if (query.name === "Error") {
-            return res.status(400).json({"Erro": query.message, "stack" : query.stack})
+            const passMatch = await bcrypt.compare(pass, user[0].pass)
+            if (passMatch){
+                let session = req.session
+                session.username = user[0].name
+                session.userid = user[0].usuario_id
+                return res.status(200).json({"msg": "Ok"})
+            } else {
+                return res.status(400).json({"msg": "Senha incorreta"})
+            }
         }
-
-        let session = req.session
-        session.username = query[0].name
-        session.userid = query[0].usuario_id
-
-        return res.status(202).json({"msg": "Ok"})
-
+        else {
+            res.status(400)
+        }
+    }catch (error) {
+        res.status(500).json({"Erro": error.message, "Trace": error.stack})
     }
-    else {
-        res.status(400)
-    }
-
-    
 }
+
+    const logoutUser = async (req, res) => {
+        req.session.destroy((err) => {
+           if (err) {
+            return res.status(500).json({error: 'Erro ao sair'})
+           } 
+           res.clearCookie('connection.sid')
+           return res(200).json({success: trun, "msg": "Saiu com sucesso"})
+        })
+    }
 
 module.exports = {getUsers, setUsers, deleteUsers, getSpecificUser, loginUser}

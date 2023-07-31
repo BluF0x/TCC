@@ -32,22 +32,6 @@ function setCreds(e, setCredenciais, credenciais) {
 
 }
 
-class VerifyInput {
-    warning = '';
-    isOk = true;
-    input = '';
-    setInput(input) {
-        this.input = input
-    }
-    required(){
-        if (this.input == ""){
-            this.warning = "Campo obrigatório"
-        }
-        return this.warning
-    }
-    
-}
-
 const required = (input) => {
     if ( input == "") {
         return {stauts: false, warning: "Campo obrigatório"}        
@@ -70,4 +54,4 @@ const isEqual = (input, comparison, msg = undefined) => {
     return {status: true}
 }
 
-export default {VerifyInput, setCreds, required, minimun, isEqual}
+export default { setCreds, required, minimun, isEqual}

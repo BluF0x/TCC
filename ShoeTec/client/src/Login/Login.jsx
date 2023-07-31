@@ -342,7 +342,7 @@ function CadastrarForm(props) {
                 },
                 {
                     id: "naoindentifico",
-                    label: "Não indentifico",
+                    label: "Prefiro não identificar",
                     genero: "N"
                 }
             ]} 
