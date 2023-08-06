@@ -169,4 +169,8 @@
         grid-row-start: 17;
     }
 
+    .menus:hover {
+        transform: scale(1.35, 1.5);
+        background-color: var(--cor-secundaria);
+    }
   }
