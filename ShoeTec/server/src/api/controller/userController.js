@@ -1,6 +1,5 @@
 const userModel = require("../models/userModel")
 const bcrypt = require('bcrypt')
-const connection = require('../models/connection')
 
 const getUsers = async (req, res) =>{
     const users = await userModel.getUsers()
@@ -41,28 +40,37 @@ const deleteUsers = async (req, res) =>{
 }
 
 const loginUser = async (req, res) =>{
-    const {email, pass} = req.body
+    const {email, password} = req.body
+    console.log (`email:${email}, pass:${password}`)
+    console.log(`ID:${req.sessionID}`)
 
     try {
-        if (email && pass)  {
+        if (email && password)  {
             user = await userModel.getSpecificUser("email", email)
             
             if (user.name === "Error") {
                 return res.status(400).json({error: query.message, "stack" : query.stack})
             }
 
-            const passMatch = await bcrypt.compare(pass, user[0].pass)
+            if (req.session.authenticated) {
+                return res.json(req.session)
+            }
+
+            const passMatch = await bcrypt.compare(password, user[0].pass)
             if (passMatch){
                 let session = req.session
                 session.username = user[0].name
                 session.userid = user[0].usuario_id
-                return res.status(200).json({"msg": "Ok"})
+                session.authenticated = true
+                console.log(session)
+                return res.status(200).json({success: true, "msg": "Ok", sessao: session})
+
             } else {
                 return res.status(400).json({"msg": "Senha incorreta"})
             }
         }
         else {
-            res.status(400)
+           return res.status(400).json({"msg": "Erro"})
         }
     }catch (error) {
         res.status(500).json({"Erro": error.message, "Trace": error.stack})

@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser')
 const router = require('./api/routes/router')
 const cors = require('cors')
 const app = express()
+const store = new session.MemoryStore()
 
 const options = {
     origin: '*'
@@ -24,6 +25,11 @@ app.use(session(
 
     }
 ))
+
+// app.use((req, res, next) => {
+//     console.log(`MEMORY STORE: ${store}`)
+//     next()
+// })
 
 app.use(router)
 module.exports = app

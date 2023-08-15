@@ -10,7 +10,6 @@ async function cadastrarUsuario(cred) {
         return err
     }
     
-
 }
 
 async function logarUsuario(cred) { 

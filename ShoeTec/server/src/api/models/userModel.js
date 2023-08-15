@@ -13,6 +13,7 @@ const getSpecificUser = async(field, email)=>{
     if (user[0] === undefined){
         return new Error("Usuário não encontrado")
     }else {
+
         return user
     }
 }

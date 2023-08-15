@@ -11,14 +11,15 @@ router.get('/', (req, res)=>{
 })
 
 //User routes
-router.get('/users', usersController.getUsers)
+router.get('/users', usersController.getUsers) //Proteger
 router.post('/users', userMiddleware.validateInput, usersController.setUsers)
-router.delete('/users/:id', usersController.deleteUsers)
-router.post('/login', usersController.loginUser)
+router.delete('/users/:id', usersController.deleteUsers) //Proteger
+router.post('/users/login', usersController.loginUser)
 
 router.post('/comment',  commentController.createComment)
 
 router.get('/tenis/:limit',  tenisController.getTenis)
 router.get('/tenisId/:id', tenisController.getTenisById)
+router.post('/searchTenis', tenisController.searchTenis)
 
 module.exports = router

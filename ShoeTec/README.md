@@ -12,7 +12,10 @@
   - [ ] Criar a rota de pesquisa
   - [ ]  Criar a página de pesquisa
 - [ ] Criar sistema para gerenciar sessão 
-- [ ] Criar sistem para armazenar as senhas criptografadas 
+  - [x] Rota de login
+  - [ ] Rota de logout
+  - [ ] Conexão ao front end
+- [x] Criar sistem para armazenar as senhas criptografadas 
 - [ ] Criar notificação pop-up (usar bibliotecas)
 
 ## BUG FIX

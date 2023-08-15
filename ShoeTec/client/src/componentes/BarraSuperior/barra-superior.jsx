@@ -8,6 +8,7 @@ import nightMode from '../../assets/svg/night_mode.svg'
 import './barra-superior.css'
 import '../../index.css'
 import pesquisar from './pesquisar'
+import Cookies from 'js-cookie'
 
 /*
  * Barra superior do site
@@ -15,6 +16,7 @@ import pesquisar from './pesquisar'
 
 function BarraSuperior() {
     const [darkMode, setDarkMode] = useState()
+
 
     useEffect(() =>{
         if(!localStorage.getItem("darkMode")){
@@ -27,6 +29,12 @@ function BarraSuperior() {
         darkMode == "light" ? localStorage.setItem("darkMode", "dark") : localStorage.setItem("darkMode", "light")
     }
 
+    const sair = () =>{
+        console.log("saiu")
+        Cookies.remove('username')
+        Cookies.remove('loggedIn')
+    }
+
     return(
         <div className="barra-superior">
 
@@ -34,6 +42,9 @@ function BarraSuperior() {
             <ItemNav icon={menu_icon} alt="test" link="#" className="Modo-icon">
                     <ItemDropNav href={'/'} icone={nightMode} onClick={toggleDarkMode()}> 
                         Modo escuro
+                    </ItemDropNav>
+                    <ItemDropNav href={'/'}  onClick={(e)=>sair()}> 
+                        Sair
                     </ItemDropNav>
             </ItemNav>
             <ItemNav icon={conta_icon} alt="test" link="/TelaUsuario" className="Conta-icon"/>

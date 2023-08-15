@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BarraSuperior from '../componentes/BarraSuperior.jsx/barra-superior.jsx'
+import BarraSuperior from '../componentes/BarraSuperior/barra-superior.jsx'
 import Userfoto from '../assets/imgs/arthur.jpg';
 import Basquete from '../assets/icons/basquete.png'
 import Futebol from '../assets/icons/futebol.png'

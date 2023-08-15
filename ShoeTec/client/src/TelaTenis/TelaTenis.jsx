@@ -1,4 +1,4 @@
-import BarraSuperior from "../componentes/BarraSuperior.jsx/barra-superior"
+import BarraSuperior from "../componentes/BarraSuperior/barra-superior.jsx"
 import { useState, useEffect } from "react"
 import Novablast from '../assets/imgs/Novablast.png'
 import Novablast2 from '../assets/imgs/Novablast2.png'

@@ -5,6 +5,17 @@ const getTenis = async(req, res) =>{
     res.status(200).json({"result": result})
 }
 
+const searchTenis = async(req, res) =>{
+    try{
+    const query = await tenisModel.searchTenis(req.body)
+
+    console.log(query)
+    res.status(200).json({'msg': "ok", query: query})
+    } catch(err)  {
+        throw err
+    }
+}
+
 const getTenisById = async (req, res) =>{
     const {id} = req.params
 
@@ -17,4 +28,4 @@ const getTenisById = async (req, res) =>{
 
 }
 
-module.exports = {getTenis, getTenisById}
+module.exports = {getTenis, getTenisById, searchTenis}

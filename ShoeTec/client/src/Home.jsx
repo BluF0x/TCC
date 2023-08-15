@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import BarraSuperior from './componentes/BarraSuperior.jsx/barra-superior.jsx'
+import BarraSuperior from './componentes/BarraSuperior/barra-superior.jsx'
 import TelaBemVindo from './componentes/TelaBemVindo/TelaBemVindo.jsx'
 import SelectTenis from './componentes/SelectTenis/SelectTenis.jsx'
 import ItemTenis from './componentes/ItemTenis/ItemTenis.jsx'

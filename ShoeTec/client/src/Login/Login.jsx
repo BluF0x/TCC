@@ -4,7 +4,8 @@ import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
 import postCred from './postCred';
 import inputValidation from './inputValidation';
 import PopUp  from '../componentes/PopUp/Popup.jsx'
-import popUpTemplate from '../componentes/PopUp/popup'
+import Cookies from 'js-cookie'
+import api from '../services/api';
 import './login.css';
 
 
@@ -180,6 +181,28 @@ function LoginForm(props) {
     const estadoLogin = props.estadoLog
     const setEstadoLogin = props.setEstadoLog
 
+    const logar = async (e) => {
+        e.preventDefault()
+        // console.log(credenciais)
+
+        try{
+            const response = await api.post('/users/login', credenciais)
+
+            const data = response.data.sessao
+            const expira = new Date(Date.parse(data.cookie.expires))
+            const nome = data.username
+
+            console.log(typeof(nome))
+
+            Cookies.set('loggedIn', true, {expires: expira})
+            Cookies.set('username', "Test", {expires: expira})
+
+            window.alert(`Logado com sucesso!`+ "\n" + `Bem vindo(a), ${Cookies.get('username')}`)
+        }catch(err) {
+            console.log(err)
+        }
+    }
+
     return(
     <form className="login-form" key="login">
         <h1 className="login-form-title">
@@ -206,7 +229,7 @@ function LoginForm(props) {
         />
 
         <div className="container-login-form-btn">
-            <button className="login-form-btn">Login</button>
+            <button className="login-form-btn" onClick={(e) => logar(e)} type="submit">Login</button>
         </div>
 
         <div className="text-center">
