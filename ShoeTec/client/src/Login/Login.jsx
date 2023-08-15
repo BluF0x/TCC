@@ -3,14 +3,16 @@ import {Link} from "react-router-dom"
 import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
 import postCred from './postCred';
 import inputValidation from './inputValidation';
-import PopUp  from '../componentes/PopUp/Popup.jsx'
 import Cookies from 'js-cookie'
 import api from '../services/api';
+import Popup from 'reactjs-popup';
 import './login.css';
 
 
 export function Login() {
     const [estadoLogin, setEstadoLogin] = useState(true)
+    const [isPopupOpen, setPopupOpen] = useState(false)
+    const [mensagemQuery, setMensagemQuery] = useState('')
     const [credenciais, setCredenciais] = useState(
         {
             esporte: [],
@@ -33,6 +35,22 @@ export function Login() {
     return (
         <>
 
+        <Popup
+        position="top center"
+        closeOnDocumentClick
+        open={isPopupOpen}
+        >
+            <div className='popup'>
+                <div >{mensagemQuery}</div>
+                <button className='login-form-button' onClick={()=>setPopupOpen(false)}>Fechar</button>
+                
+                <div className='text-center'>
+                    <Link to="/" className='voltar'>Voltar</Link>
+                </div>
+            </div>
+        </Popup>
+        
+
         <div className="container">
             <div className="container-login">
                 <div className={estadoLogin ? "wrap-login" : "wrap-cadastro "}>
@@ -43,12 +61,17 @@ export function Login() {
                             setCred={handleCredenciais} 
                             estadoLog={estadoLogin} 
                             setEstadoLog={setEstadoLogin} 
+                            setPopupOpen={setPopupOpen}
+                            setMensagemQuery={setMensagemQuery}
+                            
                         /> : 
                         <CadastrarForm
                             cred={credenciais} 
                             setCred={handleCredenciais} 
                             estadoLog={estadoLogin} 
                             setEstadoLog={setEstadoLogin} 
+                            setPopupOpen={setPopupOpen}
+                            setMensagemQuery={setMensagemQuery}
                         />
                     }
                 </div>
@@ -180,6 +203,8 @@ function LoginForm(props) {
     const handleCredenciais = props.setCred
     const estadoLogin = props.estadoLog
     const setEstadoLogin = props.setEstadoLog
+    const setPopupOpen = props.setPopupOpen
+    const setMensagemQuery = props.setMensagemQuery
 
     const logar = async (e) => {
         e.preventDefault()
@@ -191,13 +216,16 @@ function LoginForm(props) {
             const data = response.data.sessao
             const expira = new Date(Date.parse(data.cookie.expires))
             const nome = data.username
+            const genero = data.genero
 
-            console.log(typeof(nome))
+            console.log(data)
 
             Cookies.set('loggedIn', true, {expires: expira})
-            Cookies.set('username', "Test", {expires: expira})
+            Cookies.set('username', nome, {expires: expira})
+            Cookies.set('genero', genero, {expires: expira})
 
-            window.alert(`Logado com sucesso!`+ "\n" + `Bem vindo(a), ${Cookies.get('username')}`)
+            setPopupOpen(true)
+            setMensagemQuery("Logado com sucesso!")
         }catch(err) {
             console.log(err)
         }
@@ -248,6 +276,8 @@ function CadastrarForm(props) {
     const handleCredenciais = props.setCred
     const estadoLogin = props.estadoLog
     const setEstadoLogin = props.setEstadoLog
+    const setPopupOpen = props.setPopupOpen
+    const setMensagemQuery = props.setMensagemQuery
 
     const cadastrar = async (e) =>{
         e.preventDefault()
@@ -256,24 +286,20 @@ function CadastrarForm(props) {
 
         //Por enquanto, um alert será usado; mudar depois
         if (queryResult.status > 200 && queryResult.status < 300) {
-            window.alert(`Usuário criado com sucesso!\nCod: ${queryResult.status}`)
+            console.log(queryResult)
+            setPopupOpen(true)
+            setMensagemQuery(`Usuário criado com sucesso!\nCod: ${queryResult.status}`)
             setEstadoLogin(true)
+
         } else {
             console.log(queryResult)
-            window.alert(`Falha ao criar usuário.\nRazão: ${queryResult.response.data.error.details[0].message} \nCod: ${queryResult.response.status}`)
+            setPopupOpen(true)
+            setMensagemQuery(`Falha ao criar usuário.\nRazão: ${queryResult.response.data.error.details[0].message} \nCod: ${queryResult.response.status}`)
         }
     }
 
     return (
         <>
-
-        <PopUp
-            // isAberto={popup.aberto}
-            // mensagem={popup.mensagem}
-            // result={popup.result}
-            // response={popup.response}
-            // status={popup.status}
-        />
 
         <form className="login-form">
             <h1 className="login-form-title">
@@ -319,7 +345,7 @@ function CadastrarForm(props) {
             var={credenciais.confirmPassword} 
             tipo={"password"} 
             steps={[
-            {function: inputValidation.isEqual, params: [credenciais.pass] }
+            {function: inputValidation.isEqual, params: [credenciais.password] }
             ]}
             />
 

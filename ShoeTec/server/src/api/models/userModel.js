@@ -32,7 +32,7 @@ const createUser = async(userData)=>{
 
     return createUser
     } catch (err) {
-        return error;
+        return err;
     }
 }
 

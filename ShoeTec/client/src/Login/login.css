@@ -280,6 +280,12 @@
     left: -5%;
 }
 
+.popup {
+    background-color: red;
+    border-radius: 5px;
+    padding: 20px;
+}
+
 /* TRANSIÇÃO */
 
 @keyframes mudar-login {
@@ -303,3 +309,4 @@
     }
     
 }
+

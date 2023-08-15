@@ -43,7 +43,7 @@ function BarraSuperior() {
                     <ItemDropNav href={'/'} icone={nightMode} onClick={toggleDarkMode()}> 
                         Modo escuro
                     </ItemDropNav>
-                    <ItemDropNav href={'/'}  onClick={(e)=>sair()}> 
+                    <ItemDropNav href={'/'}  onClick={()=>{console.log("hello")}}> 
                         Sair
                     </ItemDropNav>
             </ItemNav>
