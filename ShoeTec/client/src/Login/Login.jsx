@@ -221,8 +221,9 @@ function LoginForm(props) {
             console.log(data)
 
             Cookies.set('loggedIn', true, {expires: expira})
-            Cookies.set('username', nome, {expires: expira})
-            Cookies.set('genero', genero, {expires: expira})
+            Cookies.set('username', data.nome, {expires: expira})
+            Cookies.set('genero', data.genero, {expires: expira})
+            Cookies.set('id', data.userid, {expires: expira})
 
             setPopupOpen(true)
             setMensagemQuery("Logado com sucesso!")

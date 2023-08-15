@@ -10,13 +10,14 @@ function ItemTenis(props) {
     const [totalReview, setTotalReview] = useState()
 
     const navigate = useNavigate()
+    const tenis = props.tenis
 
     const redirectPagTenis= (idTenis) => {
-        navigate('/TelaTenis', {state: {id: idTenis}})
+        navigate('/TelaTenis', {state: {tenis: idTenis}})
     }
 
     useEffect(()=>{
-        setTotalReview(Math.floor(props.review * 10) / 10)
+        setTotalReview(Math.floor(tenis.nota * 10) / 10)
     }, [])
 
     const addEstrela=() =>{
@@ -62,22 +63,22 @@ function ItemTenis(props) {
     }
 
     return (
-        <div className="item-tenis" onClick={()=>{redirectPagTenis(props.id)}}>
+        <div className="item-tenis" onClick={()=>{redirectPagTenis(tenis)}}>
             {/* <Link to="/TelaTenis"> */}
                 <img id="image-tenis" src={tenis}></img>
                 
                     <span className="propriedade-tenis" id="nome">
-                        {props.nome}
+                        {tenis.nome}
                     </span>
                     <span className="propriedade-tenis nota"></span>
                     <span className="propriedade-tenis" id="desc">
-                        {props.desc}
+                        {tenis.descr}
                     </span>
                     <span className="propriedade-tenis nota">
                         Nota: {addEstrela()} 
                     </span>
                     <span className="propriedade-tenis " id="preço">
-                        Preço: R${props.price}
+                        Preço: R${tenis.medium_price}
                     </span>
                 <span><button className="compartilhar">compartilhar</button></span>
             {/* </Link> */}
