@@ -186,17 +186,50 @@ html {
   justify-content: center; 
 }
 
+.estrela:hover{
+  transform: scale(1.09, 1.09);
+}
+
 .star{
   width: 80px;
   filter: invert(77%) sepia(75%) saturate(520%) hue-rotate(3deg) brightness(95%) contrast(100%);
 }
 
 .preco{
-  color: rgb(47, 200, 23);
+  color: rgb(255, 255, 255);
 }
 
 .num-preco{
   font-size: 40pt;
+}
+
+.preco-p:hover{
+  transform: scale(1.8, 1.8) translateX(8%);
+}
+
+.tabela-container {
+  padding: 0 20px 20px 20px;
+  width: 90%;
+}
+.tabela-container h2 , .vertical-table th {
+  color: orange;
+}
+
+.vertical-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.vertical-table th,
+.vertical-table td {
+  border-bottom: 1px solid orange;
+  padding: 8px;
+  text-align: left;
+}
+
+.vertical-table th{
+  border-right: 1px solid orange;
+  width: 20%;
 }
 
 

@@ -88,6 +88,7 @@ export function TelaUsuario() {
     function ListaComentarios() {
         return(
             <div className="comentarios-container">
+                <h2 className="titulo-comentario">Reviews:</h2>
                 <ol className="lista-comentario">
 
                     <li className="li-lista-comentario">

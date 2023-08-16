@@ -69,15 +69,19 @@ export function TelaTenis() {
               <PerfilTenis tenis={tenis}/>
           </div>
           <div className="container-nota">
-        <div className="estrela">
-            {addEstrela()}
-        </div>
+            <div className="estrela">
+              {addEstrela()}
+            </div>
 
-        <div className="frase-nota">
-          A média de avaliação de {NomeTenis} é: {totalReview}
+            <div className="frase-nota">
+            A média de avaliação de {NomeTenis} é: {totalReview}
+            </div>
           </div>
-        </div>
-
+        
+          <div className='container-tabela'>
+            <TabelaInfo/>
+          </div>
+          
       </div>
   )
 }
@@ -167,6 +171,64 @@ function PerfilTenis(props) {
         <p> <span className="p subtitulo">Descrição: </span> {tenis.descr}</p>
       </div>
 
+    </div>
+  );
+}
+
+function TabelaInfo() {
+  const [NomeTenis, setNomeTenis] = useState("Tênis Asics Novablast 3")
+  const [MarcaTenis, setMarcaTenis] = useState("Asics")
+  const [EsporteTenis, setEsporteTenis] = useState("Corrida")
+  const [CategoriaTenis, setCategoriaTenis] = useState("Amortecimento")
+  const [PesoTenis, setPesoTenis] = useState("245g (41M) e 215g (37F)")
+  const [EntressolaTenis, setEntressolaTenis] = useState("FF BLAST™ PLUS")
+  const [SoladoTenis, setSoladoTenis] = useState("AHAR")
+  const [CabedalTenis, setCabedalTenis] = useState("Engineered Mesh")
+  const [DropTenis, setDropTenis] = useState("8mm")
+
+  return (
+    <div className="tabela-container">
+      <h2>Informações</h2>
+      <table className="vertical-table">
+        <tbody>
+          <tr>
+            <th>Nome</th>
+            <td>{NomeTenis}</td>
+          </tr>
+          <tr>
+            <th>Marca</th>
+            <td>{MarcaTenis}</td>
+          </tr>
+          <tr>
+            <th>Esporte</th>
+            <td>{EsporteTenis}</td>
+          </tr>
+          <tr>
+            <th>Categoria</th>
+            <td>{CategoriaTenis}</td>
+          </tr>
+          <tr>
+            <th>Peso</th>
+            <td>{PesoTenis}</td>
+          </tr>
+          <tr>
+            <th>Entressola</th>
+            <td>{EntressolaTenis}</td>
+          </tr>
+          <tr>
+            <th>Solado</th>
+            <td>{SoladoTenis}</td>
+          </tr>
+          <tr>
+            <th>Cabedal</th>
+            <td>{CabedalTenis}</td>
+          </tr>
+          <tr>
+            <th>Drop</th>
+            <td>{DropTenis}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
