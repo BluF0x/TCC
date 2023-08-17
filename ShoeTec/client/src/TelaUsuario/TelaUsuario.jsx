@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BarraSuperior from '../componentes/BarraSuperior/barra-superior'
 import Userfoto from '../assets/imgs/arthur.jpg';
 import Basquete from '../assets/icons/basquete.png'
@@ -11,18 +11,34 @@ import Tênis from '../assets/icons/tênis.png'
 import Handebol from '../assets/icons/handebol.png'
 import Musculacao from '../assets/icons/musculacao.png'
 import Localizacao from '../assets/icons/localizacao.png'
+import api from "../services/api";
 import './tela-usuario.css'
+import Cookies from "js-cookie";
 
 export function TelaUsuario() {
+    const [User, setUser] = useState({})
+
     const [ultimosPosts, setUltimosPosts] = []
-    const [Nome, setNome] = useState("Arthur Bauer Cardoso")
-    const [Esportes, setEsportes] = useState(['https://img.icons8.com/ios-filled/25/000000/basketball.png'])
-    const [Descricao, setDescricao] = useState("1º lugar 10km Giassi Sombrio 2020 sub-24")
-    const [Cidade, seCidade] = useState("São João do Sul")
-    const [Estado, setEstado] = useState("Santa Catarina")
-    const [País, setPaís] = useState("Brasil")
     const [AsicsNovablast, setAsicsNovablast] = useState("Tênis Asics Novablast")
     const [DescricaoComentario, setDescricaoComentario] = useState("O tênis apresenta um bom amortecimento, mas peca quanto à estabilidade.")
+
+    useEffect(() =>{
+
+        try{
+        api.get(`/getUser/${Cookies.get('id')}`)
+        .then((res)=>{
+            console.log(res)
+            if(res.status == 200){
+                console.log(res)
+                setUser(res.data.result[0])
+            }
+        })
+    }
+    catch(err) {
+        console.log(err)
+    }
+
+    },[])
 
     return (
         <div className="container-tela-usuario">
@@ -39,11 +55,11 @@ export function TelaUsuario() {
         return(
             <div className="perfil-container">
                 <div className="perfil-foto">
-                <img className="user-foto" src={Userfoto} alt="Foto Usuário"></img>
+                <img className="user-foto" src={User.picture ? User.picture : Userfoto} alt="Foto Usuário"></img>
                 </div>
                 <div className="perfil-cardname">
                     <h1 className="perfil-nome">
-                        {Nome}
+                        {User.name}
                     </h1>
                 </div>
                 
@@ -60,13 +76,13 @@ export function TelaUsuario() {
                 </div>
                 
                 <div className="perfil-descricao">
-                    <p className="perfil-descricao-p"> {Descricao}</p>
+                    <p className="perfil-descricao-p"> {User.bio}</p>
                 </div>
 
                 <div className="perfil-localizacao">
                     <div className="containerlocal">
                     <img className="favicon" src={Localizacao} alt="Localização"/> 
-                    <p className="descricao-localizacao"> {Cidade}, {Estado} - {País}</p>
+                    <p className="descricao-localizacao"> {User.cidade} {User.estado}  {User.pais}</p>
                     </div>
                 </div>
 

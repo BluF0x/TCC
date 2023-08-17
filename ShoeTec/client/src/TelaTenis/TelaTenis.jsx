@@ -74,7 +74,7 @@ export function TelaTenis() {
             </div>
 
             <div className="frase-nota">
-            A média de avaliação de {NomeTenis} é: {totalReview}
+            A média de avaliação de {NomeTenis} é: {Math.floor(totalReview * 10) / 10}
             </div>
           </div>
         

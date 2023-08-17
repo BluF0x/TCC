@@ -8,14 +8,15 @@ const getUsers = async (req, res) =>{
 }
 
 const getSpecificUser = async (req, res) =>{
-    // try{
+    try{
         const {id} = req.params
         console.log(id)
-        const queryResult = await getSpecificUser("usuario_id", id)
-        return queryResult
-    // }catch(e){
-    //     return res.status(400).json({"error:":e})
-    // }
+        const queryResult = await userModel.getSpecificUser("usuario_id", id)
+        console.log(queryResult)
+        return res.status(200).json({result: queryResult})
+    }catch(e){
+        return res.status(400).json({"error:":e})
+    }
 }
 
 //devias ser createUsers 

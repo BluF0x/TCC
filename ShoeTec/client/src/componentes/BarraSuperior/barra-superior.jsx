@@ -51,7 +51,8 @@ function BarraSuperior() {
 
             <BarraDePesquisa></BarraDePesquisa>
 
-            <ItemNav icon={logo} class={"menu-nav menu-no-bg"} alt="test" link="/" />
+            <ItemNav  class={"menu-nav menu-no-bg"} onClick={(e)=>{console.log("hello")}} alt="Sair"  />
+            <ItemNav icon={logo} class={"menu-nav menu-no-bg"} alt="Início" link="/" />
             
 
         </div>
