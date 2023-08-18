@@ -213,6 +213,7 @@ function LoginForm(props) {
         try{
             const response = await api.post('/users/login', credenciais)
 
+
             const data = response.data.sessao
             const expira = new Date(Date.parse(data.cookie.expires))
             const nome = data.username
@@ -221,7 +222,7 @@ function LoginForm(props) {
             console.log(data)
 
             Cookies.set('loggedIn', true, {expires: expira})
-            Cookies.set('username', data.nome, {expires: expira})
+            Cookies.set('username', data.username, {expires: expira})
             Cookies.set('genero', data.genero, {expires: expira})
             Cookies.set('id', data.userid, {expires: expira})
 
@@ -229,6 +230,8 @@ function LoginForm(props) {
             setMensagemQuery("Logado com sucesso!")
         }catch(err) {
             console.log(err)
+            setPopupOpen(true)
+            setMensagemQuery("Erro ao logar")
         }
     }
 

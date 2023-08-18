@@ -79,14 +79,23 @@ const loginUser = async (req, res) =>{
     }
 }
 
-    const logoutUser = async (req, res) => {
-        req.session.destroy((err) => {
-           if (err) {
-            return res.status(500).json({error: 'Erro ao sair'})
-           } 
-           res.clearCookie('connection.sid')
-           return res(200).json({success: trun, "msg": "Saiu com sucesso"})
-        })
-    }
+const logoutUser = async (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+        return res.status(500).json({error: 'Erro ao sair'})
+        } 
+        res.clearCookie('connection.sid')
+        return res.status(200).json({success: true, "msg": "Saiu com sucesso"})
+    })
+}
 
-module.exports = {getUsers, setUsers, deleteUsers, getSpecificUser, loginUser}
+const checkSession = async (req, res) => {
+    try{
+    console.log(req.session)
+    return res.status(200).json({session: req.session})
+    } catch(err) {
+        return res.status(400).json({Erro: err})
+    }
+}
+
+module.exports = {getUsers, setUsers, deleteUsers, getSpecificUser, loginUser, logoutUser, checkSession}

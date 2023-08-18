@@ -1,0 +1,133 @@
+.barra-superior {
+    position: fixed;
+    width: 100%;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    min-height: var(--altura-barra-superior); 
+    background: var(--cor-primaria);
+    z-index: 10;
+    /* box-shadow: 0px 1px 20px 20px lightgrey; */
+}
+
+/* Barra de pesquisa */
+
+#barra-pesquisa{
+    flex-grow: 2;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    display: flex;
+    align-items: left;
+    height: calc(var(--altura-barra-superior) * 0.6);
+    background-color: lightgrey;
+    border-radius: 10px;
+}
+
+#pesquisar {
+    flex:content;
+    background-color: white ;
+    border-radius: 10px 0px 0px 10px;
+    margin-right: 1px;
+    padding: 5px;
+    border: none;
+}
+
+.btn-filtrar {
+    background-color: white;
+    border: none;
+    border-radius: 0px 10px 10px 0px;
+    transition: 200ms;
+}
+
+.btn-filtrar:hover {
+    background-color: lightgrey;
+    transition: 100ms;
+}
+
+
+.menu-nav {
+    border-radius: 50%;
+    background-color: var(--cor-secundaria);
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    aspect-ratio: 1/1;
+    margin: 10px;
+    padding: 2px;
+    transition: background-color 300ms;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    #barra-pesquisa{
+        margin-right: 0vw;
+        margin-left: 1vw;
+    }
+
+    .menu-nav {
+        margin: 2px;
+        padding: 3px;
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    #barra-pesquisa{
+        margin-right: 1vw;
+        margin-left: 0vw;
+    }
+
+    .menu-nav {
+        margin: 1px;
+        padding: 1px;
+    }
+  }
+
+.menu-nav:hover {
+    background-color: rgb(190, 94, 94);
+    
+}
+
+.menu-no-bg {
+    background-color: var(--cor-primaria);
+    transition: transform background-color 300ms;
+}
+
+.menu-no-bg:hover {
+    background-color: var(--cor-primaria);
+    transform: scale(1.2);
+    transition: 300ms
+}
+
+
+.menu-list {
+    /* position: absolute; */
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+    background-color: red; 
+    /* transform: translate(80px, 50px); */
+    width: 200px;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.menu-list-item {
+    display: flex;
+    flex-direction: row;
+    padding: 5%;
+    margin-top: 8px;
+    border-radius: 10px;
+    color: white;
+    transition: background-color, 300ms;
+    cursor: pointer;
+}
+
+.menu-list-item:hover {
+    background-color: var(--cor-secundaria);
+}
+
+.iconeBtn {
+    width: 20%;
+}

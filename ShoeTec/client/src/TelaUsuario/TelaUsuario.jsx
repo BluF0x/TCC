@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import BarraSuperior from '../componentes/BarraSuperior/barra-superior'
+// import BarraSuperior from '../componentes/BarraSuperior/barra-superior'
+import BarraNav from "../componentes/BarraNav/BarrabNav";
 import Userfoto from '../assets/imgs/arthur.jpg';
 import Basquete from '../assets/icons/basquete.png'
 import Futebol from '../assets/icons/futebol.png'
@@ -42,7 +43,7 @@ export function TelaUsuario() {
 
     return (
         <div className="container-tela-usuario">
-            <BarraSuperior/>
+            <BarraNav />
             <div className="space">🥚🐰</div>
             <div className="container-content">
                 <PerfilUsuario/>

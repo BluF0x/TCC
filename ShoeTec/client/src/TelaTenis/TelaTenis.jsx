@@ -1,4 +1,4 @@
-import BarraSuperior from "../componentes/BarraSuperior/barra-superior.jsx"
+import BarraNav from "../componentes/BarraNav/BarrabNav";
 import { useState, useEffect } from "react"
 import Novablast from '../assets/imgs/Novablast.png'
 import Novablast2 from '../assets/imgs/Novablast2.png'
@@ -61,7 +61,7 @@ export function TelaTenis() {
   return(
       <div className="container-tela-tenis">
           <div >
-              <BarraSuperior/>
+              <BarraNav/>
           </div>
           <div className="barra">!</div>
           <div className="container-content">

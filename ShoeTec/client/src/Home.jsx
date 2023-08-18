@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import BarraSuperior from './componentes/BarraSuperior/barra-superior.jsx'
+// import BarraSuperior from './componentes/BarraSuperior/barra-superior.jsx'
+import BarrabNav from './componentes/BarraNav/BarrabNav.jsx'
 import TelaBemVindo from './componentes/TelaBemVindo/TelaBemVindo.jsx'
 import SelectTenis from './componentes/SelectTenis/SelectTenis.jsx'
 import ItemTenis from './componentes/ItemTenis/ItemTenis.jsx'
@@ -29,7 +30,7 @@ function Home() {
   return (
     <div className={`App ${darkMode}`}>
       <div>
-        <BarraSuperior />
+        <BarrabNav />
       </div>
       <div className='conteudo'>
         <div className='tela-bem-vindo'>
