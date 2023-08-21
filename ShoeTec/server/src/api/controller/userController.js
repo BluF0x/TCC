@@ -29,6 +29,8 @@ const setUsers = async (req, res) =>{
 
     const createUser = await userModel.createUser(req.body)
 
+
+
     // return res.status(201)
     return res.status(201).json({"msg": "OK", "body": createUser})
 }
@@ -48,6 +50,7 @@ const loginUser = async (req, res) =>{
     try {
         if (email && password)  {
             user = await userModel.getSpecificUser("email", email)
+            console.log(user)
             
             if (user.name === "Error") {
                 return res.status(400).json({error: query.message, "stack" : query.stack})
@@ -57,7 +60,8 @@ const loginUser = async (req, res) =>{
                 return res.json(req.session)
             }
 
-            const passMatch = await bcrypt.compare(password, user[0].pass)
+            const passMatch = await bcrypt.compare(password, user[0].password)
+            console.log(passMatch)
             if (passMatch){
                 let session = req.session
                 session.username = user[0].name

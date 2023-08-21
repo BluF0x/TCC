@@ -100,7 +100,7 @@
 .drop-nav {
     position: absolute;
     display: flex;
-    align-items: left;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
     background-color: var(--cor-primaria);
