@@ -55,7 +55,8 @@
 }
 
 #desc {
-    margin: 6px;
+    margin: 0;
+    font-size: 9pt;
 }
 
 .propriedade-tenis {
@@ -70,18 +71,20 @@
     color: white;
     border: none;
     border-radius: 5px;
-    background-color: rebeccapurple;
-    margin: 10px;
+    background-color: white;
+    color: var(--cor-contraste);
+    margin: 0 0 10px 0;
     padding: 5px;
     transition: 300ms background-color;
 }
 
 .compartilhar:hover {
-    background-color: purple;
+    background-color: orange;
+    color: white;
     cursor: pointer;
 }
 
-.star {
+.stars{
     width: 10%;
     filter: invert(77%) sepia(75%) saturate(520%) hue-rotate(3deg) brightness(95%) contrast(100%);
 }
@@ -89,5 +92,72 @@
 .nota {
     flex-direction: row;
     align-items: center;
-    
+    margin: 0;
 }
+
+#nome{
+    font-weight: bold;
+    margin: 0;
+    font-size: 12pt;
+}
+
+#preço{
+    font-weight: bold;
+}
+
+@media screen and (max-width: 500px) {
+    .item-tenis {
+        max-width: 180px;
+
+        min-width: 150px;
+        min-height: 210px;
+        margin: 6px;
+    }
+
+    #image-tenis {
+        aspect-ratio: 16/9;
+        max-width: 105px;
+        max-height: 85px;
+    
+        min-width: 110px;
+        min-height: 90px;
+    
+        border-radius: 20px;
+        object-fit: cover;
+    
+        align-self: center;
+    
+        padding: 7px;
+    }
+    
+    #desc {
+        margin: 0;
+        font-size: 6pt;
+    }
+
+    .nota {
+        margin: 0;
+        font-size: 7pt;
+    }
+    
+    .compartilhar {
+        color: white;
+        border: none;
+        border-radius: 5px;
+        background-color: white;
+        color: var(--cor-contraste);
+        margin: 0 0 5px 0;
+        padding: 5px;
+        transition: 300ms background-color;
+    }
+
+    #nome{
+        font-size: 9pt;
+    }
+
+    .compartilhar {
+        font-size: 8pt;
+        padding: 4px;
+    }
+    
+  }

@@ -41,11 +41,11 @@ export function Login() {
         open={isPopupOpen}
         >
             <div className='popup'>
-                <div >{mensagemQuery}</div>
+                <div className='mensagem-login'>{mensagemQuery}</div>
                 <button className='login-form-button' onClick={()=>setPopupOpen(false)}>Fechar</button>
                 
-                <div className='text-center'>
-                    <Link to="/" className='voltar'>Voltar</Link>
+                <div className='text-center-popup'>
+                    <Link to="/" className='voltar-popup'>Voltar</Link>
                 </div>
             </div>
         </Popup>

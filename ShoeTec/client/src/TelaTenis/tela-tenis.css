@@ -20,8 +20,8 @@ html {
 .container-content{
   display: grid;
   grid-template-columns: repeat(14, 1fr);
-  margin: 10px;
-  gap: 1%;
+  margin: 10px 30px 30px -10px;
+  gap: 0.3;
 }
 
 .container-slide {
@@ -202,11 +202,8 @@ html {
   font-size: 40pt;
 }
 
-.preco-p:hover{
-  transform: scale(1.8, 1.8) translateX(8%);
-}
-
 .tabela-container {
+  margin-top: 20px;
   padding: 0 20px 20px 20px;
   width: 90%;
 }
@@ -224,15 +221,20 @@ html {
   width: 100%;
 }
 
-.vertical-table th,
 .vertical-table td {
   border-bottom: 1px solid orange;
   padding: 8px;
   text-align: left;
 }
 
+.vertical-table th {
+  border-bottom: 1px solid white;
+  padding: 8px;
+  text-align: left;
+}
+
 .vertical-table th{
-  border-right: 1px solid orange;
+  border-right: 1px solid var(--cor-terciaria);
   width: 20%;
 }
 
@@ -252,9 +254,14 @@ html {
   .container-content{
       float: none;
       display: block;
-      width: 100%;
-      margin: 0;
+      width: 99,8%;
+      margin:  10px 0 0 3px;
   }
+  
+  .container-descricao{
+    width: 99%;
+    padding: 10px;
+}
   .container-slide{
     display: inline-block;
   }
@@ -263,6 +270,16 @@ html {
       margin: 1px 5px 10px 5px;
       padding-top: 0;
   }
+}
+
+@media screen and (max-width: 1000px) {
+  .container-content{
+    width: 98%;
+}
+.container-descricao{
+  width: 99.5%;
+  padding: 10px;
+}
 }
 
 @media screen and (max-width: 600px) {
@@ -365,6 +382,10 @@ html {
     display: flex;
     justify-content: center;
   }
+  .container-descricao{
+    width: 97%;
+    padding: 10px;
+}
 }
 
 

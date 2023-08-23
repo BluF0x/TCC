@@ -5,23 +5,24 @@
 
 .container-content{
     display: grid;
-    grid-template-columns: repeat(17, 1fr);
+    grid-template-columns: repeat(14, 1fr);
     margin: 10px;
     gap: 1%;
 }
 
 .perfil-container {
     background-color: #ff8100;
-    grid-column: 1/6;
+    grid-column: 1/7;
     text-align: center;
     width: 100%;
     border-radius: 15px;
+    margin: 0px 0px 0px 20px;
 }
 
 .comentarios-container {
-    grid-column: 6/18;
+    grid-column: 7/15;
     grid-row: 1/4;
-    
+    margin-left: 20px;
 }
 
 /* perfil-container */
@@ -102,22 +103,40 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1230px) {
+    .user-foto{
+        margin-top: 5px;
+    }
+    .container-content{
+        float: none;
+        display: inline-block;
+    }
+    .li-lista-comentario {
+        margin-right: 7px;
+        margin-left: 5px;
+    }
+    .perfil-container {
+        width: 99%;
+        margin: 8px 0px 10px 4px;
+    }
+    .comentarios-container {
+        margin-left: 10px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
     .container-content{
         float: none;
         display: block;
-        width: 100%;
-        margin: 0;
+        padding-left: 10px;
     }
-    .perfil-container {
+  }
+
+  @media screen and (max-width: 600px) {
+    .container-content{
+        float: none;
         display: block;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    
-    .li-lista-comentario {
-        margin-right: 3px;
-        margin-left: 2px;
+        padding-left: 0px;
     }
   }
 
