@@ -17,7 +17,7 @@ import './tela-usuario.css'
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom"
 
-export function TelaUsuario() {
+export function EditarPerfil() {
     const [User, setUser] = useState({})
 
     const [ultimosPosts, setUltimosPosts] = []
@@ -67,7 +67,7 @@ export function TelaUsuario() {
                     </h1>
                 </div>
 
-                <div className="perfil-icons">
+                {/* <div className="perfil-icons">
                     <img className="favicon" src={Basquete} alt="Basquete" />
                     <img className="favicon" src={Futebol} alt="Futebol" />
                     <img className="favicon" src={Futsal} alt="Futsal" />
@@ -77,7 +77,7 @@ export function TelaUsuario() {
                     <img className="favicon" src={Ciclismo} alt="Ciclismo" />
                     <img className="favicon" src={Musculacao} alt="Musculacao" />
                     <img className="favicon" src={Tênis} alt="Tênis" />
-                </div>
+                </div> */}
 
                 <div className="perfil-descricao">
                     <p className="perfil-descricao-p"> {User.bio}</p>
@@ -92,9 +92,7 @@ export function TelaUsuario() {
 
                 <div className="perfil-edit">
                     
-                    <Link to={isLogged ? "/EditarPerfil" : "/Login"} className="btn-edit-profile">
-                        <h4>Editar Perfil</h4>
-                    </Link>
+                    
                 </div>
 
 

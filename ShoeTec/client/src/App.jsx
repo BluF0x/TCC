@@ -9,6 +9,7 @@ import {TelaUsuario} from './TelaUsuario/TelaUsuario.jsx'
 import {TelaADM} from './TelaAdm/TelaADM.jsx'
 import {TelaTenis} from './TelaTenis/TelaTenis.jsx'
 import './App.css'
+import { EditarPerfil } from "./TelaUsuario/EditarPerfil";
 
 function App() {
   /*
@@ -27,6 +28,7 @@ function App() {
         <Route path="/TelaUsuario" Component={TelaUsuario} />
         <Route path="/TelaADM" Component={TelaADM} />
         <Route path="/TelaTenis" Component={TelaTenis} />
+        <Route path="/EditarPerfil" Component={EditarPerfil} />
       </Routes>
     </Router>
   )

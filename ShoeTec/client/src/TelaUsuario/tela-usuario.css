@@ -76,6 +76,7 @@
 
 .btn-edit-profile {
         margin: 0 auto;
+        color: black;
         font-size: 10px;
         border: none;
         border-radius: 5px;
@@ -101,6 +102,7 @@
 
 .btn-edit-profile:hover {
     cursor: pointer;
+    transform: scale(1.1, 1.1);
 }
 
 @media screen and (max-width: 1230px) {

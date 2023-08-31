@@ -79,7 +79,7 @@ export function TelaTenis() {
           </div>
         
           <div className='container-tabela'>
-            <TabelaInfo/>
+            <TabelaInfo tenis={tenis}/>
           </div>
           
       </div>
@@ -176,57 +176,88 @@ function PerfilTenis(props) {
 }
 
 function TabelaInfo() {
-  const [NomeTenis, setNomeTenis] = useState("Tênis Asics Novablast 3")
-  const [MarcaTenis, setMarcaTenis] = useState("Asics")
-  const [EsporteTenis, setEsporteTenis] = useState("Corrida")
-  const [CategoriaTenis, setCategoriaTenis] = useState("Amortecimento")
-  const [PesoTenis, setPesoTenis] = useState("245g (41M) e 215g (37F)")
-  const [EntressolaTenis, setEntressolaTenis] = useState("FF BLAST™ PLUS")
-  const [SoladoTenis, setSoladoTenis] = useState("AHAR")
-  const [CabedalTenis, setCabedalTenis] = useState("Engineered Mesh")
-  const [DropTenis, setDropTenis] = useState("8mm")
+  const params = useLocation()
+  const tenis = params.state.tenis
+
+  const [totalReview, setTotalReview] = useState(tenis.nota)
+  const [NomeTenis, setNomeTenis] = useState(tenis.nome)
+  const [MarcaTenis, setMarcaTenis] = useState(tenis.marca)
+  const [EsporteTenis, setEsporteTenis] = useState(tenis.esporte)
+  const [CategoriaTenis, setCategoriaTenis] = useState(tenis.categoria)
+  const [PesoTenis, setPesoTenis] = useState(tenis.peso)
+  const [EntressolaTenis, setEntressolaTenis] = useState(tenis.entressola)
+  const [TravaTenis, setTravaTenis] = useState(tenis.trava)
+  const [SoladoTenis, setSoladoTenis] = useState(tenis.solado)
+  const [CabedalTenis, setCabedalTenis] = useState(tenis.cabedal)
+  const [DropTenis, setDropTenis] = useState(tenis.dropt)
+  
 
   return (
     <div className="tabela-container">
       <h2>Informações</h2>
       <table className="vertical-table">
         <tbody>
-          <tr>
-            <th>Nome</th>
-            <td>{NomeTenis}</td>
-          </tr>
-          <tr>
-            <th>Marca</th>
-            <td>{MarcaTenis}</td>
-          </tr>
-          <tr>
-            <th>Esporte</th>
-            <td>{EsporteTenis}</td>
-          </tr>
-          <tr>
-            <th>Categoria</th>
-            <td>{CategoriaTenis}</td>
-          </tr>
-          <tr>
-            <th>Peso</th>
-            <td>{PesoTenis}</td>
-          </tr>
-          <tr>
-            <th>Entressola</th>
-            <td>{EntressolaTenis}</td>
-          </tr>
-          <tr>
-            <th>Solado</th>
-            <td>{SoladoTenis}</td>
-          </tr>
-          <tr>
-            <th>Cabedal</th>
-            <td>{CabedalTenis}</td>
-          </tr>
-          <tr>
-            <th>Drop</th>
-            <td>{DropTenis}</td>
-          </tr>
+          {/* Verifica se cada valor é verdadeiro antes de renderizar a linha da tabela. */}
+        {NomeTenis && (
+            <tr>
+              <th>Nome</th>
+              <td>{NomeTenis}</td>
+            </tr>
+          )}
+          {MarcaTenis && (
+            <tr>
+              <th>Marca</th>
+              <td>{MarcaTenis}</td>
+            </tr>
+          )}
+          {EsporteTenis && (
+            <tr>
+              <th>Esporte</th>
+              <td>{EsporteTenis}</td>
+            </tr>
+          )}
+          {CategoriaTenis && (
+            <tr>
+              <th>Categoria</th>
+              <td>{CategoriaTenis}</td>
+            </tr>
+          )}
+          {PesoTenis && (
+            <tr>
+              <th>Peso</th>
+              <td>{PesoTenis}</td>
+            </tr>
+          )}
+          {EntressolaTenis && (
+            <tr>
+              <th>Entressola</th>
+              <td>{EntressolaTenis}</td>
+            </tr>
+          )}
+          {TravaTenis && (
+            <tr>
+              <th>Trava</th>
+              <td>{TravaTenis}</td>
+            </tr>
+          )}
+          {SoladoTenis && (
+            <tr>
+              <th>Solado</th>
+              <td>{SoladoTenis}</td>
+            </tr>
+          )}
+          {CabedalTenis && (
+            <tr>
+              <th>Cabedal</th>
+              <td>{CabedalTenis}</td>
+            </tr>
+          )}
+          {DropTenis && (
+            <tr>
+              <th>Drop</th>
+              <td>{DropTenis}</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
