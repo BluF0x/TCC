@@ -25,7 +25,7 @@ function App() {
       <Routes>
         <Route exact path="/" Component={Home} />
         <Route path="/Login" Component={Login} />
-        <Route path="/TelaUsuario" Component={TelaUsuario} />
+        <Route path="/TelaUsuario/:id" Component={TelaUsuario} />
         <Route path="/TelaADM" Component={TelaADM} />
         <Route path="/TelaTenis" Component={TelaTenis} />
         <Route path="/EditarPerfil" Component={EditarPerfil} />

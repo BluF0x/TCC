@@ -1,0 +1,23 @@
+.main-container {
+    margin: 2vw;
+}
+
+.container-comentario{
+    border: 1px black solid;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-comentario {
+    margin: 10px;
+    transform: translateX(10px);
+}
+
+.reply {
+    min-height: 30px;
+}
+
+.button {
+    max-width: 10vw;
+}

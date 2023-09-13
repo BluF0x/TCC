@@ -7,12 +7,12 @@ const getTenis = async(req, res) =>{
 
 const searchTenis = async(req, res) =>{
     try{
-    const query = await tenisModel.searchTenis(req.body)
+        const [query] = await tenisModel.searchTenis(req.body)
 
-    console.log(query)
-    res.status(200).json({'msg': "ok", query: query})
+        console.log(query)
+        res.status(200).json({'msg': "ok", query: query})
     } catch(err)  {
-        throw err
+        res.status(400).json({erro: err})
     }
 }
 

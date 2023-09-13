@@ -17,6 +17,10 @@ html {
     width: 100%;
 }
 
+.container-tela-tenis {
+  padding-bottom: 100px;
+}
+
 .container-content{
   display: grid;
   grid-template-columns: repeat(14, 1fr);

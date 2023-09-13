@@ -14,6 +14,8 @@ const getTenis = async() =>{
 * data: [] usado na execução da conexão 
 */
 const searchTenis = async(queryObj) => {
+    console.log(queryObj)
+
     try {
         // args é um array que depois é concatenado em uma string formando a query 
         const args = [`SELECT * FROM tenis`]
@@ -21,19 +23,13 @@ const searchTenis = async(queryObj) => {
         //checa se é ordenado e por onde é ordenado
         // if (queryObj.order.isTrue) args.push(`ORDER BY ${queryObj.order.argument}`)
         args.push('WHERE')
-        args.push(...queryObj.arguments)
-
+        args.push(queryObj.nome)
+        args.push(';')
 
         const finalArg = args.join(" ")
-                
+        console.log(typeof(finalArg))
 
-        console.log(finalArg)
-        const data = ["Nike", 4]
-
-
-        
-        console.log(typeof(queryObj.data))
-        const query = await connection.execute(args, ['Nike', 4] )
+        const query = await connection.execute(finalArg, ["Nike"])
         return query
 
     } catch (err) {

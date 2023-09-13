@@ -15,9 +15,10 @@ import Localizacao from '../assets/icons/localizacao.png'
 import api from "../services/api";
 import './tela-usuario.css'
 import Cookies from "js-cookie";
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 export function TelaUsuario() {
+    const {id} = useParams()
     const [User, setUser] = useState({})
 
     const [ultimosPosts, setUltimosPosts] = []
@@ -25,9 +26,10 @@ export function TelaUsuario() {
     const [DescricaoComentario, setDescricaoComentario] = useState("O tênis apresenta um bom amortecimento, mas peca quanto à estabilidade.")
 
     useEffect(() => {
+        console.log(id)
 
         try {
-            api.get(`/getUser/${Cookies.get('id')}`)
+            api.get(`/getUser/${id}`)
                 .then((res) => {
                     console.log(res)
                     if (res.status == 200) {

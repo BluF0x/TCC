@@ -1,4 +1,5 @@
 import BarraNav from "../componentes/BarraNav/BarrabNav";
+import Comentarios from "../componentes/Comentarios/Comentarios";
 import { useState, useEffect } from "react"
 import Novablast from '../assets/imgs/Novablast.png'
 import Novablast2 from '../assets/imgs/Novablast2.png'
@@ -7,6 +8,7 @@ import estrelaMeia from '../assets/svg/half_star.svg';
 import estrela from '../assets/svg/star.svg';
 import { useLocation } from "react-router-dom"
 import './tela-tenis.css'
+import api from "../services/api";
 
 export function TelaTenis() {
   const params = useLocation()
@@ -81,6 +83,8 @@ export function TelaTenis() {
           <div className='container-tabela'>
             <TabelaInfo tenis={tenis}/>
           </div>
+
+          <Comentarios referenceId={tenis.tenis_id}/>
           
       </div>
   )
@@ -88,7 +92,6 @@ export function TelaTenis() {
 
 function Slider(props) {
   const tenis = props.tenis
-  console.log(tenis)
 
   const [NomeTenis, setNomeTenis] = useState(tenis.nome)
   const [count, setCount] = useState(1);
@@ -136,7 +139,6 @@ function Slider(props) {
           <label for="slider-3" className="manual-btn"></label>
           <label for="slider-4" className="manual-btn"></label>
         </div>
-
     
     </div>
 

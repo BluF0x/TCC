@@ -21,7 +21,7 @@ function TelaBemVindo() {
             </div>
             <div className="background">
             </div>
-            <Link to={isLogged ? "/TelaUsuario" : "/Login"} className="menus menu-entrar">
+            <Link to={isLogged ? `/TelaUsuario/${Cookies.get("id")}` : "/Login"} className="menus menu-entrar">
                 {isLogged ? "Tela de usuário" : "Entrar"}
             </Link>
             

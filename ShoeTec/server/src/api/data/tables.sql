@@ -89,6 +89,13 @@ ADD img2 VARCHAR(255) NOT NULL,
 ADD img3 VARCHAR(255) NOT NULL,
 ADD img4 VARCHAR(255) NOT NULL;
 
+-- Adiciona as colunas likes, e dislikes, e remove is_review, por ser redundante
+
+ALTER TABLE post
+ADD likes INT NOT NULL DEFAULT 0, -- Teoricamente, é redundante colocar default de uma int como 0, mas facilita deixar explícito
+ADD dislikes INT NOT NULL DEFAULT 0,
+DROP COLUMN is_review;
+
 
 DROP TABLE Users;
 DROP TABLE Post;
