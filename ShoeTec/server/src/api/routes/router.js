@@ -14,6 +14,7 @@ router.get('/', (req, res)=>{
 router.get('/users', usersController.getUsers) //Proteger
 router.post('/users', userMiddleware.validateInput, usersController.setUsers)
 router.delete('/users/:id', usersController.deleteUsers) //Proteger
+router.post('/edit', usersController.updatUser)
 router.get('/getUser/:id', usersController.getSpecificUser)
 router.post('/users/login', usersController.loginUser)
 router.get('/userLogout', usersController.logoutUser)

@@ -18,7 +18,7 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom"
 
 export function TelaUsuario() {
-    const {id} = useParams()
+    const { id } = useParams()
     const [User, setUser] = useState({})
 
     const [ultimosPosts, setUltimosPosts] = []
@@ -26,7 +26,6 @@ export function TelaUsuario() {
     const [DescricaoComentario, setDescricaoComentario] = useState("O tênis apresenta um bom amortecimento, mas peca quanto à estabilidade.")
 
     useEffect(() => {
-        console.log(id)
 
         try {
             api.get(`/getUser/${id}`)
@@ -57,6 +56,37 @@ export function TelaUsuario() {
 
     function PerfilUsuario() {
         const isLogged = Cookies.get('loggedIn')
+        const [userSports, setUserSports] = useState([]);
+
+        useEffect(() => {
+
+            try {
+                api.get(`/getUser/${id}`)
+                    .then((res) => {
+                        console.log(res)
+                        if (res.status == 200) {
+                            console.log(res)
+                            setUserSports(res.data.result[0].esportes);
+                        }
+                    })
+            }
+            catch (err) {
+                console.log(err)
+            }
+    
+        }, [])
+    
+
+        const sportIcons = {
+            futebol: Futebol,
+            futsal: Futsal,
+            corrida: Corrida,
+            basquete: Basquete,
+            voleibal: Voleibol,
+            tenis: Tênis,
+            handebol: Handebol,
+            musculacao: Musculacao
+        };
 
         return (
             <div className="perfil-container">
@@ -70,15 +100,9 @@ export function TelaUsuario() {
                 </div>
 
                 <div className="perfil-icons">
-                    <img className="favicon" src={Basquete} alt="Basquete" />
-                    <img className="favicon" src={Futebol} alt="Futebol" />
-                    <img className="favicon" src={Futsal} alt="Futsal" />
-                    <img className="favicon" src={Voleibol} alt="Voleibol" />
-                    <img className="favicon" src={Handebol} alt="Handebol" />
-                    <img className="favicon" src={Corrida} alt="Corrida" />
-                    <img className="favicon" src={Ciclismo} alt="Ciclismo" />
-                    <img className="favicon" src={Musculacao} alt="Musculacao" />
-                    <img className="favicon" src={Tênis} alt="Tênis" />
+                    {userSports.map((sport) => (
+                        <img className="favicon" src={sportIcons[sport]} alt={sport} key={sport} />
+                    ))}
                 </div>
 
                 <div className="perfil-descricao">
@@ -88,12 +112,12 @@ export function TelaUsuario() {
                 <div className="perfil-localizacao">
                     <div className="containerlocal">
                         <img className="favicon" src={Localizacao} alt="Localização" />
-                        <p className="descricao-localizacao"> {User.cidade} {User.estado}  {User.pais}</p>
+                        <p className="descricao-localizacao"> {User.cidade}, {User.estado} - {User.pais}</p>
                     </div>
                 </div>
 
                 <div className="perfil-edit">
-                    
+
                     <Link to={isLogged ? "/EditarPerfil" : "/Login"} className="btn-edit-profile">
                         <h4>Editar Perfil</h4>
                     </Link>

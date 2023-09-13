@@ -97,6 +97,12 @@ ADD dislikes INT NOT NULL DEFAULT 0,
 DROP COLUMN is_review;
 
 
+-- "categoria" desconto vai ser o valor de desconto (10%, R$100 OFF) 
+-- "cupom" é o link do site
+ALTER TABLE Tenis
+ADD desconto VARCHAR(255),
+ADD cupom VARCHAR(255);
+
 DROP TABLE Users;
 DROP TABLE Post;
 DROP TABLE Tenis;

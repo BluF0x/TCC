@@ -2,6 +2,7 @@ import React from "react"
 import {Link} from "react-router-dom"
 import homen from "../../assets/imgs/homen.jpg"
 import Cookies from "js-cookie"
+import { useState, useEffect } from "react";
 import "../../index.css"
 import "./menu-bem-vindo.css"
 

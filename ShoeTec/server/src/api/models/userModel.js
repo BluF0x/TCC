@@ -36,6 +36,23 @@ const createUser = async(userData)=>{
     }
 }
 
+ const updateUser = async (id, userData) => {
+    try {
+        const { name, pais, estado, cidade, genero, esporte, bio } = userData;
+
+        const values = [name, pais, estado, cidade, genero, esporte, bio, id];
+                
+        const args = `UPDATE Users SET name=?, pais=?, estado=?, cidade=?, genero=?, esportes=?, bio=? WHERE usuario_id=?`;
+
+        const [updateUser] = await connection.execute(args, values);
+
+        return updateUser;
+    } catch (err) {
+        return err;
+    }
+};
+ 
+
 const delUser = async(id) =>{
     const args = 'DELETE FROM users WHERE usuario_id=?'
     const deleteUser = await connection.execute(args, [id])
@@ -55,4 +72,4 @@ const loginUser = async(email, pass) =>{
     }
 }
 
-module.exports = {getUsers, createUser, delUser, getSpecificUser, loginUser}
+module.exports = {getUsers, createUser, delUser, getSpecificUser, loginUser, updateUser}

@@ -270,9 +270,11 @@
 }
 
 .popup {
-    background-color: red;
+    background-color: #ff4700;
     border-radius: 5px;
     padding: 20px;
+    border: 2px solid #d1d1d1;
+    box-shadow: 10px 10px #d1d1d1;
 }
 
 .mensagem-login{
@@ -287,7 +289,7 @@
 .voltar-popup {
     
     color: white;
-    background-color: orange;
+    background-color: var(--cor-secundaria);
     padding: 20px 25px 20px 25px;
     font-size: 13pt;
     border-radius: 10px;
@@ -305,7 +307,7 @@
 .login-form-button{
     padding: 20px 25px 20px 25px;
     border-radius: 10px;
-    background-color: var(--cor-secundaria);
+    background-color: var(--cor-primaria);
     font-size: 13pt;
     color: white;
     border: none;
@@ -313,7 +315,11 @@
     cursor: pointer;
 }
 
-.login-form-button:hover, .text-center-popup:hover{
+.login-form-button:hover{
+    transform: scale(1.07,1.07);
+}
+
+.text-center-popup:hover{
     transform: scale(1.07,1.07);
 }
 

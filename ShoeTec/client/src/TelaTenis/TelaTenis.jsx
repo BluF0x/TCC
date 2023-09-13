@@ -161,9 +161,14 @@ function PerfilTenis(props) {
       </div>
     
       <div className="tenis preco">
-        <p className='p preco-p'><span className="subtitulo">R$ </span>  <span className='num-preco'>{tenis.medium_price}</span></p>
+        <p className='p preco-p'><span className="preco-p">R$ </span>  <span className='num-preco'>{tenis.medium_price}</span></p>
       </div>
 
+      {tenis.desconto && (
+      <div className="tenis cupom">
+        <p className='p cupom-p'><a className="tipo-cupom" href={tenis.cupom} target="_blank">{tenis.desconto} </a></p>
+      </div>
+      )}
 
       <div className="tenis esporte">
         <p><span className="p subtitulo">Esporte: </span>  {"corrida"}</p>

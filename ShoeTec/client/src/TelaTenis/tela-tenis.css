@@ -151,6 +151,7 @@ html {
 
 .nome{
   text-align: center;
+  font-size: 15pt;
 }
 
 
@@ -201,6 +202,9 @@ html {
 .preco{
   color: rgb(255, 255, 255);
 }
+.preco-p{
+  font-weight: bold;
+}
 
 .num-preco{
   font-size: 40pt;
@@ -240,6 +244,24 @@ html {
 .vertical-table th{
   border-right: 1px solid var(--cor-terciaria);
   width: 20%;
+}
+
+.tenis{
+  margin-top: 8px;
+}
+
+.cupom{
+  margin-top: 0px;
+}
+
+.tipo-cupom{
+  color: #FFF;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tipo-cupom:hover{
+  color: gray;
 }
 
 

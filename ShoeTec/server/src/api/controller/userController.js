@@ -19,6 +19,24 @@ const getSpecificUser = async (req, res) =>{
     }
 }
 
+const updatUser = async (req, res) => {
+    const {id} = req.body;
+    const userData = req.body;
+
+    try {
+        const result = await userModel.updateUser(id, userData);
+        console.log(result)
+
+        if (result.affectedRows > 0) {
+            return res.status(200).json({ message: 'User updated successfully' });
+        } else {
+            return res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Internal server error', details: error.message });
+    }
+}; 
+
 //devias ser createUsers 
 const setUsers = async (req, res) =>{
     const emailResult = await userModel.getSpecificUser("email", req.body.email)
@@ -102,4 +120,4 @@ const checkSession = async (req, res) => {
     }
 }
 
-module.exports = {getUsers, setUsers, deleteUsers, getSpecificUser, loginUser, logoutUser, checkSession}
+module.exports = { getUsers, setUsers, deleteUsers, getSpecificUser, loginUser, logoutUser, checkSession, updatUser}

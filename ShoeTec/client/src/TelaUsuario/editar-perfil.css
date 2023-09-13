@@ -1,0 +1,361 @@
+.editar-container {
+    background-color: #ff8100;
+    grid-column: 1/7;
+    text-align: center;
+    width: 100%;
+    border-radius: 15px;
+    margin: 0 0 0 20px;
+}
+
+@media screen and (max-width: 1230px) {
+    .user-editar-foto{
+        margin-top: 5px;
+    }
+    .container-content{
+        float: none;
+        display: block;
+    }
+    .li-lista-comentario {
+        margin-right: 7px;
+        margin-left: 5px;
+    }
+    .editar-container {
+        width: 99%;
+        margin: 8px 0px 10px 4px;
+    }
+    .comentarios-container {
+        margin-left: 10px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .container-content{
+        float: none;
+        display: block;
+        padding-left: 10px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .container-content{
+        float: none;
+        display: block;
+        padding-left: 0px;
+    }
+  }
+
+.perfil-editar-foto {
+    margin-bottom: 10px;
+    margin-top: 6px;
+    display: block;
+}
+
+.user-editar-foto {
+    border-radius: 50%;
+    width: 250px;
+}
+.editar-form {
+    width: 100%;
+}
+
+.login-form-title img {
+    width: 150px;
+    margin-top: 15px;
+}
+
+.input-edit {
+    font-size: 15px;
+    color: white;
+    line-height: 1.2;
+    border: none;
+    display: block;
+
+    width: 100%;
+    height: 45px;
+
+    background-color: transparent;
+    padding: 0 5px;
+}
+
+.input-edit:focus {
+    outline: 0;
+}
+
+.input-edit:focus + .focus-input-edit::after {
+    top: -15px;
+}
+
+.input-edit:focus + .focus-input-edit::before {
+    width: 100%;
+}
+
+.has-val + .focus-input-edit::after {
+    top: -15px;
+}
+
+.has-val + .focus-input-edit::before {
+    width: 100%;
+}
+
+.container-edit-form-btn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 1px;
+
+}
+
+.input-btn-edit{
+    margin-right: 4px;
+}
+
+.input-p-edit{
+    margin-bottom: 8px;
+}
+
+.label-radio-edit {
+    margin-right: 20px;
+}
+
+.wrap-input-editar {
+    width: 90%;
+    position: relative;
+    border-bottom: 2px solid orangered;
+    margin: 0 auto;
+    margin-bottom: 45px;
+}
+
+.wrap-warning {
+    position: relative;
+    color: red;
+    z-index: 100;
+    bottom: 2.3em;
+    left: 5%;
+    padding: 10px;
+}
+
+.warning-radio {
+    position: relative;
+    bottom: -2em;
+    left: -5%;
+}
+
+.warning-checkbox {
+    position: relative;
+    bottom: -2em;
+    left: -5%;
+}
+
+
+
+.input-p-edit{
+    text-align: left;
+    color: white;
+    margin-bottom: 8px;
+}
+.titulo-genero-edit {
+    margin-bottom: 13px;
+    color: white;
+}
+.focus-input-edit{
+    pointer-events: none;
+    color: white;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+}
+.focus-input-edit::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+
+    /* background: -webkit-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
+    background: -o-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
+    background: -moz-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria)); */
+    background: linear-gradient(to left,  #c6c6c6, #ffffff );
+}
+
+.focus-input-edit::after {
+    font-size: 15px;
+    color: white;
+    line-height: 1.2;
+
+    content: attr(data-placeholder);
+
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 16px;
+    left: 0px;
+
+    padding-left: 5px;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.input:focus {
+    outline: 0;
+}
+
+.input:focus + .focus-input-edit::after {
+    top: -15px;
+}
+
+.input:focus + .focus-input-edit::before {
+    width: 100%;
+}
+
+.has-val + .focus-input-edit::after {
+    top: -15px;
+}
+
+.has-val + .focus-input-edit::before {
+    width: 100%;
+}
+
+.cad-form-edit-title{
+    color: white;
+    margin: 5px 0 20px 0;
+}
+
+.wrap-input-editar {
+    width: 90%;
+    position: relative;
+    border-bottom: 2px solid  #9f9f9f;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.wrap-warning {
+    position: relative;
+    color: red;
+    z-index: 100;
+    bottom: 2.3em;
+    left: 5%;
+    padding: 10px;
+}
+
+.warning-radio {
+    position: relative;
+    bottom: -2em;
+    left: -5%;
+}
+
+.warning-checkbox {
+    position: relative;
+    bottom: -2em;
+    left: -5%;
+}
+
+.popup {
+    background-color: #ff4700;
+    border-radius: 5px;
+    padding: 20px;
+    border: 2px solid #d1d1d1;
+    box-shadow: 10px 10px #d1d1d1;
+}
+
+.mensagem-login-cad{
+    font-size: 18pt;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;
+    max-width: 260px;
+}
+
+.voltar-popup {
+    color: white;
+    background-color: var(--cor-secundaria);
+    padding: 20px 25px 20px 25px;
+    font-size: 13pt;
+    border-radius: 10px;
+}
+
+.text-center-popupcad {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-bottom: 18px;
+}
+
+.login-form-button-cad{
+    padding: 20px 25px 20px 25px;
+    border-radius: 10px;
+    background-color: var(--cor-primaria);
+    font-size: 13pt;
+    color: white;
+    border: none;
+    margin-left: 9px;
+    cursor: pointer;
+    display: inline-block;
+
+}
+
+.login-form-button-cad:hover{
+    transform: scale(1.07,1.07);
+}
+
+.text-center-popupcad:hover{
+    transform: scale(1.07,1.07);
+}
+
+.voltar {
+    color: var(--cor-realce2);
+}
+
+.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 50px;
+}
+
+.login-edit-btn-cad {
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 0;
+
+    line-height: 1.2;
+
+    text-transform: uppercase;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 60%;
+    height: 40px;
+
+    /* background: -webkit-linear-gradient(to left, , var(--cor-secundaria));
+    background: -o-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
+    background: -moz-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria)); */
+    background: linear-gradient(to left,  #606060, #ffffff );
+}
+
+.login-edit-btn-cad:hover {
+    cursor: pointer;
+}
