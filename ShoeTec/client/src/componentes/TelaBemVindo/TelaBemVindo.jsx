@@ -10,10 +10,23 @@ import "./menu-bem-vindo.css"
 function TelaBemVindo() {
     const isLogged = Cookies.get('loggedIn')
     const userGenero = Cookies.get('genero')
+    const [tituloClasse, setTituloClasse] = useState("titulo");
+
+    useEffect(() => {
+        const titulo = isLogged ? Cookies.get("username") : "";
+        const tituloLength = titulo.length;
+    
+        
+        if (tituloLength < 30) {
+          setTituloClasse("titulo");
+        } else{
+          setTituloClasse("titulo-longo");
+        }
+      }, [isLogged]);
 
     return (
         <div className="container-bem-vindo">
-            <h1 className="titulo">
+            <h1 className={tituloClasse}>
                 {userGenero == "M" ? "Bem vindo " : userGenero == "F" ? "Bem vinda " : "Bem vindo(a) " }
                 {isLogged ? Cookies.get('username') : ''}
             </h1>

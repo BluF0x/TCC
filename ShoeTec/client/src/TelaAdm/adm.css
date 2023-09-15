@@ -1,0 +1,44 @@
+/* Estilização Tela ADM*/
+.container-tela-adm{
+    padding: 5px;
+  }
+  
+  .div-adm {
+    width: 250px;
+    padding: 30px 20px 30px 20px;
+    background-color: orange;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    margin-left: 5px;
+  }
+  
+  .div-adm:hover{
+    transform: scale(1.05, 1.05);
+  }
+  
+  .div-tenis-adm{
+    display: inline-block;
+    margin-right: 3px;
+  }
+  
+  .titulo-adm{
+    margin: 0 0 5px 5px;
+    font-size: 25pt;
+    color: orangered;
+  }
+  .button-init{
+   text-transform: none;
+  }
+  .link-adm{
+    font-size: 25pt;
+    color: white;
+  }
+  
+  /* Estilização CadastrarTênis */
+  
+  /* Estilização EditarTênis */
+  
+  /* Estilização EditarUsuário */
+  
+  /* Estilização EditarComentários */
