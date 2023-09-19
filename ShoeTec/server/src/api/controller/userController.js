@@ -86,6 +86,7 @@ const loginUser = async (req, res) =>{
                 session.userid = user[0].usuario_id
                 session.authenticated = true
                 session.genero = user[0].genero
+                session.admin = user[0].admin
                 console.log(session)
                 return res.status(200).json({success: true, "msg": "Ok", sessao: session})
 

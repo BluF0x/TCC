@@ -1,0 +1,209 @@
+/* Estilização Tela ADM*/
+.container-tela-adm {
+  padding: 5px;
+}
+
+.div-adm {
+  width: 250px;
+  padding: 30px 20px 30px 20px;
+  background-color: orange;
+  border-radius: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+  margin-left: 5px;
+}
+
+.div-adm:hover {
+  transform: scale(1.05, 1.05);
+}
+
+.div-tenis-adm {
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.titulo-adm {
+  margin: 0 0 5px 5px;
+  font-size: 25pt;
+  color: orangered;
+}
+
+.button-init {
+  text-transform: none;
+}
+
+.link-adm {
+  font-size: 25pt;
+  color: white;
+}
+
+/* Estilização CadastrarTênis */
+
+.container-adm {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px;
+  background-color: var(--cor-primaria);
+
+  overflow: hidden;
+}
+
+.container-form-adm {
+  width: 390px;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+
+  overflow: hidden;
+  padding: 55px 55px 33px 55px;
+
+  box-shadow: 0 5px 10px 0px var(--cor-secundaria);
+}
+
+.titulo-form-adm {
+  font-size: 35pt;
+  color: var(--cor-primaria);
+  margin-bottom: 20px;
+}
+
+.wrap-input-adm {
+  width: 90%;
+  position: relative;
+  border-bottom: 2px solid var(--cor-primaria);
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.input-adm{
+  font-size: 15px;
+    color: var(--cor-primaria);
+    line-height: 1.2;
+    border: none;
+    display: block;
+
+    width: 100%;
+    height: 45px;
+
+    background-color: transparent;
+    padding: 0 5px;
+}
+
+.focus-input-adm {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  top: 0;
+  left: 0;
+
+  pointer-events: none;
+  color: var(--cor-primaria);
+}
+
+.focus-input-adm::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+
+  background: linear-gradient(to left,  var(--cor-primaria), #ffb04f );
+}
+
+.focus-input-adm::after {
+  font-size: 15px;
+  color: var(--cor-primaria);
+  line-height: 1.2;
+
+  content: attr(data-placeholder);
+
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 16px;
+  left: 0px;
+
+  padding-left: 5px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.input-adm:focus {
+  outline: 0;
+}
+
+.input-adm:focus + .focus-input-adm::after {
+  top: -15px;
+}
+
+.input-adm:focus + .focus-input-adm::before {
+  width: 100%;
+}
+
+.has-val + .focus-input-adm::after {
+  top: -15px;
+}
+
+.has-val + .focus-input-adm::before {
+  width: 100%;
+}
+
+.container-adm-btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 1px;
+}
+
+.login-adm-btn-cad {
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 0;
+
+  line-height: 1.2;
+
+  text-transform: uppercase;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 60%;
+  height: 40px;
+
+  /* background: -webkit-linear-gradient(to left, , var(--cor-secundaria));
+  background: -o-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
+  background: -moz-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria)); */
+  background: linear-gradient(to left,  #ff0000, #ff6161 );
+}
+
+.login-adm-btn-cad:hover {
+  cursor: pointer;
+  transform: scale(1.1,1.1);
+}
+/* Estilização EditarTênis */
+
+/* Estilização EditarUsuário */
+
+/* Estilização EditarComentários */

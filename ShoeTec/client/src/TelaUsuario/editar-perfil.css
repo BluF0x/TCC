@@ -109,10 +109,6 @@
     margin-right: 4px;
 }
 
-.input-p-edit{
-    margin-bottom: 8px;
-}
-
 .label-radio-edit {
     margin-right: 20px;
 }
@@ -207,25 +203,6 @@
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
     transition: all 0.4s;
-}
-.input:focus {
-    outline: 0;
-}
-
-.input:focus + .focus-input-edit::after {
-    top: -15px;
-}
-
-.input:focus + .focus-input-edit::before {
-    width: 100%;
-}
-
-.has-val + .focus-input-edit::after {
-    top: -15px;
-}
-
-.has-val + .focus-input-edit::before {
-    width: 100%;
 }
 
 .cad-form-edit-title{

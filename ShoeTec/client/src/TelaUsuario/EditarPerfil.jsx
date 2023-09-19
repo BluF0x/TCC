@@ -96,12 +96,6 @@ export function EditarPerfil() {
     )
 
 
-    InputFormEdit.deafaultProps = {
-        tipo: "text",
-        steps: [''],
-        var: ""
-    }
-
     function InputFormEdit(props) {
         const [warning, setWarning] = useState(undefined)
         const nome = props.nome
@@ -224,7 +218,7 @@ export function EditarPerfil() {
         
 
             //Por enquanto, um alert será usado; mudar depois
-            if (queryResult.status > 200 && queryResult.status < 300) {
+            if (queryResult.status > 199 && queryResult.status < 500) {
                 console.log(queryResult)
                 setPopupOpen(true)
                 setMensagemQuery(`Perfil editado com sucesso!\nCod: ${queryResult.status}`)
