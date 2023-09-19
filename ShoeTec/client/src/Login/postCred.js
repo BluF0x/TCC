@@ -25,4 +25,13 @@ async function updateUsuario(cred) {
   }
 }
 
-export default { cadastrarUsuario, updateUsuario, logarUsuario }
+async function createTenis(cred) {
+  try {
+    const query = await api.post(`/createTenis`, cred);
+    return query;
+  } catch (err) {
+    return err;
+  }
+}
+
+export default { cadastrarUsuario, updateUsuario, logarUsuario, createTenis}

@@ -95,6 +95,10 @@
     grid-row-start: 11;
 }
 
+.menu-adm {
+    grid-row-start: 8;
+}
+
 @media screen and (max-width: 800px) {
     .container-bem-vindo {
         font-size: small;
@@ -195,6 +199,10 @@
     
     .menu-gerenciar {
         grid-row-start: 17;
+    }
+
+    .menu-adm {
+        grid-row-start: 15;
     }
 
     .menus:hover {

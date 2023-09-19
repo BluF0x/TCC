@@ -45,4 +45,21 @@ const getTenisById = async(id) =>{
     return query
 }
 
-module.exports = {getTenis, getTenisById, searchTenis}
+const criarTenis = async(userData)=>{
+
+    try {
+    const { nome, img, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava, img2, img3, img4, desconto, cupom } = userData;
+
+
+    const values = [nome, img, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola || null, trava || null, img2, img3, img4, desconto || null, cupom || null];
+
+    const args = `INSERT INTO tenis(nome, img, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava, img2, img3, img4, desconto, cupom) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+    const [criarTenis] = await connection.execute(args, values)
+
+    return criarTenis
+    } catch (err) {
+        return err;
+    }
+}
+
+module.exports = {getTenis, getTenisById, searchTenis, criarTenis}

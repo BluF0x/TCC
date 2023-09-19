@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
 import Cookies from "js-cookie";
-import postCred from '../Login/postCred.js';
-import inputValidation from '../Login/inputValidation';
-import Popup from 'reactjs-popup';
 import { Link } from "react-router-dom";
 import './adm.css';
 
 export function TelaADM() {
+    const userAdmin = Cookies.get('admin')
+
     return (
         <>
-            <div className="container-tela-adm">
+            {userAdmin === "1" ? (
+                <div className="container-tela-adm">
                 <h2 className='titulo-adm'>Tênis:</h2>
                 <div className='div-adm div-tenis-adm'>
                     <Link className="link-adm" to='/CadastrarTenis'>Tênis</Link>
@@ -26,6 +26,7 @@ export function TelaADM() {
                     <Link className="link-adm" >Comentários</Link>
                 </div>
             </div>
+            ) : (<h1>Permissão Negada</h1>)}
 
         </>
     )

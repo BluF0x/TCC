@@ -28,4 +28,11 @@ const getTenisById = async (req, res) =>{
 
 }
 
-module.exports = {getTenis, getTenisById, searchTenis}
+const creatTenis = async (req, res) =>{
+
+    const criarTenis = await tenisModel.criarTenis(req.body)
+
+    // return res.status(201)
+    return res.status(201).json({"msg": "OK", "body": criarTenis})
+}
+module.exports = {getTenis, getTenisById, searchTenis, creatTenis}

@@ -225,6 +225,7 @@ function LoginForm(props) {
             Cookies.set('username', data.username, { expires: expira })
             Cookies.set('genero', data.genero, { expires: expira })
             Cookies.set('id', data.userid, { expires: expira })
+            Cookies.set('admin', data.admin, { expires: expira })
 
             setPopupOpen(true)
             setMensagemQuery("Logado com sucesso!")
