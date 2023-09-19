@@ -23,6 +23,7 @@ router.get('/checkSession', usersController.checkSession)
 router.post('/comment',  commentController.createComment)
 router.get("/topComments/:id", commentController.getTopComment)
 router.get("/childComments/:id", commentController.getChildComment)
+router.get("/getAllComments/:id", commentController.getAllComments)
 
 router.get('/tenis/:limit',  tenisController.getTenis)
 router.get('/tenisId/:id', tenisController.getTenisById)

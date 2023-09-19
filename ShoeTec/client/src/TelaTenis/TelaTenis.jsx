@@ -16,6 +16,19 @@ export function TelaTenis() {
 
   const [totalReview, setTotalReview] = useState(tenis.nota)
   const [NomeTenis, setNomeTenis] = useState(tenis.nome)
+  const [comments, setComments] = useState([])
+  let bufferComment = []
+
+  
+  useEffect(()=>{
+    api.get(`/getAllComments/${tenis.tenis_id}`)
+    .then((res)=>{
+      console.log(res)
+      setComments(res.data.Resultado)
+    })
+  }, [])
+
+
   
 
   const addEstrela=() =>{
@@ -84,7 +97,7 @@ export function TelaTenis() {
             <TabelaInfo tenis={tenis}/>
           </div>
 
-          <Comentarios referenceId={tenis.tenis_id}/>
+          <Comentarios comments={comments} tenisId={tenis.tenis_id}/>
           
       </div>
   )

@@ -19,11 +19,17 @@ const getTopComment = async(id) => {
     }
 }
 
-const getChildComment = async(id) => {
-    const args = `SELECT * FROM Post WHERE parent_id = ${id} ;`
-    const [comments ] = await connection.execute(args)
 
-    return comments
+const getChildComment = async (id) => {
+    if (id === undefined || isNaN(id) || id <= 0) {
+        return new Error("Invalid or undefined 'id' parameter.");
+    }
+
+    const args = `SELECT * FROM Post WHERE parent_id = ${id};`
+    const [comments] = await connection.execute(args);
+
+    return comments;
 }
+
 
 module.exports = {creatComment, getChildComment, getTopComment}

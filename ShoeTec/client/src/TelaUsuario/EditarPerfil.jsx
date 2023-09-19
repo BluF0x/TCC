@@ -74,13 +74,21 @@ export function EditarPerfil() {
                 <BarraNav />
                 <div className="space">🥚🐰</div>
                 <div className="container-content">
-                    <EditarUsuario
+                    {/* <EditarUsuario
                         cred={credenciais}
                         setCred={handleCredenciais}
                         estadoLog={estadoLogin}
                         setEstadoLog={setEstadoLogin}
                         setPopupOpen={setPopupOpen}
-                        setMensagemQuery={setMensagemQuery} />
+                        setMensagemQuery={setMensagemQuery} /> */}
+                    
+                    <InputFormEdit
+                        nome={"name"}
+                        handleInput={handleCredenciais}
+                        placeholder={"Nome"}
+                        var={credenciais.name}
+                        steps={[{ function: inputValidation.required }]}
+                    />
                     <ListaComentarios />
                 </div>
             </div>

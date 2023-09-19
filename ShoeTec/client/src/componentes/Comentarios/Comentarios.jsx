@@ -1,162 +1,122 @@
-import {React, useState, useEffect, useCallback, useMemo} from "react";
+import { React, useState, useEffect } from "react";
 import api from "../../services/api";
-import './comentarios.css'
+import './comentarios.css';
 import { useMatch } from "react-router-dom";
-
-
-/* Tem alguns jeitos de organizar os comentários e sub-comentários 
- * 1: pegar todos os comentários como um array e usar uma função 
- * para filtrar os comentários que tem o parent_id igual ao id do
- * comentário pai, isso é feito em TODOS os comentários; provavelmente
- * ineficiente
- * 2: usando statements do sql, é só pegar todos ou quase todos os comentários
- * que possúem o parent_id igual ao id do pai, esse método concede mais controle, 
- * porém faz mais calls a database
- * 
-*/
+import Cookies from "js-cookie";
 
 export default function Comentarios(props) {
-    const referenceId = props.referenceId
-    let bufferComment = []
-
-    const [comments, setComments] = useState([])
+    const [comments, setComments] = useState([]);
     const [currentComment, setCurrentComment] = useState({ comment: '', subComments: [] });
-    let isDone = false
+    const inheritedComments = props.comments;
+    const tenisId = props.tenisId;
 
-    useEffect(()=>{
-        if (!isDone) {
-            api.get(`/topComments/${referenceId}`)
-            .then((res)=>{
-                const comentarios = res.data.Resultado
-                comentarios.forEach(element => {
-                    bufferComment = [...bufferComment, 
-                        {
-                            comment: element.corpo_texto, 
-                            subComments: [],
-                            id: element.review_id,
-                            user:  element.reviewer_id
-                        }]
-                    console.log(bufferComment)
-                });
-                setComments(bufferComment)
-            }) 
-            isDone = true
-        }
-    },[referenceId])
+    useEffect(() => {
+        setComments(inheritedComments);
+    }, [inheritedComments]);
 
-    const updateCurrentComment = useCallback((e) => {
-        setCurrentComment({ comment: e.target.value, subComments: [] });
-    }, []);
+    const updateCurrentComment = (e) => {
+        console.log(e.target.value);
+        setCurrentComment({ corpo_texto: e.target.value, subComments: [] });
+    };
 
-    const addComment = useCallback(
-        (e) => {
+    const addComment = async (e) => {
+        try {
             e.preventDefault();
+            setCurrentComment(currentComment);
+            const res = await api.post('/comment', {
+                nota: 3,
+                corpo: currentComment.corpo_texto,
+                reviewerId: Cookies.get('id'),
+                parenteId: null,
+                tenisId: tenisId
+            });
+            console.log(res);
             setComments([currentComment, ...comments]);
-        },
-        [comments]
-    );
+        } catch (err) {
+            window.alert("Ocorreu um erro");
+        }
+    };
 
     const ReplyComponent = (props) => {
-        const parentComment = props.parent
-        const [currentComment, setCurrentComment] = useState({comment: "", subComments: []})
-        const [isHidden, setIsHidden] = useState(false)
-        const [comments, setComments] = useState(parentComment.subComments)
-        let bufferComment = []
-        let isDone = false
+        const parentComment = props.parent;
+        const [currentComment, setCurrentComment] = useState({ comment: "", subComments: [] });
+        const [isHidden, setIsHidden] = useState(false);
+        const [comments, setComments] = useState(parentComment.subComments);
 
-        useEffect(()=>{
-        if (!isDone) {
-            api.get(`/childComments/${parentComment.id}`)
-            .then((res)=>{
-                const comentarios = res.data.Resultado
-                comentarios.forEach(element => {
-                    bufferComment = [...bufferComment, 
-                        {
-                            comment: element.corpo_texto, 
-                            subComments: [],
-                            id: element.review_id,
-                            user:  element.reviewer_id
-                        }]
-                    console.log(bufferComment)
-                });
-                setComments(bufferComment)
-            }) 
-            isDone = true
-        }
+        const updateCurrentComment = (e) => {
+            setCurrentComment({ corpo_texto: e.target.value, subComments: [] });
+        };
 
-        },[parentComment])
+        const addComment = async (e) => {
+            e.preventDefault();
+            setCurrentComment(currentComment);
+            const res = await api.post('/comment', {
+                nota: 3,
+                corpo: currentComment.corpo_texto,
+                reviewerId: Cookies.get('id'),
+                parenteId: parentComment.review_id,
+                tenisId: tenisId
+            });
+            console.log(res);
+            setComments([currentComment, ...comments]);
+        };
 
-        
-
-
-        const updateCurrentComment = useCallback((e) => {
-            setCurrentComment({ comment: e.target.value, subComments: [] });
-        }, []);
-
-        const addComment = useCallback(
-            (e) => {
-                e.preventDefault();
-                setComments([currentComment, ...comments]);
-            },
-            [comments]
-        );
-
-        return(
-        <div>
-            {isHidden ? (
-                <div className="container-comentario">
-                    <input 
-                        className="reply"
-                        placeholder="Comentar"
-                        value={currentComment.comment}
-                        onChange={e=>updateCurrentComment(e)}
-                    /> 
-                    <button className="button" onClick={e=>addComment(e)}>Comentar</button>
-                    <button className="button" onClick={e=>{setIsHidden(!isHidden)}}>Cancelar</button>
-                </div>
-                ):( 
-                <div>
-                    <button onClick={e=>setIsHidden(!isHidden)}>Responder</button>
-                </div>
-            )}
-            {comments.map((value, key) => {
-                return(
-                <div key={key} className="conteiner-comentario sub-comentario">
-                    <div>{value.comment}</div>
-                    <ReplyComponent
-                    parent={value}
-                    />
-                </div>
-                )
-            })}
-        </div>
+        return (
+            <div>
+                {isHidden ? (
+                    <div className="container-comentario">
+                        <input
+                            className="reply"
+                            placeholder="Comentar"
+                            value={currentComment.corpo_texto}
+                            onChange={e => updateCurrentComment(e)}
+                        />
+                        <button className="button" onClick={e => addComment(e)}>Comentar</button>
+                        <button className="button" onClick={e => { setIsHidden(!isHidden) }}>Cancelar</button>
+                    </div>
+                ) : (
+                    <div>
+                        <button onClick={e => setIsHidden(!isHidden)}>Responder</button>
+                    </div>
+                )}
+                {comments.map((value, key) => {
+                    return (
+                        <div key={key} className="conteiner-comentario sub-comentario">
+                            <div>{value.corpo_texto}</div>
+                            {/* <button className="button" onClick={}></button> */}
+                            <ReplyComponent
+                                parent={value}
+                            />
+                        </div>
+                    )
+                })}
+            </div>
         )
     }
 
-
-    return(
+    return (
         <div className="main-container">
             <div>
-            <h1>
-                Comentários
-            </h1>
-            <div className="container-comentario">
-                <input 
-                    className="reply"
-                    placeholder="Comentar"
-                    value={currentComment.comment}
-                    onChange={e=>updateCurrentComment(e)}
-                /> 
-                <button className="button" onClick={e=>addComment(e)}>Comentar</button>
-            </div>
+                <h1>
+                    Comentários
+                </h1>
+                <div className="container-comentario">
+                    <input
+                        className="reply"
+                        placeholder="Comentar"
+                        value={currentComment.comment}
+                        onChange={e => updateCurrentComment(e)}
+                    />
+                    <button className="button" onClick={e => addComment(e)}>Comentar</button>
+                </div>
             </div>
             <div>
-                {comments.map((value, key) =>{
+                {comments.map((value, key) => {
                     return (
                         <div key={key} className="container-comentario">
-                            <div >{value.comment}</div>
+                            <div >{value.corpo_texto}</div>
                             <ReplyComponent
-                            parent={value}
+                                parent={value}
                             />
                         </div>
                     )
