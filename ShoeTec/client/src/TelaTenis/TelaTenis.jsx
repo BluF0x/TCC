@@ -6,22 +6,30 @@ import Novablast2 from '../assets/imgs/Novablast2.png'
 import estrelaCheia from '../assets/svg/star_full.svg';
 import estrelaMeia from '../assets/svg/half_star.svg';
 import estrela from '../assets/svg/star.svg';
-import { useLocation } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import './tela-tenis.css'
 import api from "../services/api";
+import { object } from "joi";
 
 export function TelaTenis() {
-  const params = useLocation()
-  const tenis = params.state.tenis
+  // const params = useLocation()
+  const {id} = useParams()
+  const [tenis, setTenis] = useState({})
 
-  const [totalReview, setTotalReview] = useState(tenis.nota)
-  const [NomeTenis, setNomeTenis] = useState(tenis.nome)
+  // const [tenis.nota, setTotalReview] = useState(tenis.nota)
+  // const [NomeTenis, setNomeTenis] = useState(tenis.nome)
   const [comments, setComments] = useState([])
   let bufferComment = []
 
   
   useEffect(()=>{
-    api.get(`/getAllComments/${tenis.tenis_id}`)
+    api.get(`/tenisId/${id}`)
+    .then((res)=>{
+      console.log(res)
+      setTenis(res.data[0])
+      console.log(Object.keys(tenis).length != 0 )
+    })
+    api.get(`/getAllComments/${id}`)
     .then((res)=>{
       console.log(res)
       setComments(res.data.Resultado)
@@ -31,10 +39,10 @@ export function TelaTenis() {
 
   
 
-  const addEstrela=() =>{
+  const addEstrela=(nota) =>{
     let listaEstrela = []
-    let dif = 5 - totalReview
-    const round = Math.floor(totalReview)
+    let dif = 5 - nota
+    const round = Math.floor(nota)
     const estrela = <Estrela/>
     const meiaEstrela = <MeiaEstrela/>
     const fullEstrela = <EstrelaCheia/>
@@ -42,7 +50,7 @@ export function TelaTenis() {
     for(let i =0; i < round; i++ ){
         listaEstrela.push(fullEstrela)
     }
-    if((totalReview - round)>= 0.5) {
+    if((nota - round)>= 0.5) {
         listaEstrela.push(meiaEstrela)
         dif--
     }
@@ -74,6 +82,8 @@ export function TelaTenis() {
   }
 
   return(
+    <>
+    { tenis ?
       <div className="container-tela-tenis">
           <div >
               <BarraNav/>
@@ -85,21 +95,29 @@ export function TelaTenis() {
           </div>
           <div className="container-nota">
             <div className="estrela">
-              {addEstrela()}
+              {addEstrela(tenis.nota)}
             </div>
 
             <div className="frase-nota">
-            A média de avaliação de {NomeTenis} é: {Math.floor(totalReview * 10) / 10}
+            A média de avaliação de {tenis.nome} é: {Math.floor(tenis.nota * 10) / 10}
             </div>
           </div>
         
           <div className='container-tabela'>
-            <TabelaInfo tenis={tenis}/>
+            <TabelaInfo tenisInfo={tenis}/>
           </div>
 
-          <Comentarios comments={comments} tenisId={tenis.tenis_id}/>
-          
+          <Comentarios comments={comments} tenisId={id}/>
       </div>
+      :
+      <div className="container-tela-tenis">
+        <BarraNav/>
+        <div style={{paddingTop: 100}}>
+          <h1>404: Tenis não encontrado</h1>
+        </div>
+      </div>
+    }
+    </>
   )
 }
 
@@ -124,16 +142,16 @@ function Slider(props) {
         <input type="radio" name="radio-btn" id="slider-4"/>
 
         <div className="slide first">
-            <img src={Novablast} alt={NomeTenis}/>
+            <img src={Novablast} alt={tenis.nome}/>
         </div>
         <div className="slide">
-            <img src={Novablast2} alt={NomeTenis}/>
+            <img src={Novablast2} alt={tenis.nome}/>
         </div>
         <div className="slide">
-            <img src={Novablast} alt={NomeTenis}/>
+            <img src={Novablast} alt={tenis.nome}/>
         </div>
         <div className="slide">
-            <img src={Novablast2} alt={NomeTenis}/>
+            <img src={Novablast2} alt={tenis.nome}/>
         </div>
         
 
@@ -195,9 +213,10 @@ function PerfilTenis(props) {
   );
 }
 
-function TabelaInfo() {
-  const params = useLocation()
-  const tenis = params.state.tenis
+function TabelaInfo(props) {
+  let tenis =  props.tenisInfo
+  // const params = useLocation()
+  // const tenis = params.state.tenis
 
   const [totalReview, setTotalReview] = useState(tenis.nota)
   const [NomeTenis, setNomeTenis] = useState(tenis.nome)
@@ -218,10 +237,10 @@ function TabelaInfo() {
       <table className="vertical-table">
         <tbody>
           {/* Verifica se cada valor é verdadeiro antes de renderizar a linha da tabela. */}
-        {NomeTenis && (
+        {tenis.nome && (
             <tr>
               <th>Nome</th>
-              <td>{NomeTenis}</td>
+              <td>{tenis.nome}</td>
             </tr>
           )}
           {MarcaTenis && (

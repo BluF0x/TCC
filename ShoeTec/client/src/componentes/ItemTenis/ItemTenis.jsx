@@ -11,9 +11,11 @@ function ItemTenis(props) {
 
     const navigate = useNavigate()
     const tenis = props.tenis
+    console.log(tenis)
 
     const redirectPagTenis= (idTenis) => {
-        navigate('/TelaTenis', {state: {tenis: idTenis}})
+        // navigate('/TelaTenis', {state: {tenis: idTenis}})
+        navigate(`/TelaTenis/${idTenis}`)
     }
 
     useEffect(()=>{
@@ -63,7 +65,7 @@ function ItemTenis(props) {
     }
 
     return (
-        <div className="item-tenis" onClick={()=>{redirectPagTenis(tenis)}}>
+        <div className="item-tenis" onClick={()=>{redirectPagTenis(tenis.tenis_id)}}>
             {/* <Link to="/TelaTenis"> */}
                 <img id="image-tenis" src={tenis}></img>
                 

@@ -92,23 +92,13 @@ getAllSubComments = async (id) => {
     }
 };
 
+deleteComments = async (req, res) => {
+    try {
+        
+    } catch (err) {
+        res.status(400).json({"erro": err})
+    }
+}
 
-// Recursive function to get all sub-comments
-// const getAllSubComments = async (commentId) => {
-//     const comments = await commentModel.getChildComment(commentId);
-//     if (comments.length === 0) {
-//         return [];
-//     }
-    
-//     const subComments = [];
-    
-//     for (const comment of comments) {
-//         const childComments = await getAllSubComments(comment.review_id);
-//         subComments.push(comment);
-//         subComments.push(...childComments);
-//     }
-    
-//     return subComments;
-// }
 
-module.exports = { createComment, getTopComment, getChildComment, getAllComments}
+module.exports = { createComment, getTopComment, getChildComment, getAllComments, deleteComments}
