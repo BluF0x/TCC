@@ -288,6 +288,7 @@ function CadastrarTenisADM(props) {
             />
 
             <div className="container-adm-btn">
+                <Link className="login-adm-btn-voltar" to='/TelaADM'>Voltar</Link>
                 <button className="login-adm-btn-cad" onClick={(e) => cadastrartenis(e)} type='submit'>Cadastrar</button>
             </div>
         </div>

@@ -34,4 +34,22 @@ async function createTenis(cred) {
   }
 }
 
-export default { cadastrarUsuario, updateUsuario, logarUsuario, createTenis}
+async function updateAdminStatus(cred) {
+  try {
+    const query = await api.post(`/updateAdminStatus`, cred);
+    return query;
+  } catch (err) {
+    return err;
+  }
+}
+
+async function deleteUserId(cred) {
+  try {
+    const query = await api.post(`/deleteUserId`, cred);
+    return query;
+  } catch (err) {
+    return err;
+  }
+}
+
+export default { cadastrarUsuario, updateUsuario, logarUsuario, createTenis, updateAdminStatus, deleteUserId}

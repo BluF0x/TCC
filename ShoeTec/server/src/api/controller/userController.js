@@ -19,6 +19,47 @@ const getSpecificUser = async (req, res) =>{
     }
 }
 
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await userModel.getUsers();
+        return res.status(200).json(users);
+    } catch (error) {
+        return res.status(500).json({ error: 'Internal server error', details: error.message });
+    }
+};
+
+const updateAdminStatus = async (req, res) => {
+    const { id, isAdmin } = req.body; 
+
+    try {
+        const result = await userModel.updateAdminStatus(id, isAdmin);
+
+        if (result.affectedRows > 0) {
+            return res.status(200).json({ message: 'Admin status updated successfully' });
+        } else {
+            return res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Internal server error', details: error.message });
+    }
+};
+
+const deleteUserId = async (req, res) => {
+    const { id} = req.body; 
+
+    try {
+        const result = await userModel.deleteUserId(id);
+
+        if (result.affectedRows > 0) {
+            return res.status(200).json({ message: 'User delet sucessfuly' });
+        } else {
+            return res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Internal server error', details: error.message });
+    }
+};
+
 const updatUser = async (req, res) => {
     const {id} = req.body;
     const userData = req.body;
@@ -121,4 +162,4 @@ const checkSession = async (req, res) => {
     }
 }
 
-module.exports = { getUsers, setUsers, deleteUsers, getSpecificUser, loginUser, logoutUser, checkSession, updatUser}
+module.exports = { getUsers, setUsers, deleteUsers, getSpecificUser, loginUser, logoutUser, checkSession, updatUser, getAllUsers, updateAdminStatus, deleteUserId}

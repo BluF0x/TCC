@@ -16,6 +16,9 @@ router.post('/users', userMiddleware.validateInput, usersController.setUsers)
 router.delete('/users/:id', usersController.deleteUsers) //Proteger
 router.post('/edit', usersController.updatUser)
 router.get('/getUser/:id', usersController.getSpecificUser)
+router.get('/getUsers', usersController.getAllUsers);
+router.post('/updateAdminStatus', usersController.updateAdminStatus);
+router.post('/deleteUserId', usersController.deleteUserId);
 router.post('/users/login', usersController.loginUser)
 router.get('/userLogout', usersController.logoutUser)
 router.get('/checkSession', usersController.checkSession)
