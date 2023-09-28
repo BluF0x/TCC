@@ -3,16 +3,33 @@ import api from "../../services/api";
 import './comentarios.css';
 import { useMatch } from "react-router-dom";
 import Cookies from "js-cookie";
+import EnviarIcon from '../../assets/icons/enviar.png'
+import CancelarIcon from '../../assets/icons/cancelar.png'
+import Userpic from '../../assets/imgs/userpic.jpg'
 
 export default function Comentarios(props) {
     const [comments, setComments] = useState([]);
     const [currentComment, setCurrentComment] = useState({ comment: '', subComments: [] });
+    const [expanded, setExpanded] = useState(false);
     const inheritedComments = props.comments;
     const tenisId = props.tenisId;
 
     useEffect(() => {
         setComments(inheritedComments);
-    }, [inheritedComments]);
+        fetchReviewerInfo();
+    }, [inheritedComments,]);
+
+    const [reviewerInfo, setReviewerInfo] = useState(null);
+
+    const fetchReviewerInfo = async () => {
+        try {
+            const response = await api.get(`/getUser/${Cookies.get('id')}`);
+            const userData = response.data.result[0];
+            setReviewerInfo(userData);
+        } catch (error) {
+            console.error("Erro ao buscar informações do revisor:", error);
+        }
+    };
 
     const updateCurrentComment = (e) => {
         console.log(e.target.value);
@@ -35,6 +52,10 @@ export default function Comentarios(props) {
         } catch (err) {
             window.alert("Ocorreu um erro");
         }
+    };
+
+    const handleMostrarMaisClick = () => {
+        setExpanded(!expanded);
     };
 
     const ReplyComponent = (props) => {
@@ -62,27 +83,47 @@ export default function Comentarios(props) {
         };
 
         return (
-            <div>
+            <div className="comentario-responder">
                 {isHidden ? (
                     <div className="container-comentario">
-                        <input
-                            className="reply"
-                            placeholder="Comentar"
-                            value={currentComment.corpo_texto}
-                            onChange={e => updateCurrentComment(e)}
-                        />
-                        <button className="button" onClick={e => addComment(e)}>Comentar</button>
-                        <button className="button" onClick={e => { setIsHidden(!isHidden) }}>Cancelar</button>
+                        <div className="container-align-coment">
+                            <input
+                                className="reply"
+                                placeholder="Comentar"
+                                value={currentComment.corpo_texto}
+                                onChange={e => updateCurrentComment(e)}
+                            />
+                            <div className="buttons-coment">
+                                <button className="button" onClick={e => { setIsHidden(!isHidden) }}>
+                                    <img className='img-button cancel' src={CancelarIcon} alt="Cancelar" />
+                                </button>
+                                <button className="button" onClick={e => addComment(e)}>
+                                    <img className='img-button envit' src={EnviarIcon} alt="Enviar" />
+                                </button>
+
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <div>
-                        <button onClick={e => setIsHidden(!isHidden)}>Responder</button>
+                        <button className='button-coment-init' onClick={e => setIsHidden(!isHidden)}>Responder</button>
                     </div>
                 )}
                 {comments.map((value, key) => {
                     return (
                         <div key={key} className="conteiner-comentario sub-comentario">
-                            <div>{value.corpo_texto}</div>
+                            <div className="comentario-texto-titulo">
+                                {`${reviewerInfo.name}`}
+                            </div>
+                            <div>{value.corpo_texto.length > 500 && !expanded
+                                ? value.corpo_texto.slice(0, 500) + "..."
+                                : value.corpo_texto}
+                            </div>
+                            {value.corpo_texto.length > 500 && (
+                                <span className='button-text-mostrar' onClick={handleMostrarMaisClick}>
+                                    {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
+                                </span>
+                            )}
                             {/* <button className="button" onClick={}></button> */}
                             <ReplyComponent
                                 parent={value}
@@ -97,29 +138,48 @@ export default function Comentarios(props) {
     return (
         <div className="main-container">
             <div>
-                <h1>
+                <h1 className="title-coment">
                     Comentários
                 </h1>
-                <div className="container-comentario">
+                <div className="container-comentario-init">
                     <input
-                        className="reply"
+                        className="reply-init"
                         placeholder="Comentar"
                         value={currentComment.comment}
                         onChange={e => updateCurrentComment(e)}
                     />
-                    <button className="button" onClick={e => addComment(e)}>Comentar</button>
+                    <button className="button" onClick={e => addComment(e)}>
+                        <img className='img-button envit' src={EnviarIcon} alt="Enviar" />
+                    </button>
                 </div>
             </div>
             <div>
                 {comments.map((value, key) => {
                     return (
+                        <>
                         <div key={key} className="container-comentario">
-                            <div >{value.corpo_texto}</div>
-                            <ReplyComponent
-                                parent={value}
-                            />
-                        </div>
-                    )
+                            <div className="comentario-img-user">
+                                <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
+                            </div>
+                            <div className="comentario-texto-info">
+                                <div className="comentario-texto-titulo">{`${reviewerInfo.name}`}</div>
+                                <div className="comentario-texto">
+                                    {value.corpo_texto.length > 500 && !expanded
+                                        ? value.corpo_texto.slice(0, 500) + "..."
+                                        : value.corpo_texto}
+                                </div>
+                                {value.corpo_texto.length > 500 && (
+                                    <span className="button-text-mostrar" onClick={handleMostrarMaisClick}>
+                                        {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
+                                    </span>
+                                )}
+                            </div> 
+                            </div>
+                            <div className="replycoment-comentario">
+                                <ReplyComponent parent={value} />
+                            </div>
+                       </>
+                    );
                 })}
             </div>
         </div>
