@@ -12,6 +12,7 @@
 .container-align-coment {
     display: flex;
     margin-top: 2px;
+    width: 80%;
 }
 
 .buttons-coment {
