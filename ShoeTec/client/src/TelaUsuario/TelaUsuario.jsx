@@ -12,7 +12,7 @@ import Tênis from '../assets/icons/tênis.png'
 import Handebol from '../assets/icons/handebol.png'
 import Musculacao from '../assets/icons/musculacao.png'
 import Localizacao from '../assets/icons/localizacao.png'
-import api from "../services/api";
+import {api, getUser} from "../services/api";
 import './tela-usuario.css'
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom"
@@ -24,6 +24,14 @@ export function TelaUsuario() {
     const [ultimosPosts, setUltimosPosts] = []
     const [AsicsNovablast, setAsicsNovablast] = useState("Tênis Asics Novablast")
     const [DescricaoComentario, setDescricaoComentario] = useState("O tênis apresenta um bom amortecimento, mas peca quanto à estabilidade.")
+    const [currentUser, setCurrentUser] = useState({
+    user: {
+        username: '',
+        userid: null,
+        genero: '',
+        authenticated: false
+    }
+})
 
     useEffect(() => {
 
@@ -40,6 +48,18 @@ export function TelaUsuario() {
         catch (err) {
             console.log(err)
         }
+        getUser()
+            .then(
+            (value)=>{
+                console.log(value)
+                setCurrentUser(value.user)
+            },
+            (reason)=>{
+                console.log(reason)
+            })
+            .catch((reason)=>{
+                console.log(reason)
+            })
 
     }, [])
 
@@ -118,9 +138,11 @@ export function TelaUsuario() {
 
                 <div className="perfil-edit">
 
-                    <Link to={isLogged ? "/EditarPerfil" : "/Login"} className="btn-edit-profile">
-                        <h4>Editar Perfil</h4>
-                    </Link>
+                    {currentUser.userid = id  &&
+                        <Link to="/EditarPerfil" className="btn-edit-profile">
+                            <h4>Editar Perfil</h4>
+                        </Link>
+                    }
                 </div>
 
 

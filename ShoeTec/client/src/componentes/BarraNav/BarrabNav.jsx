@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import "../../services/api";
 import './BarraNav.css';
-import { getUser } from "../../services/api";
+import { getUser, api } from "../../services/api";
 
 
 function BarraNav() {
@@ -49,19 +49,14 @@ function BarraNav() {
     const logout=(e)=> {
 
         try{
-            const queryResult = api.get('/userLogout')
-            console.log(queryResult)
-            Cookies.remove('id')
-            Cookies.remove('genero')
-            Cookies.remove('username')
-            Cookies.remove('loggedIn')
+            api.get('/userLogout', {withCredentials: true})
+                .then((val)=>{
+                    console.log(val)
+                    navigate('/')
+                })
         } catch(err) {
             console.log(err)
         }
-
-
-
-        navigate('/')
     }
 
     const toggleMenuNav=() => {

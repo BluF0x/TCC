@@ -7,31 +7,24 @@ import EnviarIcon from '../../assets/icons/enviar.png'
 import CancelarIcon from '../../assets/icons/cancelar.png'
 import Userpic from '../../assets/imgs/userpic.jpg'
 
-export default function Comentarios(props) {
+const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
+      username: '',
+      userid: null,
+      genero: '',
+      authenticated: false
+    }}, isLogged = false}) =>{
     const [comments, setComments] = useState([]);
     const [currentComment, setCurrentComment] = useState({ comment: '', subComments: [] });
     const [expanded, setExpanded] = useState(false);
-    const inheritedComments = props.comments;
-    const tenisId = props.tenisId;
-    const isLogged = Cookies.get("loggedIn")
-
+    const [reviewerInfo, setReviewerInfo] = useState(user);
 
     useEffect(() => {
+        console.log(user)
+        console.log(isLogged)
+
         setComments(inheritedComments);
-        fetchReviewerInfo();
-    }, [inheritedComments,]);
+    }, [inheritedComments, user]);
 
-    const [reviewerInfo, setReviewerInfo] = useState(null);
-
-    const fetchReviewerInfo = async () => {
-        try {
-            const response = await api.get(`/getUser/${Cookies.get('id')}`);
-            const userData = response.data.result[0];
-            setReviewerInfo(userData);
-        } catch (error) {
-            console.error("Erro ao buscar informações do revisor:", error);
-        }
-    };
 
     const updateCurrentComment = (e) => {
         console.log(e.target.value);
@@ -45,7 +38,7 @@ export default function Comentarios(props) {
             const res = await api.post('/comment', {
                 nota: 3,
                 corpo: currentComment.corpo_texto,
-                reviewerId: Cookies.get('id'),
+                reviewerId: user.userid,
                 parenteId: null,
                 tenisId: tenisId
             });
@@ -76,6 +69,10 @@ export default function Comentarios(props) {
         const [isHidden, setIsHidden] = useState(false);
         const [comments, setComments] = useState(parentComment.subComments);
 
+        useEffect(()=>{
+            // console.log(comments)
+        })
+
         const updateCurrentComment = (e) => {
             setCurrentComment({ corpo_texto: e.target.value, subComments: [] });
         };
@@ -86,7 +83,7 @@ export default function Comentarios(props) {
             const res = await api.post('/comment', {
                 nota: 3,
                 corpo: currentComment.corpo_texto,
-                reviewerId: Cookies.get('id'),
+                reviewerId: user.userid,
                 parenteId: parentComment.review_id,
                 tenisId: tenisId
             });
@@ -95,56 +92,62 @@ export default function Comentarios(props) {
             setComments([currentComment, ...comments]);
         };
 
-    return (
-        <div>
-            {isLogged && (
-                <>
-                    {isHidden ? (
-                        <div className="container-comentario">
-                            <input
-                                className="reply"
-                                placeholder="Comentar"
-                                value={currentComment.corpo_texto}
-                                onChange={e => updateCurrentComment(e)}
-                            />
-                            <div className="buttons-coment">
-                                <button className="button" onClick={e => { setIsHidden(!isHidden) }}>
-                                    <img className='img-button cancel' src={CancelarIcon} alt="Cancelar" />
-                                </button>
-                                <button className="button" onClick={e => addComment(e)}>
-                                    <img className='img-button envit' src={EnviarIcon} alt="Enviar" />
-                                </button>
+        return (
+            <div>
+                {user.authenticated && (
+                    <>
+                        {isHidden ? (
+                            <div className="container-comentario">
+                                <input
+                                    className="reply"
+                                    placeholder="Comentar"
+                                    value={currentComment.corpo_texto}
+                                    onChange={e => updateCurrentComment(e)}
+                                />
+                                <div className="buttons-coment">
+                                    <button className="button" onClick={e => { setIsHidden(!isHidden) }}>
+                                        <img className='img-button cancel' src={CancelarIcon} alt="Cancelar" />
+                                    </button>
+                                    <button className="button" onClick={e => addComment(e)}>
+                                        <img className='img-button envit' src={EnviarIcon} alt="Enviar" />
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    ) : (
-                        <div>
-                            <button className='button-coment-init' onClick={e => setIsHidden(!isHidden)}>Responder</button>
-                        </div>
-                    )}
-                </>
-            )}
-            {comments.map((value, key) => {
-                return (
-                    <div key={key} className="conteiner-comentario sub-comentario">
-                        <div className="comentario-texto-titulo">
-                            {`${reviewerInfo.name}`}
-                        </div>
-                        <div>{value.corpo_texto.length > 500 && !expanded
-                            ? value.corpo_texto.slice(0, 500) + "..."
-                            : value.corpo_texto}
-                        </div>
-                        {value.corpo_texto.length > 500 && (
-                            <span className='button-text-mostrar' onClick={handleMostrarMaisClick}>
-                                {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
-                            </span>
+                        ) : (
+                            <div>
+                                <button className='button-coment-init' onClick={e => setIsHidden(!isHidden)}>Responder</button>
+                            </div>
                         )}
-                        {/* <button className="button" onClick={}></button> */}
-                        <ReplyComponent parent={value} />
-                    </div>
-                )
-            })}
-        </div>
-    )
+                    </>
+                )}
+                {comments.map((value, key) => {
+                    return (
+                        <div key={key} className="conteiner-comentario sub-comentario">
+                            <div className="comentario-texto-titulo">
+                                {`${user.username}`}
+                            </div>
+                            { value.deletado ?
+                            <div>
+                                [EXCLUIDO]    
+                            </div>
+                            :
+                            <div>{value.corpo_texto.length > 500 && !expanded
+                                ? value.corpo_texto.slice(0, 500) + "..."
+                                : value.corpo_texto}
+                            </div>
+                            }
+                            {value.corpo_texto.length > 500 && (
+                                <span className='button-text-mostrar' onClick={handleMostrarMaisClick}>
+                                    {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
+                                </span>
+                            )}
+                            {/* <button className="button" onClick={}></button> */}
+                            <ReplyComponent parent={value} />
+                        </div>
+                    )
+                })}
+            </div>
+        )}
 
 
     return (
@@ -180,9 +183,8 @@ export default function Comentarios(props) {
                             <div className="comentario-img-user">
                                 <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
                             </div>
-                            <button onClick={e=>excluirComentario(e, value)}> Excluir </button>
                             <div className="comentario-texto-info">
-                                <div className="comentario-texto-titulo">{`${reviewerInfo.name}`}</div>
+                                <div className="comentario-texto-titulo">{`${user.username}`}</div>
                                 <div className="comentario-texto">
                                     {value.corpo_texto.length > 500 && !expanded
                                         ? value.corpo_texto.slice(0, 500) + "..."
@@ -193,6 +195,7 @@ export default function Comentarios(props) {
                                         {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
                                     </span>
                                 )}
+                            <button onClick={e=>excluirComentario(e, value)}> Excluir </button>
                             </div> 
                             </div>
                             <div className="replycoment-comentario">
@@ -205,3 +208,6 @@ export default function Comentarios(props) {
         </div>
     )
 }
+
+
+export default Comentarios

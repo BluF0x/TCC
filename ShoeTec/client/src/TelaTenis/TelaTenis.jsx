@@ -8,7 +8,7 @@ import estrelaMeia from '../assets/svg/half_star.svg';
 import estrela from '../assets/svg/star.svg';
 import { useLocation, useParams } from "react-router-dom"
 import './tela-tenis.css'
-import api from "../services/api";
+import {api, getUser} from "../services/api";
 import { object } from "joi";
 
 export function TelaTenis() {
@@ -53,7 +53,10 @@ export function TelaTenis() {
     })
     api.get(`/getAllComments/${id}`)
     .then((res)=>{
+      console.log("res:")
       console.log(res)
+      const result = res.data.Resultado
+      
       setComments(res.data.Resultado)
     })
   }, [])
@@ -129,7 +132,12 @@ export function TelaTenis() {
             <TabelaInfo tenisInfo={tenis}/>
           </div>
 
-          <Comentarios comments={comments} tenisId={id}/>
+          <Comentarios 
+          inheritedComments={comments} 
+          tenisId={id} 
+          user={user}
+          isLogged={isLogged}
+          />
       </div>
       :
       <div className="container-tela-tenis">

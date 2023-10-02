@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // import BarraSuperior from '../componentes/BarraSuperior/barra-superior'
 import BarraNav from "../componentes/BarraNav/BarrabNav";
 import Userfoto from '../assets/imgs/arthur.jpg';
-import api from "../services/api";
+import {api, getUser} from "../services/api";
 import './tela-usuario.css'
 import './editar-perfil.css'
 import Cookies from "js-cookie";
@@ -12,11 +12,28 @@ import Popup from 'reactjs-popup';
 import { Link } from "react-router-dom"
 
 export function EditarPerfil() {
-    const [User, setUser] = useState({})
+    const [User, setUser] = useState({
+        	"usuario_id": 0,
+			"name": "",
+			"email": "",
+			"password": "",
+			"pais": "",
+			"estado": null,
+			"cidade": null,
+			"genero": "M",
+			"esportes": [],
+			"bio": null,
+			"picture": null
+    })
 
     const [ultimosPosts, setUltimosPosts] = []
     const [AsicsNovablast, setAsicsNovablast] = useState("Tênis Asics Novablast")
     const [DescricaoComentario, setDescricaoComentario] = useState("O tênis apresenta um bom amortecimento, mas peca quanto à estabilidade.")
+    const [session, setSession] = useState({
+        user: {
+            userid: 0
+        }
+    })
 
     const [estadoLogin, setEstadoLogin] = useState(true)
     const [isPopupOpen, setPopupOpen] = useState(false)
@@ -35,9 +52,21 @@ export function EditarPerfil() {
     }
 
     useEffect(() => {
+        getUser()
+            .then(
+            (value)=>{
+                console.log(value)
+                setSession(value.user)
+            },
+            (reason)=>{
+                console.log(reason)
+            })
+            .catch((reason)=>{
+                console.log(reason)
+            })
 
         try {
-            api.get(`/getUser/${Cookies.get('id')}`)
+            api.get(`/getUser/${session.userid}`)
                 .then((res) => {
                     console.log(res)
                     if (res.status == 200) {
@@ -234,7 +263,7 @@ export function EditarPerfil() {
         return (
             <div className="editar-container">
                 <div className="perfil-editar-foto">
-                    <img className="user-editar-foto" src={User.picture ? User.picture : Userfoto} alt="Foto Usuário"></img>
+                    {/* <img className="user-editar-foto" src={User.picture != null || User.picture != undefined ? User.picture : Userfoto} alt="Foto Usuário"></img> */}
                 </div>
                 <form className="editar-form">
                     <h1 className="cad-form-edit-title">
