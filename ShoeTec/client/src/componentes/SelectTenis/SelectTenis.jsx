@@ -10,7 +10,7 @@ function SelectTenis(props) {
             <h1>{props.titulo}</h1>
             <div className="cards" >
             {listaTenis.map((val, key) =>{
-                {console.log(val)}
+                // {console.log(val)}
                 return <ItemTenis key={key} tenis={val}></ItemTenis>
             })}
             </div>

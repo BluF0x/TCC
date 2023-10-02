@@ -94,11 +94,49 @@ getAllSubComments = async (id) => {
 
 deleteComments = async (req, res) => {
     try {
+        const {commentId} =  req.params
+        const userid = req.session.userid
+        console.log('userid: ' + userid)
+        console.log('commentId: ' + commentId)
+        console.log(req.session)
+
+        if(!userid) {
+            res.status(401).json({msg: "Não autorizado"})
+        } else {
+
+            const userIdQuery = await commentModel.getCommentPosterId(commentId, res)
+
+            if (userIdQuery.length === 0) {
+                // Comment not found
+                res.status(404).json({ msg: "Comentário não encontrado" });
+                return; // Return early to avoid further execution
+            }
+
+            const commentPosterId = userIdQuery[0].reviewer_id
+
+            console.log(`CommentPosterId: ${commentPosterId}`)
+
+
+            if (!commentPosterId || !userid) {
+                res.status(401).json({msg: "Não autorizado"})
+            } else if (commentPosterId != userid) {
+                res.status(401).json({msg: "Não autorizado, id do usuário não é o mesmo do comentário"})
+            } else {
+                const deleteQuery = await commentModel.deleteComment(commentId)
+                res.status(200).json({resultado: "Comentáro deletado com sucesso!", query: deleteQuery})
+            }
+
+        }
         
     } catch (err) {
         res.status(400).json({"erro": err})
     }
 }
 
+const canUserDelete = async (userId, postId) => {
+    if (!userId || !postId) return false
+    if (userId === null || userId != postId) return false
+    else return true
+}
 
 module.exports = { createComment, getTopComment, getChildComment, getAllComments, deleteComments}

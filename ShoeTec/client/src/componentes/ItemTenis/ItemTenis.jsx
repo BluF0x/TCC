@@ -11,7 +11,6 @@ function ItemTenis(props) {
 
     const navigate = useNavigate()
     const tenis = props.tenis
-    console.log(tenis)
 
     const redirectPagTenis= (idTenis) => {
         // navigate('/TelaTenis', {state: {tenis: idTenis}})

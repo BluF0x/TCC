@@ -1,5 +1,7 @@
 const userModel = require("../models/userModel")
 const bcrypt = require('bcrypt')
+const cookieSession = require('cookie-session');
+
 
 const getUsers = async (req, res) =>{
     const users = await userModel.getUsers()
@@ -101,57 +103,56 @@ const deleteUsers = async (req, res) =>{
     return res.status(204).json()
 }
 
-const loginUser = async (req, res) =>{
-    const {email, password} = req.body
-    console.log (`email:${email}, pass:${password}`)
-    console.log(`ID:${req.sessionID}`)
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  console.log(`email:${email}, pass:${password}`);
+  console.log(`ID:${req.sessionID}`);
 
-    try {
-        if (email && password)  {
-            user = await userModel.getSpecificUser("email", email)
-            console.log(user)
-            
-            if (user.name === "Error") {
-                return res.status(400).json({error: query.message, "stack" : query.stack})
-            }
+  try {
+    if (email && password) {
+      user = await userModel.getSpecificUser("email", email);
+      console.log(user);
 
-            if (req.session.authenticated) {
-                return res.json(req.session)
-            }
+      if (user.name === "Error") {
+        return res.status(400).json({ error: query.message, stack: query.stack });
+      }
 
-            const passMatch = await bcrypt.compare(password, user[0].password)
-            console.log(passMatch)
-            if (passMatch){
-                let session = req.session
-                session.username = user[0].name
-                session.userid = user[0].usuario_id
-                session.authenticated = true
-                session.genero = user[0].genero
-                session.admin = user[0].admin
-                console.log(session)
-                return res.status(200).json({success: true, "msg": "Ok", sessao: session})
+      if (req.session.authenticated) {
+        return res.json(req.session);
+      }
 
-            } else {
-                return res.status(400).json({"msg": "Senha incorreta"})
-            }
-        }
-        else {
-           return res.status(400).json({"msg": "Erro"})
-        }
-    }catch (error) {
-        res.status(500).json({"Erro": error.message, "Trace": error.stack})
+      const passMatch = await bcrypt.compare(password, user[0].password);
+      console.log(passMatch);
+      if (passMatch) {
+        req.session.username = user[0].name;
+        req.session.userid = user[0].usuario_id;
+        req.session.authenticated = true;
+        req.session.genero = user[0].genero;
+        req.session.admin = user[0].admin;
+
+        console.log(req.session);
+        return res.status(200).json({ success: true, msg: "Ok", session: req.session });
+      } else {
+        return res.status(400).json({ msg: "Senha incorreta" });
+      }
+    } else {
+      return res.status(400).json({ msg: "Erro" });
     }
-}
+  } catch (error) {
+    res.status(500).json({ Erro: error.message, Trace: error.stack });
+  }
+};
+
 
 const logoutUser = async (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-        return res.status(500).json({error: 'Erro ao sair'})
-        } 
-        res.clearCookie('connection.sid')
-        return res.status(200).json({success: true, "msg": "Saiu com sucesso"})
-    })
-}
+  try {
+    req.session = null; // Clear the session data
+    return res.status(200).json({ success: true, msg: "Saiu com sucesso" });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error', details: error.message });
+  }
+};
+
 
 const checkSession = async (req, res) => {
     try{

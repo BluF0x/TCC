@@ -1,4 +1,4 @@
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import logo from '../../assets/imgs/SneakerTecLogo.png'
@@ -7,18 +7,42 @@ import filter from '../../assets/svg/filter_fill.svg'
 import menu from '../../assets/svg/menu_icon.svg'
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import api from "../../services/api";
+import "../../services/api";
 import './BarraNav.css';
+import { getUser } from "../../services/api";
 
 
 function BarraNav() {
     const [popupUserOpen, setPopupUserOpen] = useState(false)
+    const [isLogged, setIsLogged] = useState(false)
+    const [user, setUser] = useState({
+        user: {
+            username: '',
+            userid: null,
+            genero: '',
+            authenticated: false
+        }
+    })
     const navigate = useNavigate()
-    const isLogged = Cookies.get('loggedIn')
+
+    useEffect(()=>{
+        getUser()
+            .then(
+            (value)=>{
+                console.log(value)
+                setIsLogged(value.isLogged)
+                setUser(value.user)
+            },
+            (reason)=>{
+                console.log(reason)
+            })
+            .catch((reason)=>{
+                console.log(reason)
+            })
+    }, [])
 
     const goToUserScreen = () =>{
         console.log(isLogged)
-        // isLogged ? navigate('/TelaUsuario/', {state: {id: Cookies.get('id')}}) : navigate('/Login')
         navigate("/Login")
     }
 
@@ -49,7 +73,7 @@ function BarraNav() {
         return (
             <div className="menu-list">
                 <ul>
-                    <Link to={ isLogged ? `/TelaUsuario/${Cookies.get('id')}` : '/Login'} className="menu-list-item" >
+                    <Link to={ isLogged ? `/TelaUsuario/${user.userid}` : '/Login'} className="menu-list-item" >
                         Tela usuario
                     </Link>
                     <li className="menu-list-item" onClick={(e)=>{logout(e)}}>Sair</li>
@@ -82,6 +106,14 @@ function BarraNav() {
 
     return(
         <div className="barra-superior">
+            {/* <button onClick={
+                async (e)=> {
+                    const query = await api.get('/checkSession', {
+                        withCredentials: true
+                    })
+                    console.log(query)
+                }
+            }>Checar sessão</button> */}
             <Popup
                 trigger={
                     <div className="menu-nav" onClick={(e)=>toggleMenuNav()}>
@@ -96,7 +128,7 @@ function BarraNav() {
                 <MenuNav/>
             </Popup>
             <div className="menu-nav">
-                <Link to={ isLogged ? `/TelaUsuario/${Cookies.get('id')}` : '/Login'} >
+                <Link to={ isLogged ? `/TelaUsuario/${user.userid}` : '/Login'} >
                     <img src={userLogo} alt='Tela de usuário' className="icon"></img>
                 </Link>
             </div>

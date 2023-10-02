@@ -20,9 +20,31 @@ export function TelaTenis() {
   // const [NomeTenis, setNomeTenis] = useState(tenis.nome)
   const [comments, setComments] = useState([])
   let bufferComment = []
+  const [isLogged, setIsLogged] = useState(false)
+  const [user, setUser] = useState({
+    user: {
+      username: '',
+      userid: null,
+      genero: '',
+      authenticated: false
+    }
+  })
 
   
   useEffect(()=>{
+    getUser()
+      .then(
+      (value)=>{
+          console.log(value)
+          setIsLogged(value.isLogged)
+          setUser(value.user)
+      },
+      (reason)=>{
+          console.log(reason)
+      })
+      .catch((reason)=>{
+          console.log(reason)
+      })
     api.get(`/tenisId/${id}`)
     .then((res)=>{
       console.log(res)

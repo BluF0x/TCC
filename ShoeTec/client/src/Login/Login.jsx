@@ -211,21 +211,21 @@ function LoginForm(props) {
         // console.log(credenciais)
 
         try {
-            const response = await api.post('/users/login', credenciais)
+            const response = await api.post('/users/login', credenciais, {withCredentials: true})
 
 
-            const data = response.data.sessao
-            const expira = new Date(Date.parse(data.cookie.expires))
-            const nome = data.username
-            const genero = data.genero
+            // const data = response.data.sessao
+            // const expira = new Date(Date.parse(data.cookie.expires))
+            // const nome = data.username
+            // const genero = data.genero
 
-            console.log(data)
+            console.log(response)
 
-            Cookies.set('loggedIn', true, { expires: expira })
-            Cookies.set('username', data.username, { expires: expira })
-            Cookies.set('genero', data.genero, { expires: expira })
-            Cookies.set('id', data.userid, { expires: expira })
-            Cookies.set('admin', data.admin, { expires: expira })
+            // Cookies.set('loggedIn', true, { expires: expira })
+            // Cookies.set('username', data.username, { expires: expira })
+            // Cookies.set('genero', data.genero, { expires: expira })
+            // Cookies.set('id', data.userid, { expires: expira })
+            // Cookies.set('admin', data.admin, { expires: expira })
 
             setPopupOpen(true)
             setMensagemQuery("Logado com sucesso!")

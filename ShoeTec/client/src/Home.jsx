@@ -18,7 +18,7 @@ function Home() {
     // Api.get usa Axios para requisitar os tenis com o método GET
     api.get('/tenis/20')
     .then((res)=>{
-      console.log(res)
+      // console.log(res)
       if(res.status == 200){
         setListaTenis(res.data.result)
       }

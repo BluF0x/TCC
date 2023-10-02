@@ -27,7 +27,7 @@ router.post('/comment',  commentController.createComment)
 router.get("/topComments/:id", commentController.getTopComment)
 router.get("/childComments/:id", commentController.getChildComment)
 router.get("/getAllComments/:id", commentController.getAllComments)
-router.post("/deleteComment", commentController.deleteComments)
+router.get("/deleteComment/:commentId", commentController.deleteComments)
 
 router.post('/createTenis', tenisController.creatTenis)
 router.get('/tenis/:limit',  tenisController.getTenis)

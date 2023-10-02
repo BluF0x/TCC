@@ -5,31 +5,47 @@ import Cookies from "js-cookie"
 import { useState, useEffect } from "react";
 import "../../index.css"
 import "./menu-bem-vindo.css"
+import {api, getUser} from '../../services/api'
+
 
 
 function TelaBemVindo() {
-    const isLogged = Cookies.get('loggedIn')
+    // const isLogged = Cookies.get('loggedIn')
     const userGenero = Cookies.get('genero')
     const userAdmin = Cookies.get('admin')
     const [tituloClasse, setTituloClasse] = useState("titulo");
+    const [isLogged, setIsLogged] = useState(false)
+    const [user, setUser] = useState({
+        user: {
+            username: '',
+            userid: null,
+            genero: '',
+            authenticated: false
+        }
+    })
 
     useEffect(() => {
-        const titulo = isLogged ? Cookies.get("username") : "";
-        const tituloLength = titulo.length;
+        getUser()
+            .then(
+            (value)=>{
+                console.log(value)
+                setIsLogged(value.isLogged)
+                setUser(value.user)
+            },
+            (reason)=>{
+                console.log(reason)
+            })
+            .catch((reason)=>{
+                console.log(reason)
+            })
 
-
-        if (tituloLength < 30) {
-            setTituloClasse("titulo");
-        } else {
-            setTituloClasse("titulo-longo");
-        }
-    }, [isLogged]);
+    }, []);
 
     return (
         <div className="container-bem-vindo">
             <h1 className={tituloClasse}>
-                {userGenero == "M" ? "Bem vindo " : userGenero == "F" ? "Bem vinda " : "Bem vindo(a) "}
-                {isLogged ? Cookies.get('username') : ''}
+                {user.genero == "M" ? "Bem vindo " : user.genero == "F" ? "Bem vinda " : "Bem vindo(a) "}
+                {isLogged ? user.username : ''}
 
             </h1>
             <div className="img">
@@ -37,7 +53,7 @@ function TelaBemVindo() {
             </div>
             <div className="background">
             </div>
-            <Link to={isLogged ? `/TelaUsuario/${Cookies.get("id")}` : "/Login"} className="menus menu-entrar">
+            <Link to={isLogged ? `/TelaUsuario/${user.userid}` : "/Login"} className="menus menu-entrar">
                 {isLogged ? "Tela de usuário" : "Entrar"}
             </Link>
 
