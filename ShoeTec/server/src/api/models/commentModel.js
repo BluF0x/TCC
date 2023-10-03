@@ -13,6 +13,13 @@ const getTopComment = async(id) => {
     try{
         const args = `SELECT * FROM Post WHERE tenis_id = ${id} AND parent_id IS NULL;`
         const [comments ] = await connection.execute(args)
+        comments.forEach(async element => {
+            const args = `SELECT name FROM users WHERE usuario_id= ${element.reviewer_id}`
+            const [name] = await connection.execute(args)
+            element.reviewer_name = name[0].name
+            console.log('COMENTARIOS TOPO')
+            console.log(comments)
+        });
         
 
         return comments
@@ -29,9 +36,12 @@ const getChildComment = async (id) => {
 
     const args = `SELECT * FROM Post WHERE parent_id = ${id};`
     const [comments] = await connection.execute(args);
-    comments.forEach(element => {
-        const args = `SELECT `
-
+    comments.forEach(async element => {
+        const args = `SELECT name FROM users WHERE usuario_id= ${element.reviewer_id}`
+        const [name] = await connection.execute(args)
+        element.reviewer_name = name[0].name
+        console.log('SUB COMENTARIOS')
+        console.log(comments)
     });
 
     return comments;

@@ -124,7 +124,7 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
                     return (
                         <div key={key} className="conteiner-comentario sub-comentario">
                             <div className="comentario-texto-titulo">
-                                {`${user.username}`}
+                                {`${value.reviewer_name}`}
                             </div>
                             { value.deletado ?
                             <div>
@@ -184,7 +184,7 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
                                 <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
                             </div>
                             <div className="comentario-texto-info">
-                                <div className="comentario-texto-titulo">{`${user.username}`}</div>
+                                <div className="comentario-texto-titulo">{`${value.reviewer_name}`}</div>
                                 <div className="comentario-texto">
                                     {value.corpo_texto.length > 500 && !expanded
                                         ? value.corpo_texto.slice(0, 500) + "..."
