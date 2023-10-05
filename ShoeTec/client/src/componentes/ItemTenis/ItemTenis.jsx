@@ -3,23 +3,41 @@ import tenis from '../../assets/imgs/Novablast.png';
 import estrelaCheia from '../../assets/svg/star_full.svg';
 import estrelaMeia from '../../assets/svg/half_star.svg';
 import estrela from '../../assets/svg/star.svg';
+import Popup from "reactjs-popup";
 import "./item-tenis.css";
 import { Link, useNavigate } from "react-router-dom";
 
 function ItemTenis(props) {
     const [totalReview, setTotalReview] = useState()
+    const [pop, setPop] = useState(false)
 
     const navigate = useNavigate()
     const tenis = props.tenis
+
+    useEffect(()=>{
+        setTotalReview(Math.floor(tenis.nota * 10) / 10)
+    }, [])
 
     const redirectPagTenis= (idTenis) => {
         // navigate('/TelaTenis', {state: {tenis: idTenis}})
         navigate(`/TelaTenis/${idTenis}`)
     }
 
-    useEffect(()=>{
-        setTotalReview(Math.floor(tenis.nota * 10) / 10)
-    }, [])
+    const shareLink = (e) => {
+        e.stopPropagation()
+        const tenisId = tenis.tenis_id.toString();
+        const linkToShare = 'http://localhost:5173/TelaTenis/' + tenisId
+        navigator.clipboard.writeText(linkToShare)
+            .then(() => {
+                console.log(`Tenis ID ${linkToShare} copied to clipboard.`);
+                setPop(true)
+            })
+            .catch((error) => {
+                console.error('Failed to copy to clipboard: ', error);
+            });
+    };
+    
+
 
     const addEstrela=() =>{
         let listaEstrela = []
@@ -64,6 +82,7 @@ function ItemTenis(props) {
     }
 
     return (
+
         <div className="item-tenis" onClick={()=>{redirectPagTenis(tenis.tenis_id)}}>
             {/* <Link to="/TelaTenis"> */}
                 <img id="image-tenis" src={tenis}></img>
@@ -85,8 +104,25 @@ function ItemTenis(props) {
                     <span className="propriedade-tenis " id="preço">
                         R${tenis.medium_price}
                     </span>
-                <span><button className="compartilhar">Compartilhar</button></span>
+                <button className="compartilhar" onClick={e=>shareLink(e)} >Compartilhar</button>
             {/* </Link> */}
+            <Popup
+                // trigger={
+                //     <div className="menu-nav" onClick={(e)=>toggleMenuNav()}>
+                //         Hello
+                //     </div>
+                // }
+                // on={'click'}
+                
+                open={pop}
+                defaultOpen={false}
+                closeOnDocumentClick
+                // position={'center'}
+                >
+                <div className="menu-nav" onClick={(e)=>toggleMenuNav()}>
+                    Hello
+                </div>
+            </Popup>
         </div>
     )
 }

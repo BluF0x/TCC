@@ -11,7 +11,7 @@ const creatComment = async(data) =>{
 
 const getTopComment = async(id) => {
     try{
-        const args = `SELECT * FROM Post WHERE tenis_id = ${id} AND parent_id IS NULL;`
+        const args = `SELECT * FROM Post WHERE tenis_id = ${id} AND parent_id IS NULL ORDER BY data_post DESC;`
         const [comments ] = await connection.execute(args)
         comments.forEach(async element => {
             const args = `SELECT name FROM users WHERE usuario_id= ${element.reviewer_id}`

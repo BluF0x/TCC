@@ -14,7 +14,7 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
       authenticated: false
     }}, isLogged = false}) =>{
     const [comments, setComments] = useState([]);
-    const [currentComment, setCurrentComment] = useState({ comment: '', subComments: [] });
+    const [currentComment, setCurrentComment] = useState({ corpo_texto: '', subComments: [] });
     const [expanded, setExpanded] = useState(false);
     const [reviewerInfo, setReviewerInfo] = useState(user);
 
@@ -32,23 +32,26 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
     };
 
     const addComment = async (e) => {
-        try {
-            e.preventDefault();
-            setCurrentComment(currentComment);
-            const res = await api.post('/comment', {
-                nota: 3,
-                corpo: currentComment.corpo_texto,
-                reviewerId: user.userid,
-                parenteId: null,
-                tenisId: tenisId
-            });
-            console.log(res);
-            setCurrentComment(currentComment.review_id = res.data.result.insertId)
-            setComments([currentComment, ...comments]);
-        } catch (err) {
-            window.alert("Ocorreu um erro");
-        }
-    };
+        e.preventDefault();
+        setCurrentComment(currentComment);
+        const res = await api.post('/comment', {
+            nota: 3,
+            corpo: currentComment.corpo_texto,
+            reviewerId: user.userid,
+            parenteId: null,
+            tenisId: tenisId
+        });
+        console.log(res);
+        const newComment = {
+            ...currentComment,
+            review_id: res.data.result.insertId,
+            reviewer_id: user.userid,
+            reviewer_name: user.username
+        };
+        console.log(newComment)
+        setComments([newComment, ...comments]);
+            setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
+        };
 
     const handleMostrarMaisClick = () => {
         setExpanded(!expanded);
@@ -63,9 +66,13 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
         )
     }
 
+    //---------------------------------------------------------
+    //REPLY COMPONENT
+    //---------------------------------------------------------
+
     const ReplyComponent = (props) => {
         const parentComment = props.parent;
-        const [currentComment, setCurrentComment] = useState({ comment: "", subComments: [] });
+        const [currentComment, setCurrentComment] = useState({ corpo_texto: "", subComments: [] });
         const [isHidden, setIsHidden] = useState(false);
         const [comments, setComments] = useState(parentComment.subComments);
 
@@ -88,8 +95,15 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
                 tenisId: tenisId
             });
             console.log(res);
-            setCurrentComment(currentComment.review_id = res.data.result.insertId)
-            setComments([currentComment, ...comments]);
+            const newComment = {
+                ...currentComment,
+                review_id: res.data.result.insertId,
+                reviewer_id: user.userid,
+                reviewer_name: user.username
+            };
+            console.log(newComment)
+            setComments([newComment, ...comments]);
+            setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
         };
 
         return (
@@ -141,6 +155,7 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
                                     {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
                                 </span>
                             )}
+                            { value.reviewer_id === user.userid && <button onClick={e=>excluirComentario(e, value)}> Excluir </button>}
                             {/* <button className="button" onClick={}></button> */}
                             <ReplyComponent parent={value} />
                         </div>
@@ -149,6 +164,9 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
             </div>
         )}
 
+    //---------------------------------------------------------
+    // END REPLY COMPONENT
+    //---------------------------------------------------------
 
     return (
         <div className="main-container">
@@ -161,7 +179,7 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
                     <input
                         className="reply-init"
                         placeholder="Comentar"
-                        value={currentComment.comment}
+                        value={currentComment.corpo_texto}
                         onChange={e => updateCurrentComment(e)}
                     />
                     <button className="button" onClick={e => addComment(e)}>
@@ -195,7 +213,7 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
                                         {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
                                     </span>
                                 )}
-                            <button onClick={e=>excluirComentario(e, value)}> Excluir </button>
+                            { value.reviewer_id === user.userid && <button onClick={e=>excluirComentario(e, value)}> Excluir </button>}
                             </div> 
                             </div>
                             <div className="replycoment-comentario">
