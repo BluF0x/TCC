@@ -28,6 +28,25 @@ async function getUser() {
     }
 }
 
+async function getCommentsByUser(reviewerId) {
+    try {
+        const query = await api.get(`/commentsByReviewer/${reviewerId}`, { withCredentials: true });
+        return query.data.comments;
+    } catch (err) {
+        console.log(err);
+        return [];
+    }
+}
+
+async function getTenisById(tenisId) {
+    try {
+        const query = await api.get(`/tenisId/${tenisId}`);
+        return query.data.tenis; 
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+}
 
 export default api
-export {getUser, api}
+export {getUser, api, getCommentsByUser, getTenisById}

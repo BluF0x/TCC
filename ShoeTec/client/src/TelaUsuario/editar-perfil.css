@@ -178,9 +178,6 @@
     -moz-transition: all 0.4s;
     transition: all 0.4s;
 
-    /* background: -webkit-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
-    background: -o-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
-    background: -moz-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria)); */
     background: linear-gradient(to left,  #c6c6c6, #ffffff );
 }
 
@@ -327,9 +324,6 @@
     width: 60%;
     height: 40px;
 
-    /* background: -webkit-linear-gradient(to left, , var(--cor-secundaria));
-    background: -o-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria));
-    background: -moz-linear-gradient(to left, var(--cor-contraste), var(--cor-secundaria)); */
     background: linear-gradient(to left,  #606060, #ffffff );
 }
 

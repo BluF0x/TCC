@@ -64,5 +64,14 @@ const getCommentPosterId = async (commentId, res) =>{
     return posterId
 }
 
+const getCommentsByReviewerId = async (reviewerId) => {
+    try {
+        const args = `SELECT corpo_texto, tenis_id FROM Post WHERE reviewer_id = ${reviewerId} AND parent_id IS NULL`;
+        const [comments] = await connection.execute(args);
+        return comments;
+    } catch (err) {
+        throw err;
+    }
+};
 
-module.exports = {creatComment, getChildComment, getTopComment, deleteComment, getCommentPosterId}
+module.exports = {creatComment, getChildComment, getTopComment, deleteComment, getCommentPosterId, getCommentsByReviewerId}

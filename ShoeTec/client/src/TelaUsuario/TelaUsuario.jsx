@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useNavigate} from "react";
 // import BarraSuperior from '../componentes/BarraSuperior/barra-superior'
 import BarraNav from "../componentes/BarraNav/BarrabNav";
 import Userfoto from '../assets/imgs/arthur.jpg';
@@ -12,7 +12,7 @@ import Tênis from '../assets/icons/tênis.png'
 import Handebol from '../assets/icons/handebol.png'
 import Musculacao from '../assets/icons/musculacao.png'
 import Localizacao from '../assets/icons/localizacao.png'
-import {api, getUser} from "../services/api";
+import { api, getUser, getCommentsByUser, getTenisById } from "../services/api";
 import './tela-usuario.css'
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom"
@@ -20,18 +20,19 @@ import { Link, useParams } from "react-router-dom"
 export function TelaUsuario() {
     const { id } = useParams()
     const [User, setUser] = useState({})
+    const [comments, setComments] = useState([]);
 
     const [ultimosPosts, setUltimosPosts] = []
     const [AsicsNovablast, setAsicsNovablast] = useState("Tênis Asics Novablast")
     const [DescricaoComentario, setDescricaoComentario] = useState("O tênis apresenta um bom amortecimento, mas peca quanto à estabilidade.")
     const [currentUser, setCurrentUser] = useState({
-    user: {
-        username: '',
-        userid: null,
-        genero: '',
-        authenticated: false
-    }
-})
+        user: {
+            username: '',
+            userid: null,
+            genero: '',
+            authenticated: false
+        }
+    })
 
     useEffect(() => {
 
@@ -50,18 +51,26 @@ export function TelaUsuario() {
         }
         getUser()
             .then(
-            (value)=>{
-                console.log(value)
-                setCurrentUser(value.user)
-            },
-            (reason)=>{
-                console.log(reason)
-            })
-            .catch((reason)=>{
+                (value) => {
+                    console.log(value)
+                    setCurrentUser(value.user)
+                },
+                (reason) => {
+                    console.log(reason)
+                })
+            .catch((reason) => {
                 console.log(reason)
             })
 
-    }, [])
+        getCommentsByUser(id)
+            .then((result) => {
+                setComments(result);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [id]);
+
 
     return (
         <div className="container-tela-usuario">
@@ -93,9 +102,9 @@ export function TelaUsuario() {
             catch (err) {
                 console.log(err)
             }
-    
+
         }, [])
-    
+
 
         const sportIcons = {
             futebol: Futebol,
@@ -138,7 +147,7 @@ export function TelaUsuario() {
 
                 <div className="perfil-edit">
 
-                    {currentUser.userid = id  &&
+                    {currentUser.userid = id &&
                         <Link to="/EditarPerfil" className="btn-edit-profile">
                             <h4>Editar Perfil</h4>
                         </Link>
@@ -156,38 +165,48 @@ export function TelaUsuario() {
         )
     }
 
+
+    function TelaComentario({ tenisName, descricao }) {
+        const [tenisNome, setTenisNome] = useState("");
+
+        useEffect(() => {
+            api.get(`/tenisId/${tenisName}`)
+              .then((res) => {
+                console.log(res);
+                setTenisNome(res.data[0].nome);
+              })
+              .catch((error) => {
+                console.error("Erro ao buscar o nome do tênis:", error);
+              });
+          }, [tenisName]);
+
+
+        return (
+            <div className="comentario-user">
+                <div className="cabecalho-comentario">
+                    <a className="a-cabecalho-comentario">
+                        <Link className="calcado-review-user" to={`/TelaTenis/${tenisName}`}>{tenisNome}</Link>
+                    </a>
+                </div>
+                <p className="descricao-comentario">{descricao}</p>
+            </div>
+        );
+    }
+
+
     function ListaComentarios() {
         return (
             <div className="comentarios-container">
                 <h2 className="titulo-comentario">Reviews:</h2>
                 <ol className="lista-comentario">
-
-                    <li className="li-lista-comentario">
-                        <div class="comentario-user">
-                            <div class="cabecalho-comentario">
-                                <a className="calcado-review-user" href='#'>
-                                    <span className="calcado">{AsicsNovablast}</span>
-                                </a>
-                            </div>
-                            <p className="descricao-comentario">
-                                {DescricaoComentario}
-                            </p>
-                        </div>
-                    </li>
-
-                    <li className="li-lista-comentario">
-                        <div class="comentario-user">
-                            <div class="cabecalho-comentario">
-                                <a className="calcado-review-user" href='#'>
-                                    <span className="calcado">{AsicsNovablast}</span>
-                                </a>
-                            </div>
-                            <p className="descricao-comentario">
-                                {DescricaoComentario}
-                            </p>
-                        </div>
-                    </li>
-
+                    {comments.map((comment, index) => (
+                        <li className="li-lista-comentario" key={index}>
+                            <TelaComentario
+                                tenisName={comment.tenis_id}
+                                descricao={comment.corpo_texto}
+                            />
+                        </li>
+                    ))}
                 </ol>
             </div>
         )

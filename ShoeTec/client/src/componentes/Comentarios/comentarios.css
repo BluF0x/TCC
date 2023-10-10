@@ -4,6 +4,7 @@
 
 .comentario-texto {
     max-width: 800px;
+    padding: 4px 2px 2px 2px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-line;
@@ -35,6 +36,49 @@
     width: 35px;
 }
 
+.responder{
+    width: 25px;
+    margin: 0;
+}
+
+.excluir{
+    margin-bottom: -5px;
+    width: 20px;
+    height: 20px;
+}
+
+.text-excluir{
+    color: red;
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+.excluir-button{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.excluir-button::before { 
+    content: '';
+    position: absolute;
+    margin-top: 3px;
+    top: 50%;
+    left: -10px; 
+    width: 80%; 
+    height: 1px; 
+    background-color: red; 
+    transform: translateY(-50%); 
+}
+
+.excluir-btn{
+    margin-left: 80%;
+}
+
+.text-align-excluir{
+    margin: 0;
+}
+
 .button:hover {
     transform: scale(1.1, 1.1);
 }
@@ -48,6 +92,8 @@
 
 .sub-comentario {
     margin: 10px;
+    display: flex;
+    align-items: flex-start;
     transform: translateX(10px);
 }
 
@@ -81,14 +127,17 @@
     color: #f7ce9d;
 }
 
-
+.container-coment-init{
+    width: 100px;
+}
 .button-coment-init {
-    font-size: 10px;
+    font-size: 8px;
     border: none;
-    border-radius: 10px;
+    border-radius: 4px;
     color: white;
     font-weight: bold;
     margin-top: 2px;
+    padding-right: 2px;
 
     line-height: 1.2;
 
@@ -98,8 +147,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 80px;
-    height: 22px;
+    width: 82px;
+    height: 23px;
 
     background: linear-gradient(to left, var(--cor-contraste), #fe7d38);
 }
@@ -164,8 +213,53 @@
 
 .comentario-texto-titulo:hover {
     color: var(--cor-secundaria);
+    cursor: pointer;
 }
 
 .replycoment-comentario {
     margin-bottom: 50px;
 }
+
+.opcoes-mensagens{
+    width: 90%;
+}
+
+.replycoment-comentario-sub {
+    margin-bottom: 30px;
+    transform: translateX(25px);
+}
+
+@media (max-width: 920px) {
+    .comentario-texto {
+      font-size: 14px; 
+      width: 500px;
+    }
+    
+    .excluir-button::before { 
+        width: 80%;
+    }
+    
+    .excluir-btn{
+        margin-left: 80%;
+    }
+  }
+
+  
+  @media (max-width: 570px) {
+    .comentario-texto {
+      font-size: 12px; 
+      width: 230px;
+    }
+    
+    .excluir-button::before { 
+        width: 60%;
+    }
+    
+    .excluir-btn{
+        margin-left: 60%;
+    }
+
+    .comentario-texto-titulo {
+        font-size: 14px;
+    }
+  }

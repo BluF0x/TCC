@@ -139,4 +139,22 @@ const canUserDelete = async (userId, postId) => {
     else return true
 }
 
-module.exports = { createComment, getTopComment, getChildComment, getAllComments, deleteComments}
+const getCommentsByReviewerId = async (req, res) => {
+    try {
+        const { reviewerId } = req.params;
+        
+        const comments = await commentModel.getCommentsByReviewerId(reviewerId);
+        
+        const commentData = comments.map(comment => ({
+            corpo_texto: comment.corpo_texto,
+            tenis_id: comment.tenis_id,
+        }));
+        
+        res.status(200).json({ comments: commentData });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+module.exports = { createComment, getTopComment, getChildComment, getAllComments, deleteComments, getCommentsByReviewerId}

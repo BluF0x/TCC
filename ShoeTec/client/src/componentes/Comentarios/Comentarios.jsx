@@ -5,14 +5,19 @@ import { Link, useMatch } from "react-router-dom";
 import Cookies from "js-cookie";
 import EnviarIcon from '../../assets/icons/enviar.png'
 import CancelarIcon from '../../assets/icons/cancelar.png'
+import ExcluirIcon from '../../assets/icons/excluir.png'
+import ResponderIcon from '../../assets/icons/responder.png'
 import Userpic from '../../assets/imgs/userpic.jpg'
 
-const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
-      username: '',
-      userid: null,
-      genero: '',
-      authenticated: false
-    }}, isLogged = false}) =>{
+
+const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
+    user: {
+        username: '',
+        userid: null,
+        genero: '',
+        authenticated: false
+    }
+}, isLogged = false }) => {
     const [comments, setComments] = useState([]);
     const [currentComment, setCurrentComment] = useState({ corpo_texto: '', subComments: [] });
     const [expanded, setExpanded] = useState(false);
@@ -50,8 +55,8 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
         };
         console.log(newComment)
         setComments([newComment, ...comments]);
-            setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
-        };
+        setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
+    };
 
     const handleMostrarMaisClick = () => {
         setExpanded(!expanded);
@@ -60,10 +65,10 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
         e.preventDefault()
         console.log(`Id do comentario: ${value.review_id}`)
         const res = await api.get(`/deleteComment/${value.review_id}`)
-        .then(
-            console.log(res)
+            .then(
+                console.log(res)
 
-        )
+            )
     }
 
     //---------------------------------------------------------
@@ -76,7 +81,7 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
         const [isHidden, setIsHidden] = useState(false);
         const [comments, setComments] = useState(parentComment.subComments);
 
-        useEffect(()=>{
+        useEffect(() => {
             // console.log(comments)
         })
 
@@ -107,7 +112,7 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
         };
 
         return (
-            <div>
+            <div className="opcoes-mensagens">
                 {user.authenticated && (
                     <>
                         {isHidden ? (
@@ -128,41 +133,65 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
                                 </div>
                             </div>
                         ) : (
-                            <div>
-                                <button className='button-coment-init' onClick={e => setIsHidden(!isHidden)}>Responder</button>
+                            <div className="container-coment-init">
+                                <button className='button-coment-init' onClick={e => setIsHidden(!isHidden)}>
+                                    <img className='responder' src={ResponderIcon} alt="Responder" />
+                                    Responder
+                                </button>
                             </div>
                         )}
                     </>
                 )}
                 {comments.map((value, key) => {
                     return (
+                        <>
                         <div key={key} className="conteiner-comentario sub-comentario">
-                            <div className="comentario-texto-titulo">
-                                {`${value.reviewer_name}`}
+                            <div className="comentario-img-user">
+                                <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
                             </div>
-                            { value.deletado ?
-                            <div>
-                                [EXCLUIDO]    
-                            </div>
-                            :
-                            <div>{value.corpo_texto.length > 500 && !expanded
-                                ? value.corpo_texto.slice(0, 500) + "..."
-                                : value.corpo_texto}
-                            </div>
+                            <div className="comentario-texto-info">
+                                <div className="comentario-texto-titulo">
+                                    {`${value.reviewer_name}`}
+                                </div>
+                                {value.deletado ?
+                                    <div>
+                                        [EXCLUIDO]
+                                    </div>
+                                    :
+                                    <div className="comentario-texto">
+                                        {value.corpo_texto.length > 500 && !expanded
+                                        ? value.corpo_texto.slice(0, 500) + "..."
+                                        : value.corpo_texto}
+                                    </div>
+                                }
+
+                                {value.corpo_texto.length > 500 && (
+                                    <span className='button-text-mostrar' onClick={handleMostrarMaisClick}>
+                                        {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
+                                    </span>
+                                )}
+                            
+                            {value.reviewer_id === user.userid &&
+                                <div className="excluir-button">
+                                    <button className="button excluir-btn" onClick={e => excluirComentario(e, value)}>
+                                        <img className="excluir" src={ExcluirIcon} alt="Excluir" />
+                                        <p className="text-align-excluir">
+                                            <span className="text-excluir">Excluir</span>
+                                        </p>
+                                    </button>
+                                </div>
                             }
-                            {value.corpo_texto.length > 500 && (
-                                <span className='button-text-mostrar' onClick={handleMostrarMaisClick}>
-                                    {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
-                                </span>
-                            )}
-                            { value.reviewer_id === user.userid && <button onClick={e=>excluirComentario(e, value)}> Excluir </button>}
-                            {/* <button className="button" onClick={}></button> */}
-                            <ReplyComponent parent={value} />
-                        </div>
+                            </div>
+                            </div>
+                            <div className="replycoment-comentario-sub">
+                                <ReplyComponent parent={value} />
+                            </div>
+                        </>
                     )
                 })}
             </div>
-        )}
+        )
+    }
 
     //---------------------------------------------------------
     // END REPLY COMPONENT
@@ -170,56 +199,66 @@ const Comentarios = ({inheritedComments = [], tenisId=0, user={ user: {
 
     return (
         <div className="main-container">
-            {isLogged?
-            <div>
-                <h1 className="title-coment">
-                    Comentários
-                </h1>
-                <div className="container-comentario-init">
-                    <input
-                        className="reply-init"
-                        placeholder="Comentar"
-                        value={currentComment.corpo_texto}
-                        onChange={e => updateCurrentComment(e)}
-                    />
-                    <button className="button" onClick={e => addComment(e)}>
-                        <img className='img-button envit' src={EnviarIcon} alt="Enviar" />
-                    </button>
+            {isLogged ?
+                <div>
+                    <h1 className="title-coment">
+                        Comentários
+                    </h1>
+                    <div className="container-comentario-init">
+                        <input
+                            className="reply-init"
+                            placeholder="Comentar"
+                            value={currentComment.corpo_texto}
+                            onChange={e => updateCurrentComment(e)}
+                        />
+                        <button className="button" onClick={e => addComment(e)}>
+                            <img className='img-button envit' src={EnviarIcon} alt="Enviar" />
+                        </button>
+                    </div>
                 </div>
-            </div>
-            :
-            <div className="container-comentario">
-                <h3>
-                    Faça <Link to="/Login">Login</Link> para comentar
-                </h3>
-            </div>}
+                :
+                <div className="container-comentario">
+                    <h3>
+                        Faça <Link to="/Login">Login</Link> para comentar
+                    </h3>
+                </div>}
             <div>
                 {comments.map((value, key) => {
                     return (
                         <>
-                        <div key={key} className="container-comentario">
-                            <div className="comentario-img-user">
-                                <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
-                            </div>
-                            <div className="comentario-texto-info">
-                                <div className="comentario-texto-titulo">{`${value.reviewer_name}`}</div>
-                                <div className="comentario-texto">
-                                    {value.corpo_texto.length > 500 && !expanded
-                                        ? value.corpo_texto.slice(0, 500) + "..."
-                                        : value.corpo_texto}
+                            <div key={key} className="container-comentario">
+                                <div className="comentario-img-user">
+                                    <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
                                 </div>
-                                {value.corpo_texto.length > 500 && (
-                                    <span className="button-text-mostrar" onClick={handleMostrarMaisClick}>
-                                        {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
-                                    </span>
-                                )}
-                            { value.reviewer_id === user.userid && <button onClick={e=>excluirComentario(e, value)}> Excluir </button>}
-                            </div> 
+                                <div className="comentario-texto-info">
+                                    <div className="comentario-texto-titulo">{`${value.reviewer_name}`}</div>
+                                    <div className="comentario-texto">
+                                        {value.corpo_texto.length > 500 && !expanded
+                                            ? value.corpo_texto.slice(0, 500) + "..."
+                                            : value.corpo_texto}
+                                    </div>
+                                    {value.corpo_texto.length > 500 && (
+                                        <span className="button-text-mostrar" onClick={handleMostrarMaisClick}>
+                                            {expanded ? "Mostrar Menos" : "Mostrar Mais..."}
+                                        </span>
+                                    )}
+                                    {value.reviewer_id === user.userid &&
+                                        <div className="excluir-button">
+                                            <button className="button excluir-btn" onClick={e => excluirComentario(e, value)}>
+                                                <img className="excluir" src={ExcluirIcon} alt="Excluir" />
+                                                <p className="text-align-excluir">
+                                                    <span className="text-excluir">Excluir</span>
+                                                </p>
+                                            </button>
+                                        </div>
+                                    }
+
+                                </div>
                             </div>
                             <div className="replycoment-comentario">
                                 <ReplyComponent parent={value} />
                             </div>
-                       </>
+                        </>
                     );
                 })}
             </div>
