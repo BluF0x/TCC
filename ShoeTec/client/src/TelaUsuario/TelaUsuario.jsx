@@ -210,14 +210,5 @@ export function TelaUsuario() {
                 </ol>
             </div>
         )
-
-        function Posts() {
-            return (
-                <div className="post">
-                    Teste
-                </div>
-            )
-        }
     }
-
 }

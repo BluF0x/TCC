@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-// import BarraSuperior from '../componentes/BarraSuperior/barra-superior'
 import BarraNav from "../componentes/BarraNav/BarrabNav";
 import Userfoto from '../assets/imgs/arthur.jpg';
-import {api, getUser} from "../services/api";
+import { api, getUser } from "../services/api";
+import { getCommentsByUser } from "../services/api";
 import './tela-usuario.css'
 import './editar-perfil.css'
 import Cookies from "js-cookie";
@@ -12,30 +12,12 @@ import Popup from 'reactjs-popup';
 import { Link } from "react-router-dom"
 
 export function EditarPerfil() {
-    const [User, setUser] = useState({
-        	"usuario_id": 0,
-			"name": "",
-			"email": "",
-			"password": "",
-			"pais": "",
-			"estado": null,
-			"cidade": null,
-			"genero": "M",
-			"esportes": [],
-			"bio": null,
-			"picture": null
-    })
-
-    const [ultimosPosts, setUltimosPosts] = []
-    const [AsicsNovablast, setAsicsNovablast] = useState("Tênis Asics Novablast")
-    const [DescricaoComentario, setDescricaoComentario] = useState("O tênis apresenta um bom amortecimento, mas peca quanto à estabilidade.")
     const [session, setSession] = useState({
         user: {
             userid: 0
         }
     })
 
-    const [estadoLogin, setEstadoLogin] = useState(true)
     const [isPopupOpen, setPopupOpen] = useState(false)
     const [mensagemQuery, setMensagemQuery] = useState('')
     const [credenciais, setCredenciais] = useState(
@@ -46,22 +28,22 @@ export function EditarPerfil() {
         }
     )
 
-
     const handleCredenciais = (e) => {
         inputValidation.setCreds(e, setCredenciais, credenciais) //setCreds adiciona o input a credenciais
     }
+    
 
     useEffect(() => {
         getUser()
             .then(
-            (value)=>{
-                console.log(value)
-                setSession(value.user)
-            },
-            (reason)=>{
-                console.log(reason)
-            })
-            .catch((reason)=>{
+                (value) => {
+                    console.log(value)
+                    setSession(value.user)
+                },
+                (reason) => {
+                    console.log(reason)
+                })
+            .catch((reason) => {
                 console.log(reason)
             })
 
@@ -78,9 +60,31 @@ export function EditarPerfil() {
         catch (err) {
             console.log(err)
         }
+    }, []);
 
-    }, [])
 
+    const editar = async (e) => {
+        e.preventDefault()
+
+        const id = session.userid;
+        const credenciaisComId = {
+            ...credenciais,
+            id: id,
+        };
+        const queryResult = await postCred.updateUsuario(credenciaisComId)
+
+        // Por enquanto, um alert será usado; mudar depois
+        if (queryResult.status > 199 && queryResult.status < 500) {
+            console.log(queryResult)
+            setPopupOpen(true)
+            setMensagemQuery(`Perfil editado com sucesso!\nCod: ${queryResult.status}`)
+            setEstadoLogin(true)
+        } else {
+            console.log(queryResult)
+            setPopupOpen(true)
+            setMensagemQuery(`Falha ao editar perfil.\nRazão: ${queryResult.response.data.error.details[0].message} \nCod: ${queryResult.response.status}`)
+        }
+    }
 
     return (
         <>
@@ -94,7 +98,7 @@ export function EditarPerfil() {
                     <Link className='login-form-button-cad' onClick={() => setPopupOpen(false)}>Fechar</Link>
 
                     <div className='text-center-popupcad'>
-                        <Link to={`/TelaUsuario/${Cookies.get("id")}`} className='voltar-popup'>Voltar</Link>
+                        <Link to={`/TelaUsuario/${session.userid}`} className='voltar-popup'>Voltar</Link>
                     </div>
                 </div>
             </Popup>
@@ -103,341 +107,313 @@ export function EditarPerfil() {
                 <BarraNav />
                 <div className="space">🥚🐰</div>
                 <div className="container-content">
-                    <EditarUsuario
-                        cred={credenciais}
-                        setCred={handleCredenciais}
-                        estadoLog={estadoLogin}
-                        setEstadoLog={setEstadoLogin}
-                        setPopupOpen={setPopupOpen}
-                        setMensagemQuery={setMensagemQuery} />
-                    
-                    <InputFormEdit
-                        nome={"name"}
-                        handleInput={handleCredenciais}
-                        placeholder={"Nome"}
-                        var={credenciais.name}
-                        steps={[{ function: inputValidation.required }]}
-                    />
+                    <div className="editar-container">
+                        <div className="perfil-editar-foto">
+                            {/* <img className="user-editar-foto" src={User.picture != null || User.picture != undefined ? User.picture : Userfoto} alt="Foto Usuário"></img> */}
+                        </div>
+                        <form className="editar-form">
+                            <h1 className="cad-form-edit-title">
+                                Editar Perfil:
+                            </h1>
+
+                            <div className="wrap-input-editar">
+                                <input
+                                    className={!credenciais.name ? 'input-edit' : credenciais.name === "" ? 'input-edit' : 'has-val input-edit'}
+                                    type="text"
+                                    name="name"
+                                    value={credenciais.name}
+                                    onChange={(e) => handleCredenciais(e)}
+                                    required
+                                />
+                                <span className="focus-input-edit" data-placeholder="Nome*"></span>
+                            </div>
+                            <div className='wrap-warning'>
+                                
+                            </div>
+
+                            <div className="wrap-input-editar">
+                                <input
+                                    className={!credenciais.bio ? 'input-edit' : credenciais.bio === "" ? 'input-edit' : 'has-val input-edit'}
+                                    type="text"
+                                    name="bio"
+                                    value={credenciais.bio}
+                                    onChange={(e) => handleCredenciais(e)}
+                                    required
+                                />
+                                <span className="focus-input-edit" data-placeholder="Biografia*"></span>
+                            </div>
+                            <div className='wrap-warning'>
+                                
+                            </div>
+
+                            <div className="wrap-input-editar">
+                                <input
+                                    className={!credenciais.pais ? 'input-edit' : credenciais.pais === "" ? 'input-edit' : 'has-val input-edit'}
+                                    type="text"
+                                    name="pais"
+                                    value={credenciais.pais}
+                                    onChange={(e) => handleCredenciais(e)}
+                                    required
+                                />
+                                <span className="focus-input-edit" data-placeholder="País*"></span>
+                            </div>
+                            <div className='wrap-warning'>
+                                
+                            </div>
+
+                            <div className="wrap-input-editar">
+                                <input
+                                    className={!credenciais.estado ? 'input-edit' : 'has-val input-edit'}
+                                    type="text"
+                                    name="estado"
+                                    value={credenciais.estado}
+                                    onChange={(e) => handleCredenciais(e)}
+                                />
+                                <span className="focus-input-edit" data-placeholder="Estado*"></span>
+                            </div>
+                            <div className='wrap-warning'>
+                                
+                            </div>
+
+                            <div className="wrap-input-editar">
+                                <input
+                                    className={!credenciais.cidade ? 'input-edit' : 'has-val input-edit'}
+                                    type="text"
+                                    name="cidade"
+                                    value={credenciais.cidade}
+                                    onChange={(e) => handleCredenciais(e)}
+                                />
+                                <span className="focus-input-edit" data-placeholder="Cidade*"></span>
+                            </div>
+                            <div className='wrap-warning'>
+                                
+                            </div>
+
+                            <h3 className='titulo-genero-edit'>Gênero*: </h3>
+                            <div className="wrap-input-editar" onChange={(e) => handleCredenciais(e)}>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="masc"
+                                        name="genero"
+                                        type="radio"
+                                        value="M"
+                                    />
+                                    <label className="label-radio-edit" for="masc">Masculino</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="fem"
+                                        name="genero"
+                                        type="radio"
+                                        value="F"
+                                    />
+                                    <label className="label-radio-edit" for="fem">Feminino</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="outro"
+                                        name="genero"
+                                        type="radio"
+                                        value="O"
+                                    />
+                                    <label className="label-radio-edit" for="outro">Outro</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="naoindentifico"
+                                        name="genero"
+                                        type="radio"
+                                        value="N"
+                                    />
+                                    <label className="label-radio-edit" for="naoindentifico">Prefiro não identificar</label>
+                                </p>
+                            </div>
+                            <div className='wrap-warning'>
+                                
+                            </div>
+
+                            <h3 className='titulo-genero-edit'>Esportes que você pratica*:</h3>
+                            <div className="wrap-input-editar">
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="futebol"
+                                        name="esporte"
+                                        type="checkbox"
+                                        value="futebol"
+                                        onChange={(e) => handleCredenciais(e)}
+                                    />
+                                    <label className="label-radio-edit" for="futebol">Futebol</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="futsal"
+                                        name="esporte"
+                                        type="checkbox"
+                                        value="futsal"
+                                        onChange={(e) => handleCredenciais(e)}
+                                    />
+                                    <label className="label-radio-edit" for="futsal">Futsal</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="corrida"
+                                        name="esporte"
+                                        type="checkbox"
+                                        value="corrida"
+                                        onChange={(e) => handleCredenciais(e)}
+                                    />
+                                    <label className="label-radio-edit" for="corrida">Corrida</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="volei"
+                                        name="esporte"
+                                        type="checkbox"
+                                        value="voleibal"
+                                        onChange={(e) => handleCredenciais(e)}
+                                    />
+                                    <label className="label-radio-edit" for="volei">Voleibal</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="basquete"
+                                        name="esporte"
+                                        type="checkbox"
+                                        value="basquete"
+                                        onChange={(e) => handleCredenciais(e)}
+                                    />
+                                    <label className="label-radio-edit" for="basquete">Basquete</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="tenis"
+                                        name="esporte"
+                                        type="checkbox"
+                                        value="tenis"
+                                        onChange={(e) => handleCredenciais(e)}
+                                    />
+                                    <label className="label-radio-edit" for="tenis">Tênis</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="handebol"
+                                        name="esporte"
+                                        type="checkbox"
+                                        value="handebol"
+                                        onChange={(e) => handleCredenciais(e)}
+                                    />
+                                    <label className="label-radio-edit" for="handebol">Handebol</label>
+                                </p>
+                                <p className='input-p-edit'>
+                                    <input
+                                        className='input-btn-edit'
+                                        id="musculacao"
+                                        name="esporte"
+                                        type="checkbox"
+                                        value="musculacao"
+                                        onChange={(e) => handleCredenciais(e)}
+                                    />
+                                    <label className="label-radio-edit" for="musculacao">Musculação</label>
+                                </p>                                
+                            </div>
+                            <div className='wrap-warning'>
+                                
+                            </div>
+
+                            <div className="container-edit-form-btn">
+                                <button className="login-edit-btn-cad" onClick={(e) => editar(e)} type='submit'>Salvar</button>
+                            </div>
+                        </form>
+                    </div>
                     <ListaComentarios />
                 </div>
             </div>
         </>
     )
+}
 
 
-    function InputFormEdit(props) {
-        const [warning, setWarning] = useState(undefined)
-        const nome = props.nome
-        const steps = props.steps
+function TelaComentario({ tenisName, descricao }) {
+    const [tenisNome, setTenisNome] = useState("");
 
-        if (props.tipo != "checkbox" && props.tipo != "radio") {
-            return (
-                <>
-                    <div className="wrap-input-editar">
-                        <input
-                            className={!props.var ? 'input-edit' : props.var == "" ? 'input-edit' : 'has-val input-edit'}
-                            type={props.tipo}
-                            name={props.nome}
-                            value={props.var}
-                            onChange={e => {
-                                const valor = e.target.value
-                                props.handleInput(e, setWarning)
-                                // Esse loop executa todas as funções dentro do array steps, que verifica o input do usuario
-                                if (steps) {
-                                    let isWarning = []
-                                    for (let i = 0; i < steps.length; i++) {
-                                        const result = steps[i].params ? steps[i].function(valor, ...steps[i].params) : steps[i].function(valor)
-                                        isWarning.push(result.status)
-                                        if (!result.status) {
-                                            setWarning(result.warning)
-                                        } else if (!isWarning.includes(undefined)) {
-                                            setWarning(undefined)
-                                        }
-                                    }
-                                }
+    useEffect(() => {
+        api.get(`/tenisId/${tenisName}`)
+            .then((res) => {
+                console.log(res);
+                setTenisNome(res.data[0].nome);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar o nome do tênis:", error);
+            });
+    }, [tenisName]);
 
-                            }}
-                            required
+
+    return (
+        <div className="comentario-user">
+            <div className="cabecalho-comentario">
+                <a className="a-cabecalho-comentario">
+                    <Link className="calcado-review-user" to={`/TelaTenis/${tenisName}`}>{tenisNome}</Link>
+                </a>
+            </div>
+            <p className="descricao-comentario">{descricao}</p>
+        </div>
+    );
+}
+
+function ListaComentarios() {
+    const [comments, setComments] = useState([]);
+    const [session, setSession] = useState({
+        user: {
+            userid: 0
+        }
+    })
+
+    useEffect(() => {
+        getUser()
+            .then(
+                (value) => {
+                    console.log(value)
+                    setSession(value.user)
+                },
+                (reason) => {
+                    console.log(reason)
+                })
+            .catch((reason) => {
+                console.log(reason)
+            })
+        getCommentsByUser(`${session.userid}`)
+        .then((result) => {
+            setComments(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}, [`${session.userid}`]);
+
+    return (
+        <div className="comentarios-container">
+            <h2 className="titulo-comentario">Reviews:</h2>
+            <ol className="lista-comentario">
+                {comments.map((comment, index) => (
+                    <li className="li-lista-comentario" key={index}>
+                        <TelaComentario
+                            tenisName={comment.tenis_id}
+                            descricao={comment.corpo_texto}
                         />
-                        <span className="focus-input-edit" data-placeholder={props.placeholder}></span>
-                    </div>
-                    <div className='wrap-warning'>
-                        {warning}
-                    </div>
-                </>
-            )
-        } else if (props.tipo == "radio") {
-            return (
-                <div className="wrap-input-editar" onChange={e => props.handleInput(e, setWarning)}>
-                    <h3 className='titulo-genero-edit'>{props.titulo}</h3>
-                    {props.membros.map(
-                        v => {
-                            return (
-                                <p className='input-p-edit'>
-                                    <input
-                                        className='input-btn-edit'
-                                        id={v.id}
-                                        name={props.nome}
-                                        type="radio"
-                                        value={v.genero}
-                                    />
-                                    <label className="label-radio-edit" for={v.id}>{v.label}</label>
-                                </p>
-                            )
-                        }
-                    )}
-                    <div className='wrap-warning'>
-                        <div className='warning-radio'>
-                            {warning}
-                        </div>
-                    </div>
-                </div>
-            )
-        } else if (props.tipo == "checkbox") {
-            return (
-                <div className="wrap-input-editar">
-                    <h3 className='titulo-genero-edit'>{props.titulo}</h3>
-                    {props.membros.map(
-                        v => {
-                            return (
-                                <p className='input-p-edit'>
-                                    <input
-                                        className='input-btn-edit'
-                                        id={v.id}
-                                        name={props.nome}
-                                        type="checkbox"
-                                        value={v.valor}
-                                        onChange={e => props.handleInput(e, setWarning)}
-                                    />
-                                    <label className="label-radio-edit" for={v.id}>{v.label}</label>
-                                </p>
-                            )
-                        }
-                    )}
-                    <div className='wrap-warning'>
-                        <div className='warning-checkbox'>
-                            {warning}
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-    }
-
-    function EditarUsuario(props) {
-        const isLogged = Cookies.get('loggedIn')
-
-        const credenciais = props.cred
-        const handleCredenciais = props.setCred
-        const estadoLogin = props.estadoLog
-        const setEstadoLogin = props.setEstadoLog
-        const setPopupOpen = props.setPopupOpen
-        const setMensagemQuery = props.setMensagemQuery
-
-        const editar = async (e) => {
-            e.preventDefault()
-
-            const id = Cookies.get('id');
-            const credenciaisComId = {
-                ...credenciais,
-                id: id,
-            };
-            const queryResult = await postCred.updateUsuario(credenciaisComId)
-
-        
-
-            //Por enquanto, um alert será usado; mudar depois
-            if (queryResult.status > 199 && queryResult.status < 500) {
-                console.log(queryResult)
-                setPopupOpen(true)
-                setMensagemQuery(`Perfil editado com sucesso!\nCod: ${queryResult.status}`)
-                setEstadoLogin(true)
-
-            } else {
-                console.log(queryResult)
-                setPopupOpen(true)
-                setMensagemQuery(`Falha ao editar perfil.\nRazão: ${queryResult.response.data.error.details[0].message} \nCod: ${queryResult.response.status}`)
-            }
-        }
-
-        return (
-            <div className="editar-container">
-                <div className="perfil-editar-foto">
-                    {/* <img className="user-editar-foto" src={User.picture != null || User.picture != undefined ? User.picture : Userfoto} alt="Foto Usuário"></img> */}
-                </div>
-                <form className="editar-form">
-                    <h1 className="cad-form-edit-title">
-                        Editar Perfil:
-                    </h1>
-
-                    <InputFormEdit
-                        nome={"name"}
-                        handleInput={handleCredenciais}
-                        placeholder={"Nome"}
-                        var={credenciais.name}
-                        steps={[{ function: inputValidation.required }]}
-                    />
-
-                    <InputFormEdit
-                        nome={"bio"}
-                        handleInput={handleCredenciais}
-                        placeholder={"Biografia"}
-                        var={credenciais.bio}
-                        steps={[{ function: inputValidation.required }]}
-                    />
-
-                    <InputFormEdit
-                        nome={"pais"}
-                        handleInput={handleCredenciais}
-                        placeholder={"País"}
-                        var={credenciais.pais}
-                        steps={[{ function: inputValidation.required }]}
-                    />
-
-                    <InputFormEdit
-                        nome={"estado"}
-                        handleInput={handleCredenciais}
-                        placeholder={"Estado*"}
-                        var={credenciais.estado}
-                    />
-
-                    <InputFormEdit
-                        nome={"cidade"}
-                        handleInput={handleCredenciais}
-                        placeholder={"Cidade*"}
-                        var={credenciais.cidade}
-                    />
-
-
-
-                    <InputFormEdit membros={[
-                        {
-                            id: "masc",
-                            label: "Masculino",
-                            genero: "M"
-                        },
-                        {
-                            id: "fem",
-                            label: "Feminino",
-                            genero: "F"
-                        },
-                        {
-                            id: "outro",
-                            label: "Outro",
-                            genero: "O"
-                        },
-                        {
-                            id: "naoindentifico",
-                            label: "Prefiro não identificar",
-                            genero: "N"
-                        }
-                    ]}
-                        tipo={"radio"}
-                        titulo={"Gênero:"}
-                        handleInput={handleCredenciais}
-                        nome={"genero"}
-                    />
-
-                    <InputFormEdit
-                        tipo={"checkbox"}
-                        titulo={"Esportes que você pratica:"}
-                        handleInput={handleCredenciais}
-                        nome={"esporte"}
-                        membros={[
-                            {
-                                id: "futebol",
-                                valor: "futebol",
-                                label: "Futebol"
-                            },
-                            {
-                                id: "futsal",
-                                valor: "futsal",
-                                label: "Futsal"
-                            },
-                            {
-                                id: "corrida",
-                                valor: "corrida",
-                                label: "Corrida"
-                            },
-                            {
-                                id: "volei",
-                                valor: "voleibal",
-                                label: "Voleibal"
-                            },
-                            {
-                                id: "basquete",
-                                valor: "basquete",
-                                label: "Basquete"
-                            },
-                            {
-                                id: "tenis",
-                                valor: "tenis",
-                                label: "Tênis"
-                            },
-                            {
-                                id: "handebol",
-                                valor: "handebol",
-                                label: "Handebol"
-                            },
-                            {
-                                id: "musculacao",
-                                valor: "musculacao",
-                                label: "Musculação"
-                            },
-                        ]}
-                    />
-
-                    <div className="container-edit-form-btn">
-                        <button className="login-edit-btn-cad" onClick={(e) => editar(e)} type='submit'>Salvar</button>
-                    </div>
-                </form>
-            </div>
-        )
-    }
-
-    function ListaComentarios() {
-        return (
-            <div className="comentarios-container">
-                <h2 className="titulo-comentario">Reviews:</h2>
-                <ol className="lista-comentario">
-
-                    <li className="li-lista-comentario">
-                        <div class="comentario-user">
-                            <div className="cabecalho-comentario">
-                                <a className="calcado-review-user" href='#'>
-                                    <span className="calcado">{AsicsNovablast}</span>
-                                </a>
-                            </div>
-                            <p className="descricao-comentario">
-                                {DescricaoComentario}
-                            </p>
-                        </div>
                     </li>
-
-                    <li className="li-lista-comentario">
-                        <div className="comentario-user">
-                            <div class="cabecalho-comentario">
-                                <a className="calcado-review-user" href='#'>
-                                    <span className="calcado">{AsicsNovablast}</span>
-                                </a>
-                            </div>
-                            <p className="descricao-comentario">
-                                {DescricaoComentario}
-                            </p>
-                        </div>
-                    </li>
-
-                </ol>
-            </div>
-        )
-
-        function Posts() {
-            return (
-                <div className="post">
-                    Teste
-                </div>
-            )
-        }
-    }
-
+                ))}
+            </ol>
+        </div>
+    );
 }
