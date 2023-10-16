@@ -161,3 +161,10 @@
     }
     
   }
+
+.popup-content {
+    background-color: var(--cor-primaria);
+    color: white;
+    border-radius: 8px;
+    margin: 1em;
+}

@@ -106,23 +106,11 @@ function ItemTenis(props) {
                     </span>
                 <button className="compartilhar" onClick={e=>shareLink(e)} >Compartilhar</button>
             {/* </Link> */}
-            <Popup
-                // trigger={
-                //     <div className="menu-nav" onClick={(e)=>toggleMenuNav()}>
-                //         Hello
-                //     </div>
-                // }
-                // on={'click'}
-                
-                open={pop}
-                defaultOpen={false}
-                closeOnDocumentClick
-                // position={'center'}
-                >
-                <div className="menu-nav" onClick={(e)=>toggleMenuNav()}>
-                    Hello
-                </div>
-            </Popup>
+                <Popup open={pop} closeOnDocumentClick onClose={() => setPop(false)}>
+                    <div className="popup-content">
+                        <p>Link copiado para a área de transferência!</p>
+                    </div>
+                </Popup>
         </div>
     )
 }

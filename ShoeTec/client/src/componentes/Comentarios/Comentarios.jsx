@@ -150,9 +150,9 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                 <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
                             </div>
                             <div className="comentario-texto-info">
-                                <div className="comentario-texto-titulo">
+                                <Link to={`/TelaUsuario/${value.reviewer_id}`} className="comentario-texto-titulo">
                                     {`${value.reviewer_name}`}
-                                </div>
+                                </Link>
                                 {value.deletado ?
                                     <div>
                                         [EXCLUIDO]
@@ -231,7 +231,9 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                     <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
                                 </div>
                                 <div className="comentario-texto-info">
-                                    <div className="comentario-texto-titulo">{`${value.reviewer_name}`}</div>
+                                    <Link to={`/TelaUsuario/${value.reviewer_id}`} className="comentario-texto-titulo">
+                                        {`${value.reviewer_name}`}
+                                    </Link>
                                     <div className="comentario-texto">
                                         {value.corpo_texto.length > 500 && !expanded
                                             ? value.corpo_texto.slice(0, 500) + "..."

@@ -59,6 +59,13 @@ function BarraNav() {
         }
     }
 
+    const pesquisar = async(e) => {
+        console.log(e.target.value)
+        const search = api()
+        
+
+    }
+
     const toggleMenuNav=() => {
         setPopupUserOpen(!popupUserOpen)
         console.log(isLogged)
@@ -128,7 +135,7 @@ function BarraNav() {
                 </Link>
             </div>
             <div className="items-barra-superior" id="barra-pesquisa">
-                <input type="text" placeholder="Pesquisar" id="pesquisar" onChange={(e)=>{console.log(e.target.value)}}></input>
+                <input type="text" placeholder="Pesquisar" id="pesquisar" onChange={(e)=>pesquisar(e)}></input>
                 <Popup
                     trigger={
                         <div className="btn-filtrar">

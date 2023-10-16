@@ -290,7 +290,7 @@ function CadastrarForm(props) {
         const queryResult = await postCred.cadastrarUsuario(credenciais)
 
         //Por enquanto, um alert será usado; mudar depois
-        if (queryResult.status > 200 && queryResult.status < 300) {
+        if (queryResult.status >= 200 && queryResult.status < 300) {
             console.log(queryResult)
             setPopupOpen(true)
             setMensagemQuery(`Usuário criado com sucesso!\nCod: ${queryResult.status}`)
@@ -350,14 +350,14 @@ function CadastrarForm(props) {
                     var={credenciais.confirmPassword}
                     tipo={"password"}
                     steps={[
-                        { function: inputValidation.isEqual, params: [credenciais.password] }
+                        { function: inputValidation.isEqual, params: [credenciais.pass] }
                     ]}
                 />
 
                 <InputForm
                     nome={"pais"}
                     handleInput={handleCredenciais}
-                    placeholder={"Pais"}
+                    placeholder={"País"}
                     var={credenciais.pais}
                     steps={[{ function: inputValidation.required }]}
                 />

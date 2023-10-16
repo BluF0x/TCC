@@ -1,4 +1,4 @@
-const { array } = require('joi')
+const { array, object } = require('joi')
 const connection = require('./connection')
 
 const getTenis = async() =>{
@@ -14,22 +14,28 @@ const getTenis = async() =>{
 * data: [] usado na execução da conexão 
 */
 const searchTenis = async(queryObj) => {
-    console.log(queryObj)
+    console.log(queryObj.search)
 
     try {
+        const args = `SELECT * FROM tenis WHERE nome = ${queryObj[search]} `
+        for(key in queryObj){
+            console.log(queryObj[key])
+        }
         // args é um array que depois é concatenado em uma string formando a query 
-        const args = [`SELECT * FROM tenis`]
+        // const args = [`SELECT * FROM tenis`]
 
         //checa se é ordenado e por onde é ordenado
         // if (queryObj.order.isTrue) args.push(`ORDER BY ${queryObj.order.argument}`)
-        args.push('WHERE')
-        args.push(queryObj.nome)
-        args.push(';')
+        // args.push('WHERE')
+        // args.push(queryObj.nome)
+        // args.push(';')
 
-        const finalArg = args.join(" ")
-        console.log(typeof(finalArg))
+        // const finalArg = args.join(" ")
+        // console.log(typeof(finalArg))
 
-        const query = await connection.execute(finalArg, ["Nike"])
+
+        const [query] = await connection.execute(args)
+        // console.log(query)
         return query
 
     } catch (err) {

@@ -6,8 +6,9 @@ import Novablast2 from '../assets/imgs/Novablast2.png'
 import estrelaCheia from '../assets/svg/star_full.svg';
 import estrelaMeia from '../assets/svg/half_star.svg';
 import estrela from '../assets/svg/star.svg';
-import { useLocation, useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import './tela-tenis.css'
+import '../LostPage/lost.css'
 import {api, getUser} from "../services/api";
 import { object } from "joi";
 
@@ -140,10 +141,11 @@ export function TelaTenis() {
           />
       </div>
       :
-      <div className="container-tela-tenis">
+      <div >
         <BarraNav/>
-        <div style={{paddingTop: 100}}>
-          <h1>404: Tenis não encontrado</h1>
+        <div className="lost" style={{paddingTop: 100}}>
+          <h1 className="lost-text">404: Tenis não encontrado</h1>
+          <Link to="/" className="link">Voltar</Link>
         </div>
       </div>
     }

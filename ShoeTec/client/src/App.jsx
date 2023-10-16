@@ -10,8 +10,9 @@ import {TelaADM} from './TelaAdm/TelaADM.jsx'
 import {CadastrarTenis} from './TelaAdm/CadastrarTênis.jsx'
 import {EditarUsuario} from './TelaAdm/EditarUsuário.jsx'
 import {TelaTenis} from './TelaTenis/TelaTenis.jsx'
-import './App.css'
+import Lost from "./LostPage/Lost";
 import { EditarPerfil } from "./TelaUsuario/EditarPerfil";
+import './App.css'
 
 function App() {
   /*
@@ -25,6 +26,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="*" Component={Lost} />
         <Route exact path="/" Component={Home} />
         <Route path="/Login" Component={Login} />
         <Route path="/TelaUsuario/:id" Component={TelaUsuario} />

@@ -63,11 +63,11 @@ const deleteUserId = async (req, res) => {
 };
 
 const updatUser = async (req, res) => {
-    const {id} = req.body;
+    const {usuario_id} = req.body;
     const userData = req.body;
 
     try {
-        const result = await userModel.updateUser(id, userData);
+        const result = await userModel.updateUser(usuario_id, userData);
         console.log(result)
 
         if (result.affectedRows > 0) {
@@ -163,4 +163,36 @@ const checkSession = async (req, res) => {
     }
 }
 
-module.exports = { getUsers, setUsers, deleteUsers, getSpecificUser, loginUser, logoutUser, checkSession, updatUser, getAllUsers, updateAdminStatus, deleteUserId}
+const uploadUserPicture = async (req, res) => {
+    try{
+        const { filename, path } = req.file;
+        console.log(filename, path)
+
+        const fullPath = path + filename
+        console.log(fullPath)
+        // const upload = await userModel.uploadPicture(filename, path)
+        res.status(200).json({msg: 'sucesso'})
+    }catch(err) {
+        console.log(err)
+
+        res.status(400).json({"msg": err})
+
+    }
+
+
+}
+
+module.exports = { 
+    getUsers, 
+    setUsers, 
+    deleteUsers, 
+    getSpecificUser, 
+    loginUser, 
+    logoutUser, 
+    checkSession, 
+    updatUser, 
+    getAllUsers, 
+    updateAdminStatus, 
+    deleteUserId,
+    uploadUserPicture
+}

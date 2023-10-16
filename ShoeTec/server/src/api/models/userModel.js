@@ -42,6 +42,8 @@ const updateUser = async (id, userData) => {
 
         const values = [name, pais, estado, cidade, genero, esporte, bio, id];
 
+        console.log(values)
+
         const args = `UPDATE Users SET name=?, pais=?, estado=?, cidade=?, genero=?, esportes=?, bio=? WHERE usuario_id=?`;
 
         const [updateUser] = await connection.execute(args, values);
@@ -95,4 +97,18 @@ const loginUser = async (email, pass) => {
     }
 }
 
-module.exports = { getUsers, createUser, delUser, getSpecificUser, loginUser, updateUser, updateAdminStatus, deleteUserId }
+const uploadPicture = async (filename, path) =>{
+    
+}
+
+module.exports = { 
+    getUsers, 
+    createUser, 
+    delUser, 
+    getSpecificUser, 
+    loginUser, 
+    updateUser, 
+    updateAdminStatus, 
+    deleteUserId,
+    uploadPicture
+}
