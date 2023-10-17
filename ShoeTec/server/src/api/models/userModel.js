@@ -13,7 +13,6 @@ const getSpecificUser = async (field, email) => {
     if (user[0] === undefined) {
         return new Error("Usuário não encontrado")
     } else {
-
         return user
     }
 }
@@ -38,9 +37,9 @@ const createUser = async (userData) => {
 
 const updateUser = async (id, userData) => {
     try {
-        const { name, pais, estado, cidade, genero, esporte, bio } = userData;
+        const { name, pais, estado, cidade, genero, esportes, bio } = userData;
 
-        const values = [name, pais, estado, cidade, genero, esporte, bio, id];
+        const values = [name, pais, estado, cidade, genero, esportes, bio, id];
 
         console.log(values)
 

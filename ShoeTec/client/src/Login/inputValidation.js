@@ -1,4 +1,4 @@
-function setCreds(e, setCredenciais, credenciais) {
+function setCreds(e, setCredenciais, credenciais, checks , setChecks ) {
         const nome = e.target.name
         const valor = e.target.value
 
@@ -15,17 +15,19 @@ function setCreds(e, setCredenciais, credenciais) {
             })
         } else {
             const checked = e.target.checked
+            console.log(checked)
             if (checked) {
+                console.log(checks[valor])
                 setCredenciais({
                     ...credenciais,
-                    esporte: [...credenciais.esporte, valor]
+                    esportes: [...credenciais.esportes, valor]
                 })
             } else {
-                const filtrado = credenciais.esporte.filter(esporte=>{return esporte !== valor})
+                const filtrado = credenciais.esportes.filter(esporte=>{return esporte !== valor})
                 console.log(filtrado)
                 setCredenciais({
                     ...credenciais,
-                    esporte:  filtrado 
+                    esportes:  filtrado 
                 })
             }
         }

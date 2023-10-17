@@ -48,6 +48,6 @@ router.get('/commentsByReviewer/:reviewerId', commentController.getCommentsByRev
 router.post('/createTenis', tenisController.creatTenis)
 router.get('/tenis/:limit',  tenisController.getTenis)
 router.get('/tenisId/:id', tenisController.getTenisById)
-router.get('/searchTenis/', tenisController.searchTenis)
+router.get('/searchTenis', tenisController.searchTenis)
 
 module.exports = router

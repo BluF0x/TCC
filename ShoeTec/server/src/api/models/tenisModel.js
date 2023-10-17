@@ -14,13 +14,14 @@ const getTenis = async() =>{
 * data: [] usado na execução da conexão 
 */
 const searchTenis = async(queryObj) => {
-    console.log(queryObj.search)
 
     try {
-        const args = `SELECT * FROM tenis WHERE nome = ${queryObj[search]} `
-        for(key in queryObj){
-            console.log(queryObj[key])
-        }
+        console.log(queryObj)
+        const args = `SELECT * FROM tenis WHERE nome LIKE ? `
+        vals = [`%${queryObj.searchName}%`]
+        // for(key in queryObj){
+        //     console.log(queryObj[key])
+        // }
         // args é um array que depois é concatenado em uma string formando a query 
         // const args = [`SELECT * FROM tenis`]
 
@@ -34,7 +35,7 @@ const searchTenis = async(queryObj) => {
         // console.log(typeof(finalArg))
 
 
-        const [query] = await connection.execute(args)
+        const [query] = await connection.execute(args, vals)
         // console.log(query)
         return query
 

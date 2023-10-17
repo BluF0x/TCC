@@ -4,7 +4,8 @@ async function cadastrarUsuario(cred) {
   delete cred.confirmPassword
 
   try {
-    const query = await api.get("/users", cred)
+    const query = await api.post("/users", cred)
+    console.log(query)
     return query;
   } catch (err) {
     return err
@@ -18,7 +19,7 @@ async function logarUsuario(cred) {
 
 async function updateUsuario(cred) {
   try {
-    const query = await api.post(`/edit`, cred);
+    const query = await api.post(`/editUser`, cred);
     return query;
   } catch (err) {
     return err;

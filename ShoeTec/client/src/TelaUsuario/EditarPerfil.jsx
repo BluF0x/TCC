@@ -12,33 +12,59 @@ import Popup from 'reactjs-popup';
 import { Link } from "react-router-dom"
 
 export function EditarPerfil() {
-    const [session, setSession] = useState({
-        user: {
-            userid: 0
+    const [session, setSession] = useState({user: {userid: 0}})
+    const [credenciais, setCredenciais] = useState({esportes: []})
+    const [checkEsportes, setCheckEsportes] = useState(
+        {
+            // handebol: credenciais.esportes.includes("handebol"),
+            // musculacao: credenciais.esportes.includes("musculacao"),
+            // tenis: credenciais.esportes.includes("tenis"),
+            // basquete: credenciais.esportes.includes("basquete"),
+            // voleibal: credenciais.esportes.includes("voleibal"),
+            // corrida: credenciais.esportes.includes("corrida"),
+            // futsal: credenciais.esportes.includes("futsal"),
+            // futebol: credenciais.esportes.includes("futebol"),
         }
-    })
-
+        )
     const [isPopupOpen, setPopupOpen] = useState(false)
     const [mensagemQuery, setMensagemQuery] = useState('')
-    const [credenciais, setCredenciais] = useState(
-        {
-            esporte: [],
-            cidade: null,
-            estado: null,
-        }
-    )
 
     const handleCredenciais = (e) => {
-        inputValidation.setCreds(e, setCredenciais, credenciais) //setCreds adiciona o input a credenciais
+        inputValidation.setCreds(e, setCredenciais, credenciais, checkEsportes, setCheckEsportes) //setCreds adiciona o input a credenciais
     }
     
 
     useEffect(() => {
-        getUser()
+
+        if (!session.authenticated){
+            getUser()
             .then(
                 (value) => {
                     console.log(value)
                     setSession(value.user)
+                    try {
+                        api.get(`/getUser/${value.user.userid}`)
+                        .then((res) => {
+                            console.log(res)
+                            if (res.status == 200 && res.data.result[0].name) {
+                                console.log(res)
+                                let cred = res.data.result[0]
+                                setCredenciais(cred)
+
+                                // Create an object with item names as keys and existence status as values
+                                const itemExistence = {};
+                                cred.esportes.forEach(item => {
+                                    itemExistence[item] = item !== null && item !== undefined;
+                                });
+
+                                // Update the state with the itemExistence object
+                                setCheckEsportes(itemExistence);
+                            }
+                        })
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
                 },
                 (reason) => {
                     console.log(reason)
@@ -46,21 +72,17 @@ export function EditarPerfil() {
             .catch((reason) => {
                 console.log(reason)
             })
+        }
+        // Create an object with item names as keys and existence status as values
+        const itemExistence = {};
+        credenciais.esportes.forEach(item => {
+            itemExistence[item] = item !== null && item !== undefined;
+        });
 
-        try {
-            api.get(`/getUser/${session.userid}`)
-                .then((res) => {
-                    console.log(res)
-                    if (res.status == 200) {
-                        console.log(res)
-                        setUser(res.data.result[0])
-                    }
-                })
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }, []);
+        // Update the state with the itemExistence object
+        setCheckEsportes(itemExistence);
+
+    }, [credenciais]);
 
 
     const editar = async (e) => {
@@ -69,20 +91,22 @@ export function EditarPerfil() {
         const id = session.userid;
         const credenciaisComId = {
             ...credenciais,
-            id: id,
+            usuario_id: id,
         };
         const queryResult = await postCred.updateUsuario(credenciaisComId)
 
         // Por enquanto, um alert será usado; mudar depois
         if (queryResult.status > 199 && queryResult.status < 500) {
             console.log(queryResult)
-            setPopupOpen(true)
-            setMensagemQuery(`Perfil editado com sucesso!\nCod: ${queryResult.status}`)
-            setEstadoLogin(true)
+            window.alert('Perfil editado com sucesso!')
+            // setPopupOpen(true)
+            // setMensagemQuery(`Perfil editado com sucesso!\nCod: ${queryResult.status}`)
+            // setEstadoLogin(true)
         } else {
             console.log(queryResult)
-            setPopupOpen(true)
-            setMensagemQuery(`Falha ao editar perfil.\nRazão: ${queryResult.response.data.error.details[0].message} \nCod: ${queryResult.response.status}`)
+            window.alert('Falha ao edidtar perfil')
+            // setPopupOpen(true)
+            // setMensagemQuery(`Falha ao editar perfil.\nRazão: ${queryResult.response.data.error.details[0].message} \nCod: ${queryResult.response.status}`)
         }
     }
 
@@ -198,6 +222,7 @@ export function EditarPerfil() {
                                         name="genero"
                                         type="radio"
                                         value="M"
+                                        checked={ credenciais.genero == "M"}
                                     />
                                     <label className="label-radio-edit" for="masc">Masculino</label>
                                 </p>
@@ -208,6 +233,7 @@ export function EditarPerfil() {
                                         name="genero"
                                         type="radio"
                                         value="F"
+                                        checked={ credenciais.genero == "F"}
                                     />
                                     <label className="label-radio-edit" for="fem">Feminino</label>
                                 </p>
@@ -218,6 +244,7 @@ export function EditarPerfil() {
                                         name="genero"
                                         type="radio"
                                         value="O"
+                                        checked={ credenciais.genero == "O"}
                                     />
                                     <label className="label-radio-edit" for="outro">Outro</label>
                                 </p>
@@ -228,6 +255,7 @@ export function EditarPerfil() {
                                         name="genero"
                                         type="radio"
                                         value="N"
+                                        checked={ credenciais.genero == "N"}
                                     />
                                     <label className="label-radio-edit" for="naoindentifico">Prefiro não identificar</label>
                                 </p>
@@ -242,9 +270,10 @@ export function EditarPerfil() {
                                     <input
                                         className='input-btn-edit'
                                         id="futebol"
-                                        name="esporte"
+                                        name="esportes"
                                         type="checkbox"
                                         value="futebol"
+                                        checked={checkEsportes.futebol}
                                         onChange={(e) => handleCredenciais(e)}
                                     />
                                     <label className="label-radio-edit" for="futebol">Futebol</label>
@@ -253,9 +282,10 @@ export function EditarPerfil() {
                                     <input
                                         className='input-btn-edit'
                                         id="futsal"
-                                        name="esporte"
+                                        name="esportes"
                                         type="checkbox"
                                         value="futsal"
+                                        checked={checkEsportes.futsal}
                                         onChange={(e) => handleCredenciais(e)}
                                     />
                                     <label className="label-radio-edit" for="futsal">Futsal</label>
@@ -264,9 +294,10 @@ export function EditarPerfil() {
                                     <input
                                         className='input-btn-edit'
                                         id="corrida"
-                                        name="esporte"
+                                        name="esportes"
                                         type="checkbox"
                                         value="corrida"
+                                        checked={checkEsportes.corrida}
                                         onChange={(e) => handleCredenciais(e)}
                                     />
                                     <label className="label-radio-edit" for="corrida">Corrida</label>
@@ -275,9 +306,10 @@ export function EditarPerfil() {
                                     <input
                                         className='input-btn-edit'
                                         id="volei"
-                                        name="esporte"
+                                        name="esportes"
                                         type="checkbox"
                                         value="voleibal"
+                                        checked={checkEsportes.voleibal}
                                         onChange={(e) => handleCredenciais(e)}
                                     />
                                     <label className="label-radio-edit" for="volei">Voleibal</label>
@@ -286,9 +318,10 @@ export function EditarPerfil() {
                                     <input
                                         className='input-btn-edit'
                                         id="basquete"
-                                        name="esporte"
+                                        name="esportes"
                                         type="checkbox"
                                         value="basquete"
+                                        checked={checkEsportes.musculacao}
                                         onChange={(e) => handleCredenciais(e)}
                                     />
                                     <label className="label-radio-edit" for="basquete">Basquete</label>
@@ -297,9 +330,10 @@ export function EditarPerfil() {
                                     <input
                                         className='input-btn-edit'
                                         id="tenis"
-                                        name="esporte"
+                                        name="esportes"
                                         type="checkbox"
                                         value="tenis"
+                                        checked={checkEsportes.tenis}
                                         onChange={(e) => handleCredenciais(e)}
                                     />
                                     <label className="label-radio-edit" for="tenis">Tênis</label>
@@ -308,9 +342,10 @@ export function EditarPerfil() {
                                     <input
                                         className='input-btn-edit'
                                         id="handebol"
-                                        name="esporte"
+                                        name="esportes"
                                         type="checkbox"
                                         value="handebol"
+                                        checked={checkEsportes.handebol}
                                         onChange={(e) => handleCredenciais(e)}
                                     />
                                     <label className="label-radio-edit" for="handebol">Handebol</label>
@@ -319,9 +354,10 @@ export function EditarPerfil() {
                                     <input
                                         className='input-btn-edit'
                                         id="musculacao"
-                                        name="esporte"
+                                        name="esportes"
                                         type="checkbox"
                                         value="musculacao"
+                                        checked={checkEsportes.musculacao}
                                         onChange={(e) => handleCredenciais(e)}
                                     />
                                     <label className="label-radio-edit" for="musculacao">Musculação</label>
@@ -350,7 +386,7 @@ function TelaComentario({ tenisName, descricao }) {
     useEffect(() => {
         api.get(`/tenisId/${tenisName}`)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 setTenisNome(res.data[0].nome);
             })
             .catch((error) => {
@@ -383,7 +419,7 @@ function ListaComentarios() {
         getUser()
             .then(
                 (value) => {
-                    console.log(value)
+                    // console.log(value)
                     setSession(value.user)
                 },
                 (reason) => {

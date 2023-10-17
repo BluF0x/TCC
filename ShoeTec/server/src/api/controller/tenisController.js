@@ -8,14 +8,15 @@ const getTenis = async(req, res) =>{
 const searchTenis = async(req, res) =>{
     try{
 
-        const searchQuery = req.query
-        console.log("query:")
-        console.log(searchQuery)
+        const {searchName} = req.query
+        // console.log(req.query)
+        // console.log("query:")
+        // console.log(searchName)
 
-        const [query] = await tenisModel.searchTenis(searchQuery)
+        const [result] = await tenisModel.searchTenis(req.query)
 
-        // console.log(query)
-        res.status(200).json({'msg': "ok", query: query})
+        console.log(result)
+        res.status(200).json({'msg': "ok", query: result})
     } catch(err)  {
         res.status(400).json({erro: err})
     }

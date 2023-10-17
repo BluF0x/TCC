@@ -15,6 +15,7 @@ import { getUser, api } from "../../services/api";
 function BarraNav() {
     const [popupUserOpen, setPopupUserOpen] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
+    const [search, setSearch] = useState({searchName: ""})
     const [user, setUser] = useState({
         user: {
             username: '',
@@ -61,9 +62,11 @@ function BarraNav() {
 
     const pesquisar = async(e) => {
         console.log(e.target.value)
-        const search = api()
-        
-
+        setSearch({searchName: e.target.value})
+        api.get('/searchTenis', {params: search})
+        .then((val)=>{
+            console.log(val)
+        })
     }
 
     const toggleMenuNav=() => {
