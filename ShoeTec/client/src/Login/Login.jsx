@@ -15,7 +15,7 @@ export function Login() {
     const [mensagemQuery, setMensagemQuery] = useState('')
     const [credenciais, setCredenciais] = useState(
         {
-            esporte: [],
+            esportes: [],
             cidade: null,
             estado: null,
         }
@@ -287,6 +287,9 @@ function CadastrarForm(props) {
     const cadastrar = async (e) => {
         e.preventDefault()
 
+        let creds = credenciais
+        if (creds.password) delete creds.password
+        
         const queryResult = await postCred.cadastrarUsuario(credenciais)
 
         //Por enquanto, um alert será usado; mudar depois
@@ -410,7 +413,7 @@ function CadastrarForm(props) {
                     tipo={"checkbox"}
                     titulo={"Esportes que você pratica:"}
                     handleInput={handleCredenciais}
-                    nome={"esporte"}
+                    nome={"esportes"}
                     membros={[
                         {
                             id: "futebol",

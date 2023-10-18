@@ -18,22 +18,23 @@ const getSpecificUser = async (field, email) => {
 }
 
 const createUser = async (userData) => {
-
     try {
-        const data = userData
+        const data = userData;
+        const hashedPassword = await bcrypt.hash(data.pass, 10);
 
-        const hashedPassword = await bcrypt.hash(data.pass, 10); // hmmmmm salzinho 
+        const values = [data.name, data.email, hashedPassword, data.pais, data.estado, data.cidade, data.genero, data.esportes, null];
 
-        const values = [data.name, data.email, hashedPassword, data.pais, data.estado, data.cidade, data.genero, data.esporte, null]
+        console.log(values)
 
-        const args = `INSERT INTO Users(name, email, password, pais, estado, cidade, genero, esportes, bio ) VALUES(?,?,?,?,?,?,?,?,?)`
-        const [createUser] = await connection.execute(args, values)
+        const args = `INSERT INTO Users(name, email, password, pais, estado, cidade, genero, esportes, bio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const [createUser] = await connection.execute(args, values);
 
-        return createUser
+
+        return createUser;
     } catch (err) {
         return err;
     }
-}
+};
 
 const updateUser = async (id, userData) => {
     try {

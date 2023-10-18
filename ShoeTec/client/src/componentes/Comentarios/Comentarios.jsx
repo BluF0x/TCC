@@ -64,11 +64,10 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
     const excluirComentario = async (e, value) => {
         e.preventDefault()
         console.log(`Id do comentario: ${value.review_id}`)
-        const res = await api.get(`/deleteComment/${value.review_id}`)
-            .then(
-                console.log(res)
-
-            )
+        api.get(`/deleteComment/${value.review_id}`, {withCredentials: true})
+        .then((res)=>{
+            console.log(res)
+        })
     }
 
     //---------------------------------------------------------
@@ -234,11 +233,17 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                     <Link to={`/TelaUsuario/${value.reviewer_id}`} className="comentario-texto-titulo">
                                         {`${value.reviewer_name}`}
                                     </Link>
+                                    { !value.deletado ?
                                     <div className="comentario-texto">
                                         {value.corpo_texto.length > 500 && !expanded
                                             ? value.corpo_texto.slice(0, 500) + "..."
                                             : value.corpo_texto}
                                     </div>
+                                    :
+                                    <div>
+                                        [EXCLUIDO]
+                                    </div>
+                                    }
                                     {value.corpo_texto.length > 500 && (
                                         <span className="button-text-mostrar" onClick={handleMostrarMaisClick}>
                                             {expanded ? "Mostrar Menos" : "Mostrar Mais..."}

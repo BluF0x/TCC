@@ -90,8 +90,6 @@ const setUsers = async (req, res) =>{
 
     const createUser = await userModel.createUser(req.body)
 
-
-
     // return res.status(201)
     return res.status(201).json({"msg": "OK", "body": createUser})
 }

@@ -1,4 +1,4 @@
-function setCreds(e, setCredenciais, credenciais, checks , setChecks ) {
+function setCreds(e, setCredenciais, credenciais) {
         const nome = e.target.name
         const valor = e.target.value
 
@@ -17,7 +17,6 @@ function setCreds(e, setCredenciais, credenciais, checks , setChecks ) {
             const checked = e.target.checked
             console.log(checked)
             if (checked) {
-                console.log(checks[valor])
                 setCredenciais({
                     ...credenciais,
                     esportes: [...credenciais.esportes, valor]

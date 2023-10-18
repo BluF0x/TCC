@@ -30,7 +30,7 @@ export function EditarPerfil() {
     const [mensagemQuery, setMensagemQuery] = useState('')
 
     const handleCredenciais = (e) => {
-        inputValidation.setCreds(e, setCredenciais, credenciais, checkEsportes, setCheckEsportes) //setCreds adiciona o input a credenciais
+        inputValidation.setCreds(e, setCredenciais, credenciais) //setCreds adiciona o input a credenciais
     }
     
 
