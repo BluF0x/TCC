@@ -40,10 +40,10 @@ function Home() {
         <SelectTenis titulo="Tênis de Corrida" lista={listaTenis} esporteSelecionado='corrida'/>
         <SelectTenis titulo="Chuteira de Futsal" lista={listaTenis} esporteSelecionado='futsal'/>
         <SelectTenis titulo="Chuteira de Futebol" lista={listaTenis} esporteSelecionado='futebol'/>
-        <SelectTenis titulo="Chuteira de Basquete" lista={listaTenis} esporteSelecionado='basquete'/>
-        <SelectTenis titulo="Chuteira de Voleibol" lista={listaTenis} esporteSelecionado='voleibol'/>
-        <SelectTenis titulo="Chuteira de Tênis" lista={listaTenis} esporteSelecionado='tenis'/>
-        <SelectTenis titulo="Chuteira de Handebol" lista={listaTenis} esporteSelecionado='handebol'/>
+        <SelectTenis titulo="Tênis de Basquete" lista={listaTenis} esporteSelecionado='basquete'/>
+        <SelectTenis titulo="Tênis de Voleibol" lista={listaTenis} esporteSelecionado='voleibol'/>
+        <SelectTenis titulo="Tênis de Tênis" lista={listaTenis} esporteSelecionado='tenis'/>
+        <SelectTenis titulo="Tênis de Handebol" lista={listaTenis} esporteSelecionado='handebol'/>
         <SelectTenis titulo="Tênis de Musculação" lista={listaTenis} esporteSelecionado='musculacao'/>
         
       </div>
