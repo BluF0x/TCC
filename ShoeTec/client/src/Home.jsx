@@ -12,19 +12,20 @@ const URL = "http://localhost:3001"
 function Home() {
   const [listaTenis, setListaTenis] = useState([])
   const [darkMode, setDarkMode] = useState()
+  const [esporteSelecionado, setEsporteSelecionado] = useState(null);
 
-  useEffect(() =>{
+  useEffect(() => {
 
     // Api.get usa Axios para requisitar os tenis com o método GET
     api.get('/tenis/20')
-    .then((res)=>{
-      // console.log(res)
-      if(res.status == 200){
-        setListaTenis(res.data.result)
-      }
-    })
+      .then((res) => {
+        // console.log(res)
+        if (res.status == 200) {
+          setListaTenis(res.data.result)
+        }
+      })
 
-  },[])
+  }, [])
 
 
   return (
@@ -36,7 +37,15 @@ function Home() {
         <div className='tela-bem-vindo'>
           <TelaBemVindo />
         </div>
-        <SelectTenis titulo="Tênis de corrida" lista={listaTenis} />
+        <SelectTenis titulo="Tênis de Corrida" lista={listaTenis} esporteSelecionado='corrida'/>
+        <SelectTenis titulo="Chuteira de Futsal" lista={listaTenis} esporteSelecionado='futsal'/>
+        <SelectTenis titulo="Chuteira de Futebol" lista={listaTenis} esporteSelecionado='futebol'/>
+        <SelectTenis titulo="Chuteira de Basquete" lista={listaTenis} esporteSelecionado='basquete'/>
+        <SelectTenis titulo="Chuteira de Voleibol" lista={listaTenis} esporteSelecionado='voleibol'/>
+        <SelectTenis titulo="Chuteira de Tênis" lista={listaTenis} esporteSelecionado='tenis'/>
+        <SelectTenis titulo="Chuteira de Handebol" lista={listaTenis} esporteSelecionado='handebol'/>
+        <SelectTenis titulo="Tênis de Musculação" lista={listaTenis} esporteSelecionado='musculacao'/>
+        
       </div>
     </div>
   )

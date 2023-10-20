@@ -1,7 +1,7 @@
 import React from 'react';
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
-import api from "../services/api";
+import { api, getUser } from "../services/api";
 import { Link } from "react-router-dom";
 import postCred from '../Login/postCred.js';
 import inputValidation from '../Login/inputValidation.js';
@@ -9,9 +9,6 @@ import Popup from 'reactjs-popup';
 import './adm.css';
 
 export function CadastrarTenis() {
-    const userAdmin = Cookies.get('admin')
-    const [User, setUser] = useState({})
-
     const [estadoLogin, setEstadoLogin] = useState(true)
     const [isPopupOpen, setPopupOpen] = useState(false)
     const [mensagemQuery, setMensagemQuery] = useState('')
@@ -23,28 +20,37 @@ export function CadastrarTenis() {
         }
     )
 
+    const [isLogged, setIsLogged] = useState(false)
+    const [user, setUser] = useState({
+        user: {
+            username: '',
+            userid: null,
+            genero: '',
+            authenticated: false,
+            admin: 0
+        }
+    })
+
+    useEffect(() => {
+        getUser()
+            .then(
+                (value) => {
+                    console.log(value)
+                    setIsLogged(value.isLogged)
+                    setUser(value.user)
+                },
+                (reason) => {
+                    console.log(reason)
+                })
+            .catch((reason) => {
+                console.log(reason)
+            })
+
+    }, []);
 
     const handleCredenciais = (e) => {
         inputValidation.setCreds(e, setCredenciais, credenciais) //setCreds adiciona o input a credenciais
     }
-
-    useEffect(() => {
-
-        try {
-            api.get(`/getUser/${Cookies.get('id')}`)
-                .then((res) => {
-                    console.log(res)
-                    if (res.status == 200) {
-                        console.log(res)
-                        setUser(res.data.result[0])
-                    }
-                })
-        }
-        catch (err) {
-            console.log(err)
-        }
-
-    }, [])
 
     return (
         <>
@@ -63,7 +69,7 @@ export function CadastrarTenis() {
                 </div>
             </Popup>
 
-            {userAdmin === "1" ? (
+            {user.admin == "1" ? (
                 <div className='container-adm'>
                     <div className="container-form-adm">
                         <h1 className="titulo-form-adm">Tênis</h1>
@@ -86,41 +92,70 @@ function InputFormAdmTenis(props) {
     const [warning, setWarning] = useState(undefined)
     const nome = props.nome
     const steps = props.steps
-    return (
-        <>
-            <div className="wrap-input-adm">
-                <input
-                    className={!props.var ? 'input-adm' : props.var == "" ? 'input-adm' : 'has-val input-adm'}
-                    type={props.tipo}
-                    name={props.nome}
-                    value={props.var}
-                    onChange={e => {
-                        const valor = e.target.value
-                        props.handleInput(e, setWarning)
-                        // Esse loop executa todas as funções dentro do array steps, que verifica o input do usuario
-                        if (steps) {
-                            let isWarning = []
-                            for (let i = 0; i < steps.length; i++) {
-                                const result = steps[i].params ? steps[i].function(valor, ...steps[i].params) : steps[i].function(valor)
-                                isWarning.push(result.status)
-                                if (!result.status) {
-                                    setWarning(result.warning)
-                                } else if (!isWarning.includes(undefined)) {
-                                    setWarning(undefined)
+    if (props.tipo != "checkbox" && props.tipo != "radio") {
+        return (
+            <>
+                <div className="wrap-input-adm">
+                    <input
+                        className={!props.var ? 'input-adm' : props.var == "" ? 'input-adm' : 'has-val input-adm'}
+                        type={props.tipo}
+                        name={props.nome}
+                        value={props.var}
+                        onChange={e => {
+                            const valor = e.target.value
+                            props.handleInput(e, setWarning)
+                            // Esse loop executa todas as funções dentro do array steps, que verifica o input do usuario
+                            if (steps) {
+                                let isWarning = []
+                                for (let i = 0; i < steps.length; i++) {
+                                    const result = steps[i].params ? steps[i].function(valor, ...steps[i].params) : steps[i].function(valor)
+                                    isWarning.push(result.status)
+                                    if (!result.status) {
+                                        setWarning(result.warning)
+                                    } else if (!isWarning.includes(undefined)) {
+                                        setWarning(undefined)
+                                    }
                                 }
                             }
-                        }
 
-                    }}
-                    required
-                />
-                <span className="focus-input-adm" data-placeholder={props.placeholder}></span>
+                        }}
+                        required
+                    />
+                    <span className="focus-input-adm" data-placeholder={props.placeholder}></span>
+                </div>
+                <div className='wrap-warning'>
+                    {warning}
+                </div>
+            </>
+        )
+    } else if (props.tipo == "radio") {
+        return (
+            <div className="wrap-input-cadastro-tenis" onChange={e => props.handleInput(e, setWarning)}>
+                <h3 className='titulo-esporte-tenis'>{props.titulo}*</h3>
+                {props.membros.map(
+                    v => {
+                        return (
+                            <p className='input-p-tenis'>
+                                <input
+                                    className='input-btn-tenis'
+                                    id={v.id}
+                                    name={props.nome}
+                                    type="radio"
+                                    value={v.esporte}
+                                />
+                                <label className="label-radio" for={v.id}>{v.label}</label>
+                            </p>
+                        )
+                    }
+                )}
+                <div className='wrap-warning'>
+                    <div className='warning-radio'>
+                        {warning}
+                    </div>
+                </div>
             </div>
-            <div className='wrap-warning'>
-                {warning}
-            </div>
-        </>
-    )
+        )
+    }
 }
 
 function CadastrarTenisADM(props) {
@@ -175,11 +210,52 @@ function CadastrarTenisADM(props) {
                 var={credenciais.medium_price}
             />
 
-            <InputFormAdmTenis
-                nome={"esporte"}
+            <InputFormAdmTenis membros={[
+                {
+                    id: "futebol",
+                    valor: "futebol",
+                    label: "Futebol"
+                },
+                {
+                    id: "futsal",
+                    valor: "futsal",
+                    label: "Futsal"
+                },
+                {
+                    id: "corrida",
+                    valor: "corrida",
+                    label: "Corrida"
+                },
+                {
+                    id: "volei",
+                    valor: "voleibal",
+                    label: "Voleibal"
+                },
+                {
+                    id: "basquete",
+                    valor: "basquete",
+                    label: "Basquete"
+                },
+                {
+                    id: "tenis",
+                    valor: "tenis",
+                    label: "Tênis"
+                },
+                {
+                    id: "handebol",
+                    valor: "handebol",
+                    label: "Handebol"
+                },
+                {
+                    id: "musculacao",
+                    valor: "musculacao",
+                    label: "Musculação"
+                },
+            ]}
+                tipo={"radio"}
+                titulo={"Esporte"}
                 handleInput={handleCredenciais}
-                placeholder={"Esporte"}
-                var={credenciais.esporte}
+                nome={"esporte"}
             />
 
             <InputFormAdmTenis
