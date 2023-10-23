@@ -234,7 +234,7 @@ function PerfilTenis(props) {
       )}
 
       <div className="tenis esporte">
-        <p><span className="p subtitulo">Esporte: </span>  {"corrida"}</p>
+        <p><span className="p subtitulo">Esporte: </span>  {tenis.esporte}</p>
       </div>
 
       <div className="tenis descrição">
@@ -275,58 +275,58 @@ function TabelaInfo(props) {
               <td>{tenis.nome}</td>
             </tr>
           )}
-          {MarcaTenis && (
+          {tenis.marca && (
             <tr>
               <th>Marca</th>
-              <td>{MarcaTenis}</td>
+              <td>{tenis.marca}</td>
             </tr>
           )}
-          {EsporteTenis && (
+          {tenis.esporte && (
             <tr>
               <th>Esporte</th>
-              <td>{EsporteTenis}</td>
+              <td>{tenis.esporte}</td>
             </tr>
           )}
-          {CategoriaTenis && (
+          {tenis.categoria && (
             <tr>
               <th>Categoria</th>
-              <td>{CategoriaTenis}</td>
+              <td>{tenis.categoria}</td>
             </tr>
           )}
-          {PesoTenis && (
+          {tenis.peso && (
             <tr>
               <th>Peso</th>
-              <td>{PesoTenis}</td>
+              <td>{tenis.peso}</td>
             </tr>
           )}
-          {EntressolaTenis && (
+          {tenis.entressola && (
             <tr>
               <th>Entressola</th>
-              <td>{EntressolaTenis}</td>
+              <td>{tenis.entressola}</td>
             </tr>
           )}
-          {TravaTenis && (
+          {tenis.trava && (
             <tr>
               <th>Trava</th>
-              <td>{TravaTenis}</td>
+              <td>{tenis.trava}</td>
             </tr>
           )}
-          {SoladoTenis && (
+          {tenis.solado && (
             <tr>
               <th>Solado</th>
-              <td>{SoladoTenis}</td>
+              <td>{tenis.solado}</td>
             </tr>
           )}
-          {CabedalTenis && (
+          {tenis.cabedal && (
             <tr>
               <th>Cabedal</th>
-              <td>{CabedalTenis}</td>
+              <td>{tenis.cabedal}</td>
             </tr>
           )}
-          {DropTenis && (
+          {tenis.dropt && (
             <tr>
               <th>Drop</th>
-              <td>{DropTenis}</td>
+              <td>{tenis.dropt}</td>
             </tr>
           )}
         </tbody>

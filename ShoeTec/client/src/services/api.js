@@ -26,7 +26,8 @@ async function getUser() {
                 username: '',
                 userid: null,
                 genero: '',
-                authenticated: false
+                authenticated: false,
+                admin: 0
             }})
         } 
     }catch(err){

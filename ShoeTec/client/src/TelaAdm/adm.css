@@ -1,6 +1,31 @@
 /* Estilização Tela ADM*/
+.container-adm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--cor-primaria);
+  overflow: hidden;
+}
+
 .container-tela-adm {
-  padding: 5px;
+  width: 100%;
+  max-width: 500px; 
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 15px;
+  box-shadow: 0 5px 10px 0px var(--cor-secundaria);
+  animation-duration: 500ms;
+  animation-name: mudar-login;
+}
+
+.wrap-adm {
+  width: 100%;
+  padding: 33px 55px 33px 55px;
+}
+
+.titulo-div-adm {
+  text-align: center;
 }
 
 .div-adm {
@@ -10,17 +35,14 @@
   border-radius: 20px;
   text-align: center;
   margin-bottom: 15px;
-  margin-left: 5px;
+  margin-left: auto; 
+  margin-right: auto; 
 }
 
 .div-adm:hover {
   transform: scale(1.05, 1.05);
 }
 
-.div-tenis-adm {
-  display: inline-block;
-  margin-right: 3px;
-}
 
 .titulo-adm {
   margin: 0 0 5px 5px;
@@ -31,6 +53,7 @@
 .button-init {
   text-transform: none;
 }
+
 
 .link-adm {
   font-size: 25pt;
@@ -44,6 +67,8 @@
   color: white;
   font-weight: bold;
   margin: 20px 10px 10px 10px;
+  margin-left: auto; 
+  margin-right: auto;
 
   line-height: 1.2;
 
@@ -257,7 +282,7 @@
   transform: scale(1.1, 1.1);
 }
 
-/* Estilização EditarTênis */
+/* Estilização CadastrarTênis */
 .container-form-adm-edit {
   width: 60%;
   background-color: white;
@@ -276,44 +301,80 @@
   align-items: center;
 }
 
+.wrap-input-cadastro-tenis {
+  width: 90%;
+  position: relative;
+  border-bottom: 2px solid var(--cor-primaria);
+  margin: 0 auto;
+  margin-bottom: 45px;
+}
+
+.titulo-esporte-tenis {
+  color: var(--cor-primaria);
+  margin-bottom: 13px;
+}
+
+.input-p-tenis {
+  text-align: left;
+  color: var(--cor-primaria);
+  margin-bottom: 8px;
+}
+
+.input-btn-tenis {
+  margin-right: 4px;
+}
+
+.label-radio {
+  margin-right: 20px;
+}
+
+.wrap-warning {
+  position: relative;
+  color: red;
+  z-index: 100;
+  bottom: 2.3em;
+  left: 5%;
+  padding: 10px;
+}
+
+.warning-radio {
+  position: relative;
+  bottom: -2em;
+  left: -5%;
+}
+
 /* Estilização EditarUsuário */
-.td-adm{
+.td-adm {
   padding: 10px;
   border: 1px solid var(--cor-primaria);
   text-align: center;
 }
-.th-adm{
+
+.th-adm {
   padding: 10px 10px 0 10px;
   text-align: center;
   color: var(--cor-primaria);
 }
-.user-table-adm{
-  border-collapse: collapse; 
-    width: 100%; 
-    margin: 0 auto;
+
+.user-table-adm {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.btn-addadm{
-  font-size: 10px;
-  border: none;
-  margin: 5px;
-  border-radius: 10px;
-  color: black;
-  font-weight: bold;
-  margin-left: 25px;
-
-  line-height: 1.2;
-
-  text-transform: uppercase;
-
+.btn-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+}
 
-  width: 50px;
-  height: 20px;
-
-  background: linear-gradient(to left, var(--cor-primaria), #ffbe6f);
+.btn-addadm {
+  background: none;
+  cursor: pointer;
+  border: none;
+  margin-top: 4px;
 }
 
 .btn-addadm:hover {
@@ -321,31 +382,29 @@
   transform: scale(1.1, 1.1);
 }
 
-.btn-adm-removeuser{
-  font-size: 10px;
+.remover {
+  margin-bottom: -5px;
+  margin-right: 2px;
+  width: 17px;
+  height: 17px;
+}
+
+.adicionar {
+  margin-bottom: -5px;
+  margin-right: 2px;
+  width: 18px;
+  height: 18px;
+}
+
+.btn-adm-removeuser {
+  background: none;
+  cursor: pointer;
   border: none;
-  margin: 5px;
-  border-radius: 10px;
-  color: black;
-  font-weight: bold;
-  margin-left: 25px;
-
-  line-height: 1.2;
-
-  text-transform: uppercase;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 50px;
-  height: 20px;
-
-  background: linear-gradient(to left, #f63a3a, #ff0000);
 }
 
 .btn-adm-removeuser:hover {
   cursor: pointer;
   transform: scale(1.1, 1.1);
 }
+
 /* Estilização EditarComentários */

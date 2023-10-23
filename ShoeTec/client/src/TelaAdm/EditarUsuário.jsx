@@ -1,7 +1,10 @@
 import React from 'react';
 import Cookies from "js-cookie";
+import RemoverIcon from '../assets/icons/remover.png'
+import ExcluirIcon from '../assets/icons/excluir.png'
+import AdicionarIcon from '../assets/icons/adicionar.png'
 import { useState, useEffect } from "react";
-import api from "../services/api";
+import { api, getUser } from '../services/api'
 import { Link, useNavigate } from "react-router-dom";
 import postCred from '../Login/postCred.js';
 import inputValidation from '../Login/inputValidation.js';
@@ -9,10 +12,34 @@ import Popup from 'reactjs-popup';
 import './adm.css';
 
 export function EditarUsuario(props) {
-    const userAdmin = Cookies.get('admin')
-    const [estadoLogin, setEstadoLogin] = useState(true)
+    const [isLogged, setIsLogged] = useState(false)
+    const [user, setUser] = useState({
+        user: {
+            username: '',
+            userid: null,
+            genero: '',
+            authenticated: false,
+            admin: 0
+        }
+    })
 
-    const [isAdmin, setIsAdmin] = useState(false);
+    useEffect(() => {
+        getUser()
+            .then(
+                (value) => {
+                    console.log(value)
+                    setIsLogged(value.isLogged)
+                    setUser(value.user)
+                },
+                (reason) => {
+                    console.log(reason)
+                })
+            .catch((reason) => {
+                console.log(reason)
+            })
+
+    }, []);
+
     const [isPopupOpen, setPopupOpen] = useState(false)
     const [mensagemQuery, setMensagemQuery] = useState('')
     const [credenciais, setCredenciais] = useState(
@@ -27,24 +54,6 @@ export function EditarUsuario(props) {
     const handleCredenciais = (e) => {
         inputValidation.setCreds(e, setCredenciais, credenciais) //setCreds adiciona o input a credenciais
     }
-
-    useEffect(() => {
-
-        try {
-            api.get(`/getUser/${Cookies.get('id')}`)
-                .then((res) => {
-                    console.log(res)
-                    if (res.status == 200) {
-                        console.log(res)
-                        setUser(res.data.result[0])
-                    }
-                })
-        }
-        catch (err) {
-            console.log(err)
-        }
-
-    }, [])
 
     const handleUpdateAdminStatus = async (usuario_id) => {
         const credenciaisComId = {
@@ -125,7 +134,7 @@ export function EditarUsuario(props) {
                 </div>
             </Popup>
 
-            {userAdmin === "1" ? (
+            {user.admin == "1" ? (
                 <div className='container-adm'>
                     <div className="container-form-adm-edit">
                         <h1 className="titulo-form-adm">Usuário</h1>
@@ -149,14 +158,40 @@ export function EditarUsuario(props) {
 }
 
 function TabelaUsersADM(props) {
-    const userAdmin = Cookies.get('admin')
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([])
+    const [isLogged, setIsLogged] = useState(false)
+    const [user, setUser] = useState({
+        user: {
+            username: '',
+            userid: null,
+            genero: '',
+            authenticated: false,
+            admin: 0
+        }
+    })
+
+    useEffect(() => {
+        getUser()
+            .then(
+                (value) => {
+                    console.log(value)
+                    setIsLogged(value.isLogged)
+                    setUser(value.user)
+                },
+                (reason) => {
+                    console.log(reason)
+                })
+            .catch((reason) => {
+                console.log(reason)
+            })
+
+    }, []);
 
     const setPopupOpen = props.setPopupOpen
     const setMensagemQuery = props.setMensagemQuery
 
     useEffect(() => {
-        if (userAdmin === "1") {
+        if (user.admin == "1") {
             api.get('/getUsers')
                 .then((res) => {
                     if (res.status === 200) {
@@ -167,7 +202,7 @@ function TabelaUsersADM(props) {
                     console.error('Erro ao buscar os usuários:', error);
                 });
         }
-    }, [userAdmin]);
+    }, [user.admin]);
 
     const handleUpdateAdminStatus = async (usuario_id) => {
         const credenciaisComId = {
@@ -249,17 +284,33 @@ function TabelaUsersADM(props) {
                             <td className='td-adm'>{user.name}</td>
                             <td className='td-adm'>{user.email}</td>
                             <td className='td-adm'>
-                                <input
-                                    type="checkbox"
-                                    checked={user.admin === 1}
-                                />
-                                {user.admin === 1 ? (
-                                    <button className='btn-addadm' onClick={() => handleUpdateAdminStatusRemove(user.usuario_id)}>Remove</button>)
-                                    : (<button className='btn-addadm' onClick={() => handleUpdateAdminStatus(user.usuario_id)}>ADM</button>)
-                                }
+                                <div className="btn-container">
+                                    <input
+                                        type="checkbox"
+                                        checked={user.admin === 1}
+                                    />
+                                    {user.admin === 1 ? (
+                                        <button className='btn-addadm' onClick={() => handleUpdateAdminStatusRemove(user.usuario_id)}>
+                                            <img className="remover" src={RemoverIcon} alt="Remover ADM" />
+                                            <span className="text-excluir">Remover</span>
+                                        </button>
+                                    ) : (
+                                        <button className='btn-addadm' onClick={() => handleUpdateAdminStatus(user.usuario_id)}>
+                                            <img className="adicionar" src={AdicionarIcon} alt="Adcionar ADM" />
+                                            <span className="text-excluir">Adicionar</span>
+                                        </button>
+                                    )}
+                                </div>
                             </td>
                             <td className='td-adm'>
-                                <button className='btn-adm-removeuser' onClick={() => handleDeleteUser(user.usuario_id)}>Excluir</button>
+                                <div className="btn-container">
+                                    <button className="btn-adm-removeuser" onClick={() => handleDeleteUser(user.usuario_id)}>
+                                        <img className="excluir" src={ExcluirIcon} alt="Excluir" />
+                                        <p className="text-align-excluir">
+                                            <span className="text-excluir">Excluir</span>
+                                        </p>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     ))}
