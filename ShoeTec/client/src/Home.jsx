@@ -37,14 +37,14 @@ function Home() {
         <div className='tela-bem-vindo'>
           <TelaBemVindo />
         </div>
-        <SelectTenis titulo="Tênis de Corrida" lista={listaTenis} esporteSelecionado='corrida'/>
-        <SelectTenis titulo="Chuteira de Futsal" lista={listaTenis} esporteSelecionado='futsal'/>
-        <SelectTenis titulo="Chuteira de Futebol" lista={listaTenis} esporteSelecionado='futebol'/>
-        <SelectTenis titulo="Tênis de Basquete" lista={listaTenis} esporteSelecionado='basquete'/>
-        <SelectTenis titulo="Tênis de Voleibol" lista={listaTenis} esporteSelecionado='voleibol'/>
-        <SelectTenis titulo="Tênis de Tênis" lista={listaTenis} esporteSelecionado='tenis'/>
-        <SelectTenis titulo="Tênis de Handebol" lista={listaTenis} esporteSelecionado='handebol'/>
-        <SelectTenis titulo="Tênis de Musculação" lista={listaTenis} esporteSelecionado='musculacao'/>
+        <SelectTenis titulo="Tênis de Corrida" lista={listaTenis} esporteSelecionado='Corrida'/>
+        <SelectTenis titulo="Chuteira de Futsal" lista={listaTenis} esporteSelecionado='Futsal'/>
+        <SelectTenis titulo="Chuteira de Futebol" lista={listaTenis} esporteSelecionado='Futebol'/>
+        <SelectTenis titulo="Tênis de Basquete" lista={listaTenis} esporteSelecionado='Basquete'/>
+        <SelectTenis titulo="Tênis de Voleibol" lista={listaTenis} esporteSelecionado='Voleibol'/>
+        <SelectTenis titulo="Tênis de Tênis" lista={listaTenis} esporteSelecionado='Tenis'/>
+        <SelectTenis titulo="Tênis de Handebol" lista={listaTenis} esporteSelecionado='Handebol'/>
+        <SelectTenis titulo="Tênis de Musculação" lista={listaTenis} esporteSelecionado='Musculacao'/>
         
       </div>
     </div>

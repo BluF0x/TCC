@@ -141,7 +141,7 @@ function InputFormAdmTenis(props) {
                                     id={v.id}
                                     name={props.nome}
                                     type="radio"
-                                    value={v.esporte}
+                                    value={v.valor}
                                 />
                                 <label className="label-radio" for={v.id}>{v.label}</label>
                             </p>
@@ -213,17 +213,17 @@ function CadastrarTenisADM(props) {
             <InputFormAdmTenis membros={[
                 {
                     id: "futebol",
-                    valor: "futebol",
+                    valor: "Futebol",
                     label: "Futebol"
                 },
                 {
                     id: "futsal",
-                    valor: "futsal",
+                    valor: "Futsal",
                     label: "Futsal"
                 },
                 {
                     id: "corrida",
-                    valor: "corrida",
+                    valor: "Corrida",
                     label: "Corrida"
                 },
                 {
@@ -233,22 +233,22 @@ function CadastrarTenisADM(props) {
                 },
                 {
                     id: "basquete",
-                    valor: "basquete",
+                    valor: "Basquete",
                     label: "Basquete"
                 },
                 {
                     id: "tenis",
-                    valor: "tenis",
+                    valor: "Tenis",
                     label: "Tênis"
                 },
                 {
                     id: "handebol",
-                    valor: "handebol",
+                    valor: "Handebol",
                     label: "Handebol"
                 },
                 {
                     id: "musculacao",
-                    valor: "musculacao",
+                    valor: "Musculacao",
                     label: "Musculação"
                 },
             ]}
