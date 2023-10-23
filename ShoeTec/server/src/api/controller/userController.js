@@ -1,6 +1,23 @@
 const userModel = require("../models/userModel")
+const connection = require('../models/connection')
 const bcrypt = require('bcrypt')
 const cookieSession = require('cookie-session');
+
+const uploadPicture = async (req, res) => {
+    const { userId } = req.body;
+    console.log(userId)
+    console.log(req.file)
+
+    const fileName = req.file.filename;
+
+    try {
+        const result = await userModel.uploadProfilePicture(userId, fileName);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
 
 
 const getUsers = async (req, res) =>{
@@ -127,6 +144,7 @@ const loginUser = async (req, res) => {
         req.session.authenticated = true;
         req.session.genero = user[0].genero;
         req.session.admin = user[0].admin;
+        req.session.pic = user[0].picture
 
         console.log(req.session);
         return res.status(200).json({ success: true, msg: "Ok", session: req.session });
@@ -161,25 +179,6 @@ const checkSession = async (req, res) => {
     }
 }
 
-const uploadUserPicture = async (req, res) => {
-    try{
-        const { filename, path } = req.file;
-        console.log(filename, path)
-
-        const fullPath = path + filename
-        console.log(fullPath)
-        // const upload = await userModel.uploadPicture(filename, path)
-        res.status(200).json({msg: 'sucesso'})
-    }catch(err) {
-        console.log(err)
-
-        res.status(400).json({"msg": err})
-
-    }
-
-
-}
-
 module.exports = { 
     getUsers, 
     setUsers, 
@@ -192,5 +191,5 @@ module.exports = {
     getAllUsers, 
     updateAdminStatus, 
     deleteUserId,
-    uploadUserPicture
+    uploadPicture
 }

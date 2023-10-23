@@ -13,6 +13,7 @@ const options = {
 app.use(express.json());
 app.use(cors(options));
 app.use(cookieParser());
+app.use(express.static('src/assets'))
 
 const oneDay = 1000 * 60 * 60 * 24;
 

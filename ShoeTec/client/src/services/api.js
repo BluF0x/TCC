@@ -1,17 +1,23 @@
 import axios from 'axios'
 
+const URL = "http://localhost:3001"
+
 const api = axios.create({
-    baseURL: "http://localhost:3001" // Colocar mais tarde a URL em um .env
+    baseURL:  URL // Colocar mais tarde a URL em um .env
 })
 
 axios.defaults.headers.get['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
 
+const getPicPath = (img) =>{
+    return (URL + "/images/" + img)
+}
+
 async function getUser() {
     try{
         const query = await api.get('/checkSession', {withCredentials: true})
         const user = query.data.session
-        console.log(user.authenticated)
+        console.log(user)
         if (user.authenticated)  
         {
             return Object({isLogged: true, user})
@@ -27,6 +33,7 @@ async function getUser() {
         err
     }
 }
+
 
 async function getCommentsByUser(reviewerId) {
     try {
@@ -49,4 +56,4 @@ async function getTenisById(tenisId) {
 }
 
 export default api
-export {getUser, api, getCommentsByUser, getTenisById}
+export {getUser, api, getCommentsByUser, getTenisById, getPicPath, URL}

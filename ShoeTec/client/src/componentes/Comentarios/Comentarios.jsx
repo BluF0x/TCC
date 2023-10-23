@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
-import api from "../../services/api";
+import {api, URL} from "../../services/api";
 import './comentarios.css';
-import { Link, useMatch } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Cookies from "js-cookie";
 import EnviarIcon from '../../assets/icons/enviar.png'
 import CancelarIcon from '../../assets/icons/cancelar.png'
@@ -21,7 +21,6 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
     const [comments, setComments] = useState([]);
     const [currentComment, setCurrentComment] = useState({ corpo_texto: '', subComments: [] });
     const [expanded, setExpanded] = useState(false);
-    const [reviewerInfo, setReviewerInfo] = useState(user);
 
     useEffect(() => {
         console.log(user)
@@ -146,7 +145,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                         <>
                         <div key={key} className="conteiner-comentario sub-comentario">
                             <div className="comentario-img-user">
-                                <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
+                                <img className="img-usuario" src={value.reviewer_pic ? URL + "/images/" + value.reviewer_pic : Userpic} alt="Foto do Usuário" />
                             </div>
                             <div className="comentario-texto-info">
                                 <Link to={`/TelaUsuario/${value.reviewer_id}`} className="comentario-texto-titulo">
@@ -227,7 +226,8 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                         <>
                             <div key={key} className="container-comentario">
                                 <div className="comentario-img-user">
-                                    <img className="img-usuario" src={Userpic} alt="Foto do Usuário" />
+                                    <img className="img-usuario" src={value.reviewer_pic ? URL + "/images/" + value.reviewer_pic : Userpic} alt="Foto do Usuário" />
+                                    {/* {value.reviewer_id} */}
                                 </div>
                                 <div className="comentario-texto-info">
                                     <Link to={`/TelaUsuario/${value.reviewer_id}`} className="comentario-texto-titulo">

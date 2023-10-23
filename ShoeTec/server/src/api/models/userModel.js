@@ -1,5 +1,29 @@
 const connection = require('./connection')
 const bcrypt = require('bcrypt')
+const fs = require('fs')
+
+const uploadProfilePicture = async (userId, fileName) =>{
+    console.log(userId)
+    console.log(fileName)
+    try {
+    // Check if the user already has a profile picture
+    const [result] = await connection.query('SELECT picture FROM Users WHERE usuario_id = ?', [userId]);
+
+    if (result && result.length > 0 && result[0].picture) {
+        console.log(result)
+        const previousProfilePicturePath = result[0].picture;
+        console.log(previousProfilePicturePath)
+        await fs.unlink(previousProfilePicturePath, (err)=>{if (err && err.errno != -4058){throw err} });
+    }
+
+    // Update the new profile picture path in the database
+    await connection.query('UPDATE Users SET picture = ? WHERE usuario_id = ?', [fileName, userId]);
+    return { success: true, message: 'Profile picture uploaded successfully' };
+  } catch (error) {
+    console.error('Error uploading profile picture:', error);
+    throw error;
+  }
+}
 
 const getUsers = async () => {
     const [users] = await connection.execute('SELECT * FROM Users')
@@ -110,5 +134,5 @@ module.exports = {
     updateUser, 
     updateAdminStatus, 
     deleteUserId,
-    uploadPicture
+    uploadProfilePicture    
 }

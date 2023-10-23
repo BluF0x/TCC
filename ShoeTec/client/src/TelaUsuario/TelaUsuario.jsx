@@ -1,7 +1,7 @@
 import { useState, useEffect, useNavigate} from "react";
 // import BarraSuperior from '../componentes/BarraSuperior/barra-superior'
 import BarraNav from "../componentes/BarraNav/BarrabNav";
-import Userfoto from '../assets/imgs/arthur.jpg';
+import Userfoto from '../assets/imgs/userpic.jpg';
 import Basquete from '../assets/icons/basquete.png'
 import Futebol from '../assets/icons/futebol.png'
 import Futsal from '../assets/icons/futsal.png'
@@ -12,56 +12,46 @@ import Tênis from '../assets/icons/tênis.png'
 import Handebol from '../assets/icons/handebol.png'
 import Musculacao from '../assets/icons/musculacao.png'
 import Localizacao from '../assets/icons/localizacao.png'
-import { api, getUser, getCommentsByUser, getTenisById } from "../services/api";
+import { api, getUser, getCommentsByUser, getPicPath } from "../services/api";
 import './tela-usuario.css'
-import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom"
 
 export function TelaUsuario() {
     const { id } = useParams()
-    const [User, setUser] = useState({})
+    const [User, setUser] = useState({esportes: []})
     const [comments, setComments] = useState([]);
-
-    const [ultimosPosts, setUltimosPosts] = []
-    const [AsicsNovablast, setAsicsNovablast] = useState("Tênis Asics Novablast")
-    const [DescricaoComentario, setDescricaoComentario] = useState("O tênis apresenta um bom amortecimento, mas peca quanto à estabilidade.")
+    const [userPic, setUserPic] = useState(Userfoto)
     const [currentUser, setCurrentUser] = useState({
-        user: {
-            username: '',
-            userid: null,
-            genero: '',
-            authenticated: false
-        }
     })
 
     useEffect(() => {
 
         try {
             api.get(`/getUser/${id}`)
-                .then((res) => {
-                    console.log(res)
-                    if (res.status == 200) {
-                        console.log(res)
-                        setUser(res.data.result[0])
-                    }
-                })
+            .then((res) => {
+                const userData = res.data.result[0];
+                if (res.status == 200) {
+                    setUser(userData);
+                    const pic = getPicPath(userData.picture)
+                    console.log(pic)
+                    if (userData.picture) setUserPic(pic)
+                } 
+            });
         }
         catch (err) {
             console.log(err)
         }
         getUser()
-            .then(
-                (value) => {
-                    console.log(value)
-                    setCurrentUser(value.user)
-                },
-                (reason) => {
-                    console.log(reason)
-                })
-            .catch((reason) => {
+        .then(
+            (value) => {
+                setCurrentUser(value.user)
+            },
+            (reason) => {
                 console.log(reason)
             })
-
+        .catch((reason) => {
+            console.log(reason)
+        })
         getCommentsByUser(id)
             .then((result) => {
                 setComments(result);
@@ -77,34 +67,14 @@ export function TelaUsuario() {
             <BarraNav />
             <div className="space">🥚🐰</div>
             <div className="container-content">
-                <PerfilUsuario />
+                <PerfilUsuario userEsportes={User.esportes} />
                 <ListaComentarios />
             </div>
         </div>
     )
 
-    function PerfilUsuario() {
-        const isLogged = Cookies.get('loggedIn')
-        const [userSports, setUserSports] = useState([]);
-
-        useEffect(() => {
-
-            try {
-                api.get(`/getUser/${id}`)
-                    .then((res) => {
-                        console.log(res)
-                        if (res.status == 200) {
-                            console.log(res)
-                            setUserSports(res.data.result[0].esportes);
-                        }
-                    })
-            }
-            catch (err) {
-                console.log(err)
-            }
-
-        }, [])
-
+    function PerfilUsuario({userEsportes}) {
+        const [userSports, setUserSports] = useState(userEsportes);
 
         const sportIcons = {
             futebol: Futebol,
@@ -120,7 +90,7 @@ export function TelaUsuario() {
         return (
             <div className="perfil-container">
                 <div className="perfil-foto">
-                    <img className="user-foto" src={User.picture ? User.picture : Userfoto} alt="Foto Usuário"></img>
+                    <img className="user-foto" src={userPic} alt="Foto Usuário"></img>
                 </div>
                 <div className="perfil-cardname">
                     <h1 className="perfil-nome">
@@ -147,10 +117,15 @@ export function TelaUsuario() {
 
                 <div className="perfil-edit">
 
-                    {currentUser.userid = id &&
-                        <Link to="/EditarPerfil" className="btn-edit-profile">
-                            <h4>Editar Perfil</h4>
-                        </Link>
+                    {currentUser.userid == id &&
+                        <div>
+                            <Link to="/EditarPerfil" className="btn-edit-profile">
+                                <h4>Editar perfil</h4>
+                            </Link>
+                            <Link to="/EditarFotoPerfil" className="btn-edit-profile">
+                                <h4>Mudar foto de perfil</h4>
+                            </Link>
+                        </div>
                     }
                 </div>
 
@@ -172,7 +147,7 @@ export function TelaUsuario() {
         useEffect(() => {
             api.get(`/tenisId/${tenisName}`)
               .then((res) => {
-                console.log(res);
+                // console.log(res);
                 setTenisNome(res.data[0].nome);
               })
               .catch((error) => {

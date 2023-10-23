@@ -16,9 +16,15 @@ const getTopComment = async(id) => {
         comments.forEach(async element => {
             const args = `SELECT name FROM users WHERE usuario_id= ${element.reviewer_id}`
             const [name] = await connection.execute(args)
+            const argsPic = 'SELECT picture FROM users WHERE usuario_id = ?'
+            const [pic] = await connection.execute(argsPic, [element.reviewer_id])
             element.reviewer_name = name[0].name
-            console.log('COMENTARIOS TOPO')
-            console.log(comments)
+            element.reviewer_pic =  pic[0].picture
+            // console.log(element.reviewer_pic)
+            // console.log(name)
+            // console.log(pic)
+            // console.log('COMENTARIOS TOPO')
+            // console.log(comments)
         });
         
 
@@ -39,9 +45,12 @@ const getChildComment = async (id) => {
     comments.forEach(async element => {
         const args = `SELECT name FROM users WHERE usuario_id= ${element.reviewer_id}`
         const [name] = await connection.execute(args)
+        const argsPic = 'SELECT picture FROM users WHERE usuario_id = ?'
+        const [pic] = await connection.execute(argsPic, [element.reviewer_id])
         element.reviewer_name = name[0].name
-        console.log('SUB COMENTARIOS')
-        console.log(comments)
+        element.reviewer_pic =  pic[0].picture
+        // console.log('SUB COMENTARIOS')
+        // console.log(comments)
     });
 
     return comments;

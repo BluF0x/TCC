@@ -19,7 +19,7 @@ async function logarUsuario(cred) {
 
 async function updateUsuario(cred) {
   try {
-    const query = await api.post(`/editUser`, cred);
+    const query = await api.post(`/editUser`,  cred, {withCredentials: true});
     return query;
   } catch (err) {
     return err;

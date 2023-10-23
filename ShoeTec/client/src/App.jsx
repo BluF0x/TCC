@@ -13,6 +13,7 @@ import {TelaTenis} from './TelaTenis/TelaTenis.jsx'
 import Lost from "./LostPage/Lost";
 import { EditarPerfil } from "./TelaUsuario/EditarPerfil";
 import './App.css'
+import EditarFotoPerfil from "./TelaUsuario/EditarFotoPerfil";
 
 function App() {
   /*
@@ -35,6 +36,7 @@ function App() {
         <Route path="/EditarPerfil" Component={EditarPerfil} />
         <Route path="/CadastrarTenis" Component={CadastrarTenis} />
         <Route path="/EditarUsuario" Component={EditarUsuario} />
+        <Route path="/EditarFotoPerfil" Component={EditarFotoPerfil} />
       </Routes>
     </Router>
   )
