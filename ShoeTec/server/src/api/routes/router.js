@@ -54,4 +54,5 @@ router.get('/tenis/:limit',  tenisController.getTenis)
 router.get('/tenisId/:id', tenisController.getTenisById)
 router.get('/searchTenis', tenisController.searchTenis)
 
+
 module.exports = router

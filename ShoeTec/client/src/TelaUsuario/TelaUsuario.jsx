@@ -118,7 +118,7 @@ export function TelaUsuario() {
                 <div className="perfil-edit">
 
                     {currentUser.userid == id &&
-                        <div>
+                        <div className="container-btn-edit">
                             <Link to="/EditarPerfil" className="btn-edit-profile">
                                 <h4>Editar perfil</h4>
                             </Link>

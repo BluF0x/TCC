@@ -12,6 +12,7 @@ const uploadPicture = async (req, res) => {
 
     try {
         const result = await userModel.uploadProfilePicture(userId, fileName);
+        req.session.pic = fileName    
         res.json(result);
     } catch (error) {
         res.status(500).json({ success: false, message: 'Internal server error' });
@@ -79,15 +80,18 @@ const deleteUserId = async (req, res) => {
     }
 };
 
+// UPDATE user, não updat. Modificar o nome pode causar conflitos
 const updatUser = async (req, res) => {
     const {usuario_id} = req.body;
     const userData = req.body;
 
     try {
         const result = await userModel.updateUser(usuario_id, userData);
-        console.log(result)
+        console.log(userData)
+        console.log(req.session)
 
         if (result.affectedRows > 0) {
+            req.session.genero = userData.genero
             return res.status(200).json({ message: 'User updated successfully' });
         } else {
             return res.status(404).json({ error: 'User not found' });

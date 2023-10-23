@@ -108,6 +108,8 @@ ADD admin TINYINT(1) DEFAULT 0;
 
 ALTER TABLE Post ADD deletado TINYINT(1) NOT NULL DEFAULT 0;
 
+ALTER TABLE Tenis ADD picutres JSON;
+
 -- Drop
 
 DROP TABLE Users;

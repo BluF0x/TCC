@@ -223,7 +223,9 @@
     align-items: flex-start;
     margin-bottom: 5px;
     margin-top: 8px;
-    border: solid 2px var(--cor-primaria);
+    border: solid 1px var(--cor-secundaria);
+    border-radius: 10px;
+    background-color: rgb(253, 243, 227);
     padding: 7px;
 }
 

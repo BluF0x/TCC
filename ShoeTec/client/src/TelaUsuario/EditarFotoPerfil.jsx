@@ -34,7 +34,8 @@ export default function EditarFotoPerfil() {
         api.post(`/uploadUserPicture`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
-            }
+            },
+            withCredentials: true
         })
         .then(response => {
             console.log(response.data);
