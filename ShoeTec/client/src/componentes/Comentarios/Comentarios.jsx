@@ -54,7 +54,8 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
             ...currentComment,
             review_id: res.data.result.insertId,
             reviewer_id: user.userid,
-            reviewer_name: user.username
+            reviewer_name: user.username,
+            reviewer_pic: URL + "/images/" + user.pic
         };
         console.log(newComment)
         setComments([newComment, ...comments]);
@@ -114,7 +115,8 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                 ...currentComment,
                 review_id: res.data.result.insertId,
                 reviewer_id: user.userid,
-                reviewer_name: user.username
+                reviewer_name: user.username,
+                reviewer_pic:  user.pic
             };
             console.log(newComment)
             setComments([newComment, ...comments]);
@@ -132,6 +134,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                     placeholder="Comentar"
                                     value={currentComment.corpo_texto}
                                     onChange={e => updateCurrentComment(e)}
+                                    onKeyDown={e=> {if (e.key === "Enter") {addComment(e)}}}
                                 />
                                 <div className="buttons-coment">
                                     <button className="button" onClick={e => { setIsHidden(!isHidden) }}>
