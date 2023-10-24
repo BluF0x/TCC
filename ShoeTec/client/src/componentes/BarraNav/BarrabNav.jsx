@@ -6,7 +6,7 @@ import userLogo from '../../assets/svg/conta_icon.svg'
 import filter from '../../assets/svg/filter_fill.svg'
 import menu from '../../assets/svg/menu_icon.svg'
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../../services/api";
 import './BarraNav.css';
 import { getUser, api } from "../../services/api";
@@ -25,6 +25,7 @@ function BarraNav() {
         }
     })
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(()=>{
         getUser()
@@ -49,11 +50,12 @@ function BarraNav() {
 
     const logout=(e)=> {
 
+
         try{
             api.get('/userLogout', {withCredentials: true})
                 .then((val)=>{
                     console.log(val)
-                    navigate('/')
+                    location.pathname != '/' ? navigate('/') : window.location.reload(false)
                 })
         } catch(err) {
             console.log(err)
