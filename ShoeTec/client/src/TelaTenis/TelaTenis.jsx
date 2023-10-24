@@ -9,12 +9,17 @@ import estrela from '../assets/svg/star.svg';
 import { Link, useLocation, useParams } from "react-router-dom"
 import './tela-tenis.css'
 import '../LostPage/lost.css'
-import {api, getUser} from "../services/api";
+import { api, getUser } from "../services/api";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination} from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import { object } from "joi";
 
 export function TelaTenis() {
   // const params = useLocation()
-  const {id} = useParams()
+  const { id } = useParams()
   const [tenis, setTenis] = useState({})
 
   // const [tenis.nota, setTotalReview] = useState(tenis.nota)
@@ -31,93 +36,93 @@ export function TelaTenis() {
     }
   })
 
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     getUser()
       .then(
-      (value)=>{
+        (value) => {
           console.log(value)
           setIsLogged(value.isLogged)
           setUser(value.user)
-      },
-      (reason)=>{
+        },
+        (reason) => {
           console.log(reason)
-      })
-      .catch((reason)=>{
-          console.log(reason)
+        })
+      .catch((reason) => {
+        console.log(reason)
       })
     api.get(`/tenisId/${id}`)
-    .then((res)=>{
-      console.log(res)
-      setTenis(res.data[0])
-      console.log(Object.keys(tenis).length != 0 )
-    })
+      .then((res) => {
+        console.log(res)
+        setTenis(res.data[0])
+        console.log(Object.keys(tenis).length != 0)
+      })
     api.get(`/getAllComments/${id}`)
-    .then((res)=>{
-      console.log("res:")
-      console.log(res)
-      const result = res.data.Resultado
-      
-      setComments(res.data.Resultado)
-    })
+      .then((res) => {
+        console.log("res:")
+        console.log(res)
+        const result = res.data.Resultado
+
+        setComments(res.data.Resultado)
+      })
   }, [])
 
 
-  
 
-  const addEstrela=(nota) =>{
+
+  const addEstrela = (nota) => {
     let listaEstrela = []
     let dif = 5 - nota
     const round = Math.floor(nota)
-    const estrela = <Estrela/>
-    const meiaEstrela = <MeiaEstrela/>
-    const fullEstrela = <EstrelaCheia/>
+    const estrela = <Estrela />
+    const meiaEstrela = <MeiaEstrela />
+    const fullEstrela = <EstrelaCheia />
 
-    for(let i =0; i < round; i++ ){
-        listaEstrela.push(fullEstrela)
+    for (let i = 0; i < round; i++) {
+      listaEstrela.push(fullEstrela)
     }
-    if((nota - round)>= 0.5) {
-        listaEstrela.push(meiaEstrela)
-        dif--
+    if ((nota - round) >= 0.5) {
+      listaEstrela.push(meiaEstrela)
+      dif--
     }
-    for(let i=0; i < dif; i++){
-        listaEstrela.push(estrela)
+    for (let i = 0; i < dif; i++) {
+      listaEstrela.push(estrela)
     }
-    return(listaEstrela)
+    return (listaEstrela)
   }
 
   function Estrela() {
-      return(
-          <img src={estrela} className="star">
-          </img>
-      )
+    return (
+      <img src={estrela} className="star">
+      </img>
+    )
   }
 
   function EstrelaCheia() {
-      return(
-          <img src={estrelaCheia} className="star">
-          </img>
-      )
+    return (
+      <img src={estrelaCheia} className="star">
+      </img>
+    )
   }
 
   function MeiaEstrela() {
-      return(
-          <img src={estrelaMeia} className="star">
-          </img>
-      )
+    return (
+      <img src={estrelaMeia} className="star">
+      </img>
+    )
   }
 
-  return(
+  return (
     <>
-    { tenis ?
-      <div className="container-tela-tenis">
+      {tenis ?
+        <div className="container-tela-tenis">
           <div >
-              <BarraNav/>
+            <BarraNav />
           </div>
           <div className="barra">!</div>
           <div className="container-content">
-              <Slider tenis={tenis}/>
-              <PerfilTenis tenis={tenis}/>
+            <Slider tenis={tenis} />
+            <PerfilTenis tenis={tenis} />
           </div>
           <div className="container-nota">
             <div className="estrela">
@@ -125,30 +130,30 @@ export function TelaTenis() {
             </div>
 
             <div className="frase-nota">
-            A média de avaliação de {tenis.nome} é: {Math.floor(tenis.nota * 10) / 10}
+              A média de avaliação de {tenis.nome} é: {Math.floor(tenis.nota * 10) / 10}
             </div>
           </div>
-        
+
           <div className='container-tabela'>
-            <TabelaInfo tenisInfo={tenis}/>
+            <TabelaInfo tenisInfo={tenis} />
           </div>
 
-          <Comentarios 
-          inheritedComments={comments} 
-          tenisId={id} 
-          user={user}
-          isLogged={isLogged}
+          <Comentarios
+            inheritedComments={comments}
+            tenisId={id}
+            user={user}
+            isLogged={isLogged}
           />
-      </div>
-      :
-      <div >
-        <BarraNav/>
-        <div className="lost" style={{paddingTop: 100}}>
-          <h1 className="lost-text">404: Tenis não encontrado</h1>
-          <Link to="/" className="link">Voltar</Link>
         </div>
-      </div>
-    }
+        :
+        <div >
+          <BarraNav />
+          <div className="lost" style={{ paddingTop: 100 }}>
+            <h1 className="lost-text">404: Tenis não encontrado</h1>
+            <Link to="/" className="link">Voltar</Link>
+          </div>
+        </div>
+      }
     </>
   )
 }
@@ -157,60 +162,33 @@ function Slider(props) {
   const tenis = props.tenis
 
   const [NomeTenis, setNomeTenis] = useState(tenis.nome)
-  const [count, setCount] = useState(1);
-  
-  useEffect(() => {
-    document.getElementById('slider-' + count).checked = true;
-  }, [count]);
+  const [slides, setCount] = useState([Novablast, Novablast2]);
 
   return (
     <div className="container-slide">
-    <div className="slider">
+      <div className="slider">
 
-      <div className="slides">
-        <input type="radio" name="radio-btn" id="slider-1"/>
-        <input type="radio" name="radio-btn" id="slider-2"/>
-        <input type="radio" name="radio-btn" id="slider-3"/>
-        <input type="radio" name="radio-btn" id="slider-4"/>
-
-        <div className="slide first">
-            <img src={Novablast} alt={tenis.nome}/>
-        </div>
-        <div className="slide">
-            <img src={Novablast2} alt={tenis.nome}/>
-        </div>
-        <div className="slide">
-            <img src={Novablast} alt={tenis.nome}/>
-        </div>
-        <div className="slide">
-            <img src={Novablast2} alt={tenis.nome}/>
-        </div>
-        
-
-        <div className="navigation-auto">
-          <div className="auto-btn1"></div>
-          <div className="auto-btn2"></div>
-          <div className="auto-btn3"></div>
-          <div className="auto-btn4"></div>
-        </div>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          navigation
+          pagination
+          loop
+        >
+          {slides.map( slide => (
+            <SwiperSlide>
+              <img className="img-slides" src={slide} alt={slides} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
       </div>
-      
-      <div className="manual-navigation">
-          <label for="slider-1" className="manual-btn"></label>
-          <label for="slider-2" className="manual-btn"></label>
-          <label for="slider-3" className="manual-btn"></label>
-          <label for="slider-4" className="manual-btn"></label>
-        </div>
-    
-    </div>
 
-    
+
     </div>
   );
 }
-  
-  
+
+
 function PerfilTenis(props) {
 
   const tenis = props.tenis
@@ -218,19 +196,19 @@ function PerfilTenis(props) {
 
   return (
     <div className="container-descricao">
-    
+
       <div className="tenis nome">
         <h1>{tenis.nome}</h1>
       </div>
-    
+
       <div className="tenis preco">
         <p className='p preco-p'><span className="preco-p">R$ </span>  <span className='num-preco'>{tenis.medium_price}</span></p>
       </div>
 
       {tenis.desconto && (
-      <div className="tenis cupom">
-        <p className='p cupom-p'><a className="tipo-cupom" href={tenis.cupom} target="_blank">{tenis.desconto} </a></p>
-      </div>
+        <div className="tenis cupom">
+          <p className='p cupom-p'><a className="tipo-cupom" href={tenis.cupom} target="_blank">{tenis.desconto} </a></p>
+        </div>
       )}
 
       <div className="tenis esporte">
@@ -246,7 +224,7 @@ function PerfilTenis(props) {
 }
 
 function TabelaInfo(props) {
-  let tenis =  props.tenisInfo
+  let tenis = props.tenisInfo
   // const params = useLocation()
   // const tenis = params.state.tenis
 
@@ -261,7 +239,7 @@ function TabelaInfo(props) {
   const [SoladoTenis, setSoladoTenis] = useState(tenis.solado)
   const [CabedalTenis, setCabedalTenis] = useState(tenis.cabedal)
   const [DropTenis, setDropTenis] = useState(tenis.dropt)
-  
+
 
   return (
     <div className="tabela-container">
@@ -269,7 +247,7 @@ function TabelaInfo(props) {
       <table className="vertical-table">
         <tbody>
           {/* Verifica se cada valor é verdadeiro antes de renderizar a linha da tabela. */}
-        {tenis.nome && (
+          {tenis.nome && (
             <tr>
               <th>Nome</th>
               <td>{tenis.nome}</td>

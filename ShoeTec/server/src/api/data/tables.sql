@@ -110,6 +110,8 @@ ALTER TABLE Post ADD deletado TINYINT(1) NOT NULL DEFAULT 0;
 
 ALTER TABLE Tenis ADD picutres JSON;
 
+ALTER TABLE users ADD picture JSON;
+
 -- Drop
 
 DROP TABLE Users;
