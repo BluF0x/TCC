@@ -15,7 +15,6 @@ import { Navigation, Pagination} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { object } from "joi";
 
 export function TelaTenis() {
   // const params = useLocation()

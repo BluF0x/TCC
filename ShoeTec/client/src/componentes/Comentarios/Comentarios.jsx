@@ -1,8 +1,7 @@
 import { React, useState, useEffect } from "react";
 import {api, URL} from "../../services/api";
-import './comentarios.css';
 import { Link} from "react-router-dom";
-import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 import EnviarIcon from '../../assets/icons/enviar.png'
 import CancelarIcon from '../../assets/icons/cancelar.png'
 import ExcluirIcon from '../../assets/icons/excluir.png'
@@ -10,6 +9,7 @@ import ResponderIcon from '../../assets/icons/responder.png'
 import MostrarIcon from '../../assets/icons/mostrar.png'
 import OcultarIcon from '../../assets/icons/ocultar.png'
 import Userpic from '../../assets/imgs/userpic.jpg'
+import './comentarios.css';
 
 
 const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
@@ -18,13 +18,13 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
         userid: null,
         genero: '',
         authenticated: false
-    }
-}, isLogged = false }) => {
+    }}, isLogged = false }) => {
+
     const [comments, setComments] = useState([]);
     const [currentComment, setCurrentComment] = useState({ corpo_texto: '', subComments: [] });
     const [expanded, setExpanded] = useState(false);
     const [expandirMap, setExpandirMap] = useState({});
-    const [reviewerInfo, setReviewerInfo] = useState(user);
+    const navigate = useNavigate()
 
     useEffect(() => {
         console.log(user)
@@ -220,6 +220,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                             placeholder="Comentar"
                             value={currentComment.corpo_texto}
                             onChange={e => updateCurrentComment(e)}
+                            onKeyDown={e=> {if (e.key === "Enter") {addComment(e)}}}
                         />
                         <button className="button" onClick={e => addComment(e)}>
                             <img className='img-button envit' src={EnviarIcon} alt="Enviar" />
@@ -238,7 +239,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                         <>
                             <div key={key} className="container-comentario">
                                 <div className="comentario-img-user">
-                                    <img className="img-usuario" src={value.reviewer_pic ? URL + "/images/" + value.reviewer_pic : Userpic} alt="Foto do Usuário" />
+                                    <img className="img-usuario" src={value.reviewer_pic ? URL + "/images/" + value.reviewer_pic : Userpic} alt="Foto do Usuário" onClick={e=>navigate(`/TelaUsuario/${value.reviewer_id}`)} />
                                     {/* {value.reviewer_id} */}
                                 </div>
                                 <div className="comentario-texto-info">
@@ -273,13 +274,13 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                     }
 
                                 </div>
+                                {value.subComments.length > 0 && (
+                                    <button className="button-ocultarmostrar"  onClick={() => handleMostrarSubClick(value)}>
+                                        <img className='responder' src={expandirMap[value.review_id] ? OcultarIcon : MostrarIcon} alt={expandirMap[value.review_id] ? "Ocultar" : "Mostrar"} />
+                                        {expandirMap[value.review_id] ? "Ocultar Subcomentários" : "Mostrar Subcomentários"}
+                                    </button>
+                                )}
                             </div>
-                            {value.subComments.length > 0 && (
-                                <button className="button-ocultarmostrar"  onClick={() => handleMostrarSubClick(value)}>
-                                    <img className='responder' src={expandirMap[value.review_id] ? OcultarIcon : MostrarIcon} alt={expandirMap[value.review_id] ? "Ocultar" : "Mostrar"} />
-                                    {expandirMap[value.review_id] ? "Ocultar Subcomentários" : "Mostrar Subcomentários"}
-                                </button>
-                            )}
 
                             {expandirMap[value.review_id] && value.subComments.length > 0 && (
                                 <div className="replycoment-comentario">

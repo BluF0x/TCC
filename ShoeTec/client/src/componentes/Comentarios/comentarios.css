@@ -96,7 +96,10 @@
     align-items: flex-start;
     transform: translateX(10px);
     padding: 5px;
-    border: solid 2px var(--cor-primaria);
+    border: solid 1px var(--cor-secundaria);
+    border-radius: 10px;
+    background-color: rgb(253, 243, 227);
+    padding: 7px;
 }
 
 .title-coment {
@@ -180,7 +183,10 @@
     width: 105px;
     height: 25px;
 
-    background: linear-gradient(to left, var(--cor-contraste), #ff0000);
+    /* background: linear-gradient(to left, var(--cor-contraste), #ff0000); */
+    background-color: var(--cor-secundaria);
+    position: relative;
+    left: 1px;
 }
 
 .button-ocultarmostrar:hover{
@@ -231,6 +237,7 @@
 
 .img-usuario {
     object-fit: cover;
+    cursor: pointer;
     width: 50px;
     height: 50px;
     border-radius: 50%;
