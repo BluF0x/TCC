@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import SneakerTecLogo from '../assets/imgs/SneakerTecLogo.png';
 import postCred from './postCred';
 import inputValidation from './inputValidation';
-import Cookies from 'js-cookie'
 import api from '../services/api';
 import Popup from 'reactjs-popup';
 import './login.css';
@@ -45,7 +44,7 @@ export function Login() {
                     <button className='login-form-button' onClick={() => setPopupOpen(false)}>Fechar</button>
 
                     <div className='text-center-popup'>
-                        <Link to="/" className='voltar-popup'>Voltar</Link>
+                        <Link to="/" className='voltar-popup'>Voltar para página principal</Link>
                     </div>
                 </div>
             </Popup>
@@ -296,7 +295,7 @@ function CadastrarForm(props) {
         if (queryResult.status >= 200 && queryResult.status < 300) {
             console.log(queryResult)
             setPopupOpen(true)
-            setMensagemQuery(`Usuário criado com sucesso!\nCod: ${queryResult.status}`)
+            setMensagemQuery(`Usuário criado com sucesso!`)
             setEstadoLogin(true)
 
         } else {

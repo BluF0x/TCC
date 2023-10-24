@@ -98,15 +98,14 @@ export function EditarPerfil() {
         // Por enquanto, um alert será usado; mudar depois
         if (queryResult.status > 199 && queryResult.status < 500) {
             console.log(queryResult)
-            window.alert('Perfil editado com sucesso!')
-            // setPopupOpen(true)
-            // setMensagemQuery(`Perfil editado com sucesso!\nCod: ${queryResult.status}`)
-            // setEstadoLogin(true)
+            // window.alert('Perfil editado com sucesso!')
+            setPopupOpen(true)
+            setMensagemQuery(`Perfil editado com sucesso!`)
         } else {
             console.log(queryResult)
-            window.alert('Falha ao edidtar perfil')
-            // setPopupOpen(true)
-            // setMensagemQuery(`Falha ao editar perfil.\nRazão: ${queryResult.response.data.error.details[0].message} \nCod: ${queryResult.response.status}`)
+            // window.alert('Falha ao edidtar perfil')
+            setPopupOpen(true)
+            setMensagemQuery(`Falha ao editar perfil.\nRazão: ${queryResult.response.data.error.details[0].message} \nCod: ${queryResult.response.status}`)
         }
     }
 

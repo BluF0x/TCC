@@ -42,7 +42,7 @@ function TelaBemVindo() {
     }, []);
 
     useEffect(() => {
-        const conteudoH1 = `${user.genero === "M" ? "Bem vindo " : user.genero === "F" ? "Bem vinda " : "Bem vindo(a) "}${isLogged ? user.username : ''}`;
+        const conteudoH1 = `${user.genero === "M" ? "Bem vindo " : user.genero === "F" ? "Bem vinda " : "Olá, "}${isLogged ? user.username : ''}`;
         if (conteudoH1.length < 30) {
             setTituloClasse("titulo");
         } else {
@@ -53,7 +53,7 @@ function TelaBemVindo() {
     return (
         <div className="container-bem-vindo">
             <h1 className={tituloClasse}>
-                {user.genero == "M" ? "Bem vindo " : user.genero == "F" ? "Bem vinda " : "Bem vindo(a) "}
+                {user.genero == "M" ? "Bem vindo " : user.genero == "F" ? "Bem vinda " : "Olá, "}
                 {isLogged ? user.username : ''}
 
             </h1>
