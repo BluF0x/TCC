@@ -8,41 +8,45 @@
 }
 
 @media screen and (max-width: 1230px) {
-    .user-editar-foto{
+    .user-editar-foto {
         margin-top: 5px;
     }
-    .container-content{
+
+    .container-content {
         float: none;
         display: block;
     }
+
     .li-lista-comentario {
         margin-right: 7px;
         margin-left: 5px;
     }
+
     .editar-container {
         width: 99%;
         margin: 8px 0px 10px 4px;
     }
+
     .comentarios-container {
         margin-left: 10px;
     }
-  }
+}
 
-  @media screen and (max-width: 1000px) {
-    .container-content{
+@media screen and (max-width: 1000px) {
+    .container-content {
         float: none;
         display: block;
         padding-left: 10px;
     }
-  }
+}
 
-  @media screen and (max-width: 600px) {
-    .container-content{
+@media screen and (max-width: 600px) {
+    .container-content {
         float: none;
         display: block;
         padding-left: 0px;
     }
-  }
+}
 
 .perfil-editar-foto {
     margin-bottom: 10px;
@@ -54,6 +58,7 @@
     border-radius: 50%;
     width: 250px;
 }
+
 .editar-form {
     width: 100%;
 }
@@ -81,19 +86,19 @@
     outline: 0;
 }
 
-.input-edit:focus + .focus-input-edit::after {
+.input-edit:focus+.focus-input-edit::after {
     top: -15px;
 }
 
-.input-edit:focus + .focus-input-edit::before {
+.input-edit:focus+.focus-input-edit::before {
     width: 100%;
 }
 
-.has-val + .focus-input-edit::after {
+.has-val+.focus-input-edit::after {
     top: -15px;
 }
 
-.has-val + .focus-input-edit::before {
+.has-val+.focus-input-edit::before {
     width: 100%;
 }
 
@@ -105,7 +110,7 @@
 
 }
 
-.input-btn-edit{
+.input-btn-edit {
     margin-right: 4px;
 }
 
@@ -144,16 +149,18 @@
 
 
 
-.input-p-edit{
+.input-p-edit {
     text-align: left;
     color: white;
     margin-bottom: 8px;
 }
+
 .titulo-genero-edit {
     margin-bottom: 13px;
     color: white;
 }
-.focus-input-edit{
+
+.focus-input-edit {
     pointer-events: none;
     color: white;
     position: absolute;
@@ -164,6 +171,7 @@
     top: 0;
     left: 0;
 }
+
 .focus-input-edit::before {
     content: "";
     display: block;
@@ -178,7 +186,7 @@
     -moz-transition: all 0.4s;
     transition: all 0.4s;
 
-    background: linear-gradient(to left,  #c6c6c6, #ffffff );
+    background: linear-gradient(to left, #c6c6c6, #ffffff);
 }
 
 .focus-input-edit::after {
@@ -202,7 +210,7 @@
     transition: all 0.4s;
 }
 
-.cad-form-edit-title{
+.cad-form-edit-title {
     color: white;
 
     margin: 5px 0 20px 0;
@@ -214,7 +222,7 @@
 .wrap-input-editar {
     width: 90%;
     position: relative;
-    border-bottom: 2px solid  #9f9f9f;
+    border-bottom: 2px solid #9f9f9f;
     margin: 0 auto;
     margin-bottom: 20px;
 }
@@ -247,7 +255,7 @@
     box-shadow: 4px 4px 16px 9px #947b3a70;
 }
 
-.mensagem-login-cad{
+.mensagem-login-cad {
     font-size: 18pt;
     color: white;
     font-weight: bold;
@@ -274,7 +282,7 @@
     margin-bottom: 18px;
 }
 
-.login-form-button-cad{
+.login-form-button-cad {
     padding: 20px 25px 20px 25px;
     border-radius: 10px;
     background-color: var(--cor-primaria);
@@ -287,12 +295,12 @@
 
 }
 
-.login-form-button-cad:hover{
-    transform: scale(1.07,1.07);
+.login-form-button-cad:hover {
+    transform: scale(1.07, 1.07);
 }
 
-.text-center-popupcad:hover{
-    transform: scale(1.07,1.07);
+.text-center-popupcad:hover {
+    transform: scale(1.07, 1.07);
 }
 
 .voltar {
@@ -328,7 +336,7 @@
     height: 40px;
 
 
-    background: linear-gradient(to right,  #e4ed36, #e3e973);
+    background: linear-gradient(to right, #e4ed36, #e3e973);
     box-shadow: 4px 4px 10px #844e084f;
 
     transition: 200ms;
@@ -339,3 +347,111 @@
     cursor: pointer;
     transform: scale(1.1);
 }
+
+/* EDITAR FOTO PERFIL*/
+
+.container-editarfoto {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+    background-color: var(--cor-primaria);
+
+    overflow: hidden;
+}
+
+.container-tela-editarfoto {
+    width: 100%;
+    max-width: 600px;
+    min-height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 15px;
+    box-shadow: 0 5px 10px 0px var(--cor-secundaria);
+    animation-duration: 500ms;
+    animation-name: mudar-login;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.editarperfil-foto {
+    margin-bottom: 30px;
+    margin-top: 6px;
+    text-align: center;
+}
+
+.editaruser-foto {
+    border-radius: 50%;
+    object-fit: cover;
+    height: 250px;
+    width: 250px;
+    border: dashed 4px var(--cor-primaria);
+    margin-bottom: 8px;
+}
+
+.titulo-editarfoto{
+    color: var(--cor-primaria);
+}
+
+.btn-editarfoto{
+    margin-top: 10px;
+    color: black;
+    font-size: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+
+    line-height: 1.2;
+
+    text-transform: uppercase;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 200px;
+    height: 20px;
+    padding: 12px;
+    margin: 20px;
+
+    background: linear-gradient(to right,  #e4ed36, #e3e973);
+    box-shadow: 4px 4px 10px #844e084f;
+    transition: 200ms;
+}
+
+.btn-editarfoto:hover {
+    transition: 200ms;
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+}
+
+input[type="file"]{
+    background-color: var(--cor-primaria);
+    padding: 5px;
+    color: white;
+    border-radius: 4px;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: #e4ed36;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    color: black;
+    box-shadow: 20px 20px 40px 10px #efd934f5;
+    border: none;
+  }
+  
+  input[type="file"]::file-selector-button:hover {
+    background: #d6e00c;
+  }

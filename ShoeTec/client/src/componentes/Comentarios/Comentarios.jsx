@@ -128,7 +128,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                 {user.authenticated && (
                     <>
                         {isHidden ? (
-                            <div className="container-comentario">
+                            <div className="container-comentario-responder">
                                 <input
                                     className="reply"
                                     placeholder="Comentar"
@@ -279,13 +279,13 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                 </div>
                                 {value.subComments.length > 0 && (
                                     <button className="button-ocultarmostrar"  onClick={() => handleMostrarSubClick(value)}>
-                                        <img className='responder' src={expandirMap[value.review_id] ? OcultarIcon : MostrarIcon} alt={expandirMap[value.review_id] ? "Ocultar" : "Mostrar"} />
-                                        {expandirMap[value.review_id] ? "Ocultar Subcomentários" : "Mostrar Subcomentários"}
+                                        <img className='responder' src={expandirMap[value.review_id] ? MostrarIcon : OcultarIcon} alt={expandirMap[value.review_id] ? "Mostrar" : "Ocultar"} />
+                                        {expandirMap[value.review_id] ? "Mostrar Subcomentários" : "Ocultar Subcomentários"}
                                     </button>
                                 )}
                             </div>
 
-                            {expandirMap[value.review_id] && value.subComments.length > 0 && (
+                            {!expandirMap[value.review_id] && (
                                 <div className="replycoment-comentario">
                                     <ReplyComponent parent={value} />
                                 </div>

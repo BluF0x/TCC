@@ -228,10 +228,18 @@
     display: flex;
     align-items: flex-start;
     margin-bottom: 5px;
-    margin-top: 8px;
+    margin-top: 30px;
     border: solid 1px var(--cor-secundaria);
     border-radius: 10px;
     background-color: rgb(253, 243, 227);
+    padding: 7px;
+}
+
+.container-comentario-responder {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+    margin-top: 4pxpx;
     padding: 7px;
 }
 
@@ -259,7 +267,7 @@
 }
 
 .replycoment-comentario {
-    margin-bottom: 50px;
+    margin-bottom: 5px;
 }
 
 .opcoes-mensagens{
