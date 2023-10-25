@@ -111,6 +111,42 @@ export function TelaTenis() {
     )
   }
 
+  function Slider(props) {
+    const [tenis, setTenis] = useState(props.tenis)
+    const [slides, setCount] = useState(tenis.pictures);
+
+    return (
+      <div className="container-slide">
+        <div className="slider">
+
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination
+            loop
+          >
+            { slides ?
+              slides.map( (value, index) => {
+                return(
+                  <SwiperSlide>
+                    <img className="img-slides" src={`http://localhost:3001/images/${value}`} alt={slides} />
+                  </SwiperSlide>
+                )
+              })
+              :
+              <SwiperSlide>
+                <img className="img-slides" src={Novablast}/>
+              </SwiperSlide>
+              }
+          </Swiper>
+
+        </div>
+
+
+      </div>
+    );
+  }
+
   return (
     <>
       {tenis ?
@@ -157,35 +193,6 @@ export function TelaTenis() {
   )
 }
 
-function Slider(props) {
-  const tenis = props.tenis
-
-  const [NomeTenis, setNomeTenis] = useState(tenis.nome)
-  const [slides, setCount] = useState([Novablast, Novablast2]);
-
-  return (
-    <div className="container-slide">
-      <div className="slider">
-
-        <Swiper
-          modules={[Navigation, Pagination]}
-          navigation
-          pagination
-          loop
-        >
-          {slides.map( slide => (
-            <SwiperSlide>
-              <img className="img-slides" src={slide} alt={slides} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-      </div>
-
-
-    </div>
-  );
-}
 
 
 function PerfilTenis(props) {

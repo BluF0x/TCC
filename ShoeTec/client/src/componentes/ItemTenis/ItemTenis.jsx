@@ -1,11 +1,12 @@
 import {React, useState, useEffect} from "react";
-import tenis from '../../assets/imgs/Novablast.png';
+import defaultTenis from '../../assets/imgs/Novablast.png';
 import estrelaCheia from '../../assets/svg/star_full.svg';
 import estrelaMeia from '../../assets/svg/half_star.svg';
 import estrela from '../../assets/svg/star.svg';
 import Popup from "reactjs-popup";
-import "./item-tenis.css";
 import { Link, useNavigate } from "react-router-dom";
+import { URL } from "../../services/api";
+import "./item-tenis.css";
 
 function ItemTenis(props) {
     const [totalReview, setTotalReview] = useState()
@@ -13,9 +14,11 @@ function ItemTenis(props) {
 
     const navigate = useNavigate()
     const tenis = props.tenis
+    const picture = tenis.pictures ? URL + "/images/" + tenis.pictures[0]: null;
 
     useEffect(()=>{
         setTotalReview(Math.floor(tenis.nota * 10) / 10)
+        console.log(picture)
     }, [])
 
     const redirectPagTenis= (idTenis) => {
@@ -85,7 +88,7 @@ function ItemTenis(props) {
 
         <div className="item-tenis" onClick={()=>{redirectPagTenis(tenis.tenis_id)}}>
             {/* <Link to="/TelaTenis"> */}
-                <img id="image-tenis" src={tenis}></img>
+                <img id="image-tenis" src={tenis.pictures ? picture : defaultTenis }></img>
                 
                     <span className="propriedade-tenis" id="nome">
                         {tenis.nome.length > 35
