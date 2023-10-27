@@ -29,7 +29,8 @@ function ItemTenis(props) {
     const shareLink = (e) => {
         e.stopPropagation()
         const tenisId = tenis.tenis_id.toString();
-        const linkToShare = 'http://localhost:5173/TelaTenis/' + tenisId
+        // const linkToShare = 'http://localhost:5173/TelaTenis/' + tenisId
+        const linkToShare = window.location.href + 'TelaTenis/' + tenisId
         navigator.clipboard.writeText(linkToShare)
             .then(() => {
                 console.log(`Tenis ID ${linkToShare} copied to clipboard.`);

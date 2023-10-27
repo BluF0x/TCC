@@ -53,7 +53,7 @@ function TelaBemVindo() {
     return (
         <div className="container-bem-vindo">
             <h1 className={tituloClasse}>
-                {user.genero == "M" ? "Bem vindo " : user.genero == "F" ? "Bem vinda " : "Olá, "}
+                {user.genero == "M" ? "Bem vindo " : user.genero == "F" ? "Bem vinda " : "Olá "}
                 {isLogged ? user.username : ''}
 
             </h1>
