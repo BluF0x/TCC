@@ -13,14 +13,15 @@ const getTopComment = async(id) => {
     try{
         const args = `SELECT * FROM Post WHERE tenis_id = ${id} AND parent_id IS NULL ORDER BY data_post DESC;`
         const [comments ] = await connection.execute(args)
-        comments.forEach(async element => {
+        await comments.forEach(async element => {
             const args = `SELECT name FROM users WHERE usuario_id= ${element.reviewer_id}`
             const [name] = await connection.execute(args)
             const argsPic = 'SELECT picture FROM users WHERE usuario_id = ?'
             const [pic] = await connection.execute(argsPic, [element.reviewer_id])
             element.reviewer_name = name[0].name
             element.reviewer_pic =  pic[0].picture
-            // console.log(element.reviewer_pic)
+            console.log(element.reviewer_pic ? element.reviewer_pic : undefined)
+            console.log(element.reviewer_name ? element.reviewer_name : undefined)
             // console.log(name)
             // console.log(pic)
             // console.log('COMENTARIOS TOPO')

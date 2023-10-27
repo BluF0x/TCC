@@ -19,7 +19,8 @@ CREATE TABLE Users(
     cidade          VARCHAR(255),
     genero          CHAR(1) NOT NULL,
     esportes        JSON,
-    bio             TEXT 
+    bio             TEXT,
+    admin           TINYINT(1) DEFAULT 0
 );
 
 -- "img" não armazena a imgem em si, mas sim o caminho para ela no servidor.
@@ -31,7 +32,17 @@ CREATE TABLE Tenis(
     descr           TEXT NOT NULL,
     medium_price    INT NOT NULL,
     nota            FLOAT ,
-    data_registro   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    data_registro   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    esporte         VARCHAR(255) NOT NULL,
+    marca           VARCHAR(255) NOT NULL,
+    categoria       VARCHAR(255) NOT NULL,
+    peso            VARCHAR(255) NOT NULL,
+    dropt           VARCHAR(255) NOT NULL,
+    solado          VARCHAR(255) NOT NULL,
+    cabedal         VARCHAR(255) NOT NULL,
+    palmilha        VARCHAR(255) NOT NULL,
+    entressola      VARCHAR(255),
+    picture         VARCHAR(255)
 );
 
 -- "is_review" determina se é uma review ou não, quando "true" é uma review
@@ -47,10 +58,12 @@ CREATE TABLE Post(
     nota            TINYINT UNSIGNED,
     data_post       TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     corpo_texto     TEXT,
-    is_review       BOOLEAN DEFAULT 1,
     reviewer_id     INT UNSIGNED NOT NULL,
     parent_id       INT UNSIGNED DEFAULT NULL,
     tenis_id        INT UNSIGNED NOT NULL,
+    likes           INT NOT NULL DEFAULT 0, -- Teoricamente, é redundante colocar default de uma int como 0, mas facilita deixar explícito
+    dislikes        INT NOT NULL DEFAULT 0,
+    deletado        TINYINT(1) DEFAULT 0,
     FOREIGN KEY(tenis_id) REFERENCES Tenis(tenis_id),
     FOREIGN KEY(reviewer_id) REFERENCES Users(usuario_id),
     FOREIGN KEY(parent_id) REFERENCES Post(review_id)
@@ -108,9 +121,11 @@ ADD admin TINYINT(1) DEFAULT 0;
 
 ALTER TABLE Post ADD deletado TINYINT(1) NOT NULL DEFAULT 0;
 
-ALTER TABLE Tenis ADD picutres JSON;
+ALTER TABLE Tenis ADD pictures JSON;
 
 ALTER TABLE users ADD picture JSON;
+
+ALTER TABLE tenis RENAME COLUMN picutres TO pictures;
 
 -- Drop
 
@@ -126,8 +141,8 @@ SELECT * FROM Users;
 ALTER TABLE tenis
 DROP COLUMN nota;
 
-ALTER TABLE tenis
-ADD COLUMN nota FLOAT AFTER medium_price;
+ALTER TABLE post
+ADD COLUMN deletado TINYINT(0) DEFAULT 0;
 
-ALTER TABLE tenis
-ADD COLUMN nome VARCHAR(255) AFTER  img;
+ALTER TABLE users
+ADD COLUMN picture VARCHAR(255);

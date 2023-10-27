@@ -51,7 +51,7 @@ const getAllComments = async(req, res) =>{
 
     try{
         const {id} = req.params
-        console.log(id)
+        // console.log(id)
         const queryComments = await commentModel.getTopComment(id)
 
         const resultPromises = queryComments.map(async (element) => {
@@ -77,7 +77,7 @@ getAllSubComments = async (id) => {
         if (subComments.length === 0) {
             return comments
         }
-        console.log(subComments)
+        // console.log(subComments)
 
         await Promise.all(subComments.map(async (element) => {
             element.subComments = await getAllSubComments(element.review_id)

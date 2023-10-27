@@ -1,5 +1,19 @@
 const tenisModel = require('../models/tenisModel')
 
+const uploadImages = async (req, res) => {
+    try {
+        const { files } = req;
+        const {tenisId} = req.body;
+        const imageNames = files.map(file => file.filename);
+        const insertId = await tenisModel.insertImageNames(imageNames, tenisId);
+        res.status(200).json({ message: 'Images uploaded successfully.', insertId });
+    } catch (error) {
+        console.error('Error uploading images:', error);
+        res.status(500).json({ error: 'Failed to upload images.' });
+    }
+};
+
+
 const getTenis = async(req, res) =>{
     const result = await tenisModel.getTenis()
     res.status(200).json({"result": result})
@@ -41,4 +55,4 @@ const creatTenis = async (req, res) =>{
     // return res.status(201)
     return res.status(201).json({"msg": "OK", "body": criarTenis})
 }
-module.exports = {getTenis, getTenisById, searchTenis, creatTenis}
+module.exports = {getTenis, getTenisById, searchTenis, creatTenis, uploadImages}

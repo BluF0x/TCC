@@ -39,7 +39,6 @@ router.get('/userLogout', usersController.logoutUser)
 router.get('/checkSession', usersController.checkSession)
 router.post('/uploadUserPicture', upload.single('image'), usersController.uploadPicture)
 
-
 // Comment routes
 router.post('/comment',  commentController.createComment)
 router.get("/topComments/:id", commentController.getTopComment)
@@ -53,6 +52,6 @@ router.post('/createTenis', tenisController.creatTenis)
 router.get('/tenis/:limit',  tenisController.getTenis)
 router.get('/tenisId/:id', tenisController.getTenisById)
 router.get('/searchTenis', tenisController.searchTenis)
-
+router.post('/uploadImagesTenis', upload.array('images', 6), tenisController.uploadImages)
 
 module.exports = router

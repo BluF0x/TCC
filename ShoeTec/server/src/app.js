@@ -5,9 +5,11 @@ const router = require('./api/routes/router');
 const cors = require('cors');
 const app = express();
 
+const allowedOrigins =  ['http://localhost:5173', 'http://localhost:4173'];
+
 const options = {
-  origin: 'http://localhost:5173',
   credentials: true,
+  origin: allowedOrigins
 };
 
 app.use(express.json());

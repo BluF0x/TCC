@@ -7,6 +7,16 @@ const getTenis = async() =>{
     return query
 }
 
+const insertImageNames = async (imageNames, tenisId) => {
+    try {
+        const args = `UPDATE tenis SET pictures = ? WHERE tenis_id = ? `
+        const [result] = await connection.execute(args, [JSON.stringify(imageNames), tenisId]);
+        return result.insertId;
+    } catch (error) {
+        throw error;
+    }
+}
+
 /*
 * Essa função toma um objeto com as seguintes propriedades:
 * order : {isTrue : ture || false, argument: string}
@@ -69,4 +79,4 @@ const criarTenis = async(userData)=>{
     }
 }
 
-module.exports = {getTenis, getTenisById, searchTenis, criarTenis}
+module.exports = {getTenis, getTenisById, searchTenis, criarTenis, insertImageNames}
