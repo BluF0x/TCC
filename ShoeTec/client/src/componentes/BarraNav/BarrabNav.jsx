@@ -1,11 +1,10 @@
-import {React, useState, useEffect} from "react";
+import {React, useState, useEffect, useRef} from "react";
 import { Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import logo from '../../assets/imgs/SneakerTecLogo.png'
 import userLogo from '../../assets/svg/conta_icon.svg'
 import filter from '../../assets/svg/filter_fill.svg'
 import menu from '../../assets/svg/menu_icon.svg'
-import Cookies from "js-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../services/api";
 import './BarraNav.css';
@@ -15,7 +14,6 @@ import { getUser, api } from "../../services/api";
 function BarraNav() {
     const [popupUserOpen, setPopupUserOpen] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
-    const [search, setSearch] = useState({searchName: ""})
     const [user, setUser] = useState({
         user: {
             username: '',
@@ -62,14 +60,6 @@ function BarraNav() {
         }
     }
 
-    const pesquisar = async(e) => {
-        console.log(e.target.value)
-        setSearch({searchName: e.target.value})
-        api.get('/searchTenis', {params: search})
-        .then((val)=>{
-            console.log(val)
-        })
-    }
 
     const toggleMenuNav=() => {
         setPopupUserOpen(!popupUserOpen)
@@ -111,6 +101,81 @@ function BarraNav() {
         )
     }
 
+    const BarraPesquisa = () => {
+        const [search, setSearch] = useState({searchName: ""})
+        const [queryPesquisa, setQueryPesquisa] = useState()
+        const [isPesquisando, setIsPesquisando] = useState(false)
+
+        const elementRef = useRef(null)
+
+        useEffect(() => {
+            const handleClickOutside = (event) => {
+                console.log(elementRef.current)
+                if (elementRef.current && !elementRef.current.contains(event.target)) {
+                    // Clicked outside the element, do something
+                    setIsPesquisando(false)
+                }
+            };
+
+            const handleDocumentClick = (event) => {
+            handleClickOutside(event);
+            };
+
+            // Attach event listener to the document
+            document.addEventListener('mousedown', handleDocumentClick);
+
+            // Clean up the event listener on component unmount
+            return () => {
+            document.removeEventListener('mousedown', handleDocumentClick);
+            };
+        }, []); // Empty dependency array means this effect will run once after initial render
+
+       
+        const pesquisar = async(e) => {
+            const pesquisa = e.target.value
+            console.log(pesquisa)
+            if (pesquisa != "") {
+                setSearch({searchName: pesquisa})
+                api.get('/searchTenis', {params: search})
+                .then((val)=>{
+                    console.log(val.data.query)
+                    setQueryPesquisa(val.data.query)
+                    setIsPesquisando(true)
+                })
+            } else {
+                setIsPesquisando(false)
+            }
+        }
+    
+        return (
+            <div className="items-barra-superior" id="barra-pesquisa" ref={elementRef}>
+                <input type="text" placeholder="Pesquisar" id="pesquisar" onChange={(e)=>pesquisar(e)}></input>
+                <div className="barra-pesquisa container-itens-query " >
+                    { isPesquisando && 
+                        queryPesquisa.map((val)=>{
+                            return (
+                                <Link to={'/TelaTenis/' + val.tenis_id} className="item-query">
+                                    {val.nome}
+                                </Link>
+                            )
+                        })
+                    }
+                </div>
+                <Popup
+                    trigger={
+                        <div className="btn-filtrar">
+                            <img src={filter} className="icon" />
+                        </div>
+                    }
+                    closeOnDocumentClick
+                    position={'bottom left'}
+                    >
+                    <MenuFiltrar/>
+                </Popup>
+            </div>
+        )
+    }
+
     return(
         <div className="barra-superior">
             {/* <button onClick={
@@ -139,20 +204,7 @@ function BarraNav() {
                     <img src={userLogo} alt='Tela de usuário' className="icon"></img>
                 </Link>
             </div>
-            <div className="items-barra-superior" id="barra-pesquisa">
-                <input type="text" placeholder="Pesquisar" id="pesquisar" onChange={(e)=>pesquisar(e)}></input>
-                <Popup
-                    trigger={
-                        <div className="btn-filtrar">
-                            <img src={filter} className="icon" />
-                        </div>
-                    }
-                    closeOnDocumentClick
-                    position={'bottom left'}
-                    >
-                    <MenuFiltrar/>
-                </Popup>
-            </div>
+            <BarraPesquisa/>
             <div className="menu-nav menu-no-bg">
                 <Link to='/'>
                     <img src={logo} alt='Logo da SneakerTech' className="icon"></img>

@@ -23,6 +23,24 @@
     border-radius: 10px;
 }
 
+.container-itens-query {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 40px;
+    background-color: rgb(255, 255, 255);
+}
+
+.item-query {
+    padding: 1em;
+    /* margin: 1em; */
+    transition: 300ms;
+}
+
+.item-query:hover {
+    background-color: lightgray;
+}
+
 #pesquisar {
     flex:content;
     background-color: white ;
