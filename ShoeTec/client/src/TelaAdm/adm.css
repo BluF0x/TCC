@@ -82,10 +82,13 @@
   height: 60px;
 
   background: linear-gradient(to left, #ff0000, #ff6161);
+  box-shadow: 4px 4px 10px #844e084f;
+  transition: 200ms;
 }
 
 .link-adm-voltar:hover {
   cursor: pointer;
+  transition: 200ms;
   transform: scale(1.1, 1.1);
 }
 
@@ -309,6 +312,10 @@
   margin-bottom: 45px;
 }
 
+.input-file-cadtenis{
+  margin-bottom: 25px;
+}
+
 .titulo-esporte-tenis {
   color: var(--cor-primaria);
   margin-bottom: 13px;
@@ -406,5 +413,3 @@
   cursor: pointer;
   transform: scale(1.1, 1.1);
 }
-
-/* Estilização EditarComentários */

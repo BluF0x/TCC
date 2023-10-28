@@ -9,11 +9,12 @@ import Cookies from "js-cookie";
 import postCred from '../Login/postCred.js';
 import inputValidation from '../Login/inputValidation.js';
 import Popup from 'reactjs-popup';
+import VoltarIconBranco from '../assets/icons/voltar.png'
 import { Link } from "react-router-dom"
 
 export function EditarPerfil() {
-    const [session, setSession] = useState({user: {userid: 0}})
-    const [credenciais, setCredenciais] = useState({esportes: []})
+    const [session, setSession] = useState({ user: { userid: 0 } })
+    const [credenciais, setCredenciais] = useState({ esportes: [] })
     const [checkEsportes, setCheckEsportes] = useState(
         {
             // handebol: credenciais.esportes.includes("handebol"),
@@ -25,53 +26,53 @@ export function EditarPerfil() {
             // futsal: credenciais.esportes.includes("futsal"),
             // futebol: credenciais.esportes.includes("futebol"),
         }
-        )
+    )
     const [isPopupOpen, setPopupOpen] = useState(false)
     const [mensagemQuery, setMensagemQuery] = useState('')
 
     const handleCredenciais = (e) => {
         inputValidation.setCreds(e, setCredenciais, credenciais) //setCreds adiciona o input a credenciais
     }
-    
+
 
     useEffect(() => {
 
-        if (!session.authenticated){
+        if (!session.authenticated) {
             getUser()
-            .then(
-                (value) => {
-                    console.log(value)
-                    setSession(value.user)
-                    try {
-                        api.get(`/getUser/${value.user.userid}`)
-                        .then((res) => {
-                            console.log(res)
-                            if (res.status == 200 && res.data.result[0].name) {
-                                console.log(res)
-                                let cred = res.data.result[0]
-                                setCredenciais(cred)
+                .then(
+                    (value) => {
+                        console.log(value)
+                        setSession(value.user)
+                        try {
+                            api.get(`/getUser/${value.user.userid}`)
+                                .then((res) => {
+                                    console.log(res)
+                                    if (res.status == 200 && res.data.result[0].name) {
+                                        console.log(res)
+                                        let cred = res.data.result[0]
+                                        setCredenciais(cred)
 
-                                // Create an object with item names as keys and existence status as values
-                                const itemExistence = {};
-                                cred.esportes.forEach(item => {
-                                    itemExistence[item] = item !== null && item !== undefined;
-                                });
+                                        // Create an object with item names as keys and existence status as values
+                                        const itemExistence = {};
+                                        cred.esportes.forEach(item => {
+                                            itemExistence[item] = item !== null && item !== undefined;
+                                        });
 
-                                // Update the state with the itemExistence object
-                                setCheckEsportes(itemExistence);
-                            }
-                        })
-                    }
-                    catch (err) {
-                        console.log(err)
-                    }
-                },
-                (reason) => {
+                                        // Update the state with the itemExistence object
+                                        setCheckEsportes(itemExistence);
+                                    }
+                                })
+                        }
+                        catch (err) {
+                            console.log(err)
+                        }
+                    },
+                    (reason) => {
+                        console.log(reason)
+                    })
+                .catch((reason) => {
                     console.log(reason)
                 })
-            .catch((reason) => {
-                console.log(reason)
-            })
         }
         // Create an object with item names as keys and existence status as values
         const itemExistence = {};
@@ -134,7 +135,11 @@ export function EditarPerfil() {
                         <div className="perfil-editar-foto">
                             {/* <img className="user-editar-foto" src={User.picture != null || User.picture != undefined ? User.picture : Userfoto} alt="Foto Usuário"></img> */}
                         </div>
+                        
                         <form className="editar-form">
+                            <Link  to={`/TelaUsuario/${session.userid}`}>
+                                <img className="voltar-icon-editar" src={VoltarIconBranco} alt="Voltar" />
+                            </Link>
                             <h1 className="cad-form-edit-title">
                                 Editar Perfil:
                             </h1>
@@ -151,7 +156,7 @@ export function EditarPerfil() {
                                 <span className="focus-input-edit" data-placeholder="Nome*"></span>
                             </div>
                             <div className='wrap-warning'>
-                                
+
                             </div>
 
                             <div className="wrap-input-editar">
@@ -166,7 +171,7 @@ export function EditarPerfil() {
                                 <span className="focus-input-edit" data-placeholder="Biografia*"></span>
                             </div>
                             <div className='wrap-warning'>
-                                
+
                             </div>
 
                             <div className="wrap-input-editar">
@@ -181,7 +186,7 @@ export function EditarPerfil() {
                                 <span className="focus-input-edit" data-placeholder="País*"></span>
                             </div>
                             <div className='wrap-warning'>
-                                
+
                             </div>
 
                             <div className="wrap-input-editar">
@@ -195,7 +200,7 @@ export function EditarPerfil() {
                                 <span className="focus-input-edit" data-placeholder="Estado*"></span>
                             </div>
                             <div className='wrap-warning'>
-                                
+
                             </div>
 
                             <div className="wrap-input-editar">
@@ -209,7 +214,7 @@ export function EditarPerfil() {
                                 <span className="focus-input-edit" data-placeholder="Cidade*"></span>
                             </div>
                             <div className='wrap-warning'>
-                                
+
                             </div>
 
                             <h3 className='titulo-genero-edit'>Gênero*: </h3>
@@ -221,7 +226,7 @@ export function EditarPerfil() {
                                         name="genero"
                                         type="radio"
                                         value="M"
-                                        checked={ credenciais.genero == "M"}
+                                        checked={credenciais.genero == "M"}
                                     />
                                     <label className="label-radio-edit" for="masc">Masculino</label>
                                 </p>
@@ -232,7 +237,7 @@ export function EditarPerfil() {
                                         name="genero"
                                         type="radio"
                                         value="F"
-                                        checked={ credenciais.genero == "F"}
+                                        checked={credenciais.genero == "F"}
                                     />
                                     <label className="label-radio-edit" for="fem">Feminino</label>
                                 </p>
@@ -243,7 +248,7 @@ export function EditarPerfil() {
                                         name="genero"
                                         type="radio"
                                         value="O"
-                                        checked={ credenciais.genero == "O"}
+                                        checked={credenciais.genero == "O"}
                                     />
                                     <label className="label-radio-edit" for="outro">Outro</label>
                                 </p>
@@ -254,13 +259,13 @@ export function EditarPerfil() {
                                         name="genero"
                                         type="radio"
                                         value="N"
-                                        checked={ credenciais.genero == "N"}
+                                        checked={credenciais.genero == "N"}
                                     />
                                     <label className="label-radio-edit" for="naoindentifico">Prefiro não identificar</label>
                                 </p>
                             </div>
                             <div className='wrap-warning'>
-                                
+
                             </div>
 
                             <h3 className='titulo-genero-edit'>Esportes que você pratica*:</h3>
@@ -360,10 +365,10 @@ export function EditarPerfil() {
                                         onChange={(e) => handleCredenciais(e)}
                                     />
                                     <label className="label-radio-edit" for="musculacao">Musculação</label>
-                                </p>                                
+                                </p>
                             </div>
                             <div className='wrap-warning'>
-                                
+
                             </div>
 
                             <div className="container-edit-form-btn">
@@ -428,13 +433,13 @@ function ListaComentarios() {
                 console.log(reason)
             })
         getCommentsByUser(`${session.userid}`)
-        .then((result) => {
-            setComments(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}, [`${session.userid}`]);
+            .then((result) => {
+                setComments(result);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [`${session.userid}`]);
 
     return (
         <div className="comentarios-container">

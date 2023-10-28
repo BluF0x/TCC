@@ -213,9 +213,8 @@
 .cad-form-edit-title {
     color: white;
 
-    margin: 5px 0 20px 0;
-    padding: 20px;
-    padding-top: 40px;
+    margin: 0 0 20px 0;
+    padding: 0 20px 20px 20px;
     padding-bottom: 40px;
 }
 
@@ -348,6 +347,19 @@
     transform: scale(1.1);
 }
 
+.voltar-icon-editar {
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start;
+    margin-left: 10px
+}
+
+.voltar-icon-editar:hover {
+    transition: 200ms;
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+}
+
 /* EDITAR FOTO PERFIL*/
 
 .container-editarfoto {
@@ -397,11 +409,11 @@
     margin-bottom: 8px;
 }
 
-.titulo-editarfoto{
+.titulo-editarfoto {
     color: var(--cor-primaria);
 }
 
-.btn-editarfoto{
+.btn-editarfoto {
     margin-top: 10px;
     color: black;
     font-size: 10px;
@@ -420,9 +432,9 @@
     width: 200px;
     height: 20px;
     padding: 12px;
-    margin: 20px;
+    margin: 20px 0 0 20px;
 
-    background: linear-gradient(to right,  #e4ed36, #e3e973);
+    background: linear-gradient(to right, #e4ed36, #e3e973);
     box-shadow: 4px 4px 10px #844e084f;
     transition: 200ms;
 }
@@ -433,7 +445,7 @@
     transform: scale(1.1, 1.1);
 }
 
-input[type="file"]{
+input[type="file"] {
     background-color: var(--cor-primaria);
     padding: 5px;
     color: white;
@@ -450,8 +462,58 @@ input[type="file"]::file-selector-button {
     color: black;
     box-shadow: 20px 20px 40px 10px #efd934f5;
     border: none;
-  }
-  
-  input[type="file"]::file-selector-button:hover {
+}
+
+input[type="file"]::file-selector-button:hover {
     background: #d6e00c;
-  }
+}
+
+.align-button-editarfoto{
+    display: flex;
+}
+
+.link-editarfoto-voltar {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: black;
+    font-size: 11px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+
+    line-height: 1.2;
+
+    text-transform: uppercase;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 200px;
+    height: 20px;
+    padding: 12px;
+
+    background: linear-gradient(to right, #dadada, #606060);
+    box-shadow: 4px 4px 10px #844e084f;
+    transition: 200ms;
+}
+
+.link-editarfoto-voltar:hover {
+    transition: 200ms;
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+}
+
+@media screen and (max-width: 470px) {
+    .link-editarfoto-voltar, 
+    .btn-editarfoto{
+        width: 100px;
+        padding: 20px 12px 20px 12px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .voltar-icon-editar {
+        margin: 0;
+    }
+}

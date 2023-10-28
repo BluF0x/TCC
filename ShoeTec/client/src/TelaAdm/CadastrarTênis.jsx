@@ -5,6 +5,7 @@ import { api, getUser } from "../services/api";
 import { Link } from "react-router-dom";
 import postCred from '../Login/postCred.js';
 import inputValidation from '../Login/inputValidation.js';
+import VoltarIconLaranja from '../assets/icons/voltarlaranja.png'
 import Popup from 'reactjs-popup';
 import './adm.css';
 
@@ -72,6 +73,9 @@ export function CadastrarTenis() {
             {user.admin == "1" ? (
                 <div className='container-adm'>
                     <div className="container-form-adm">
+                        <Link to={`/TelaADM`}>
+                            <img className="voltar-icon-editar" src={VoltarIconLaranja} alt="Voltar" />
+                        </Link>
                         <h1 className="titulo-form-adm">Tênis</h1>
                         <CadastrarTenisADM
                             cred={credenciais}
@@ -321,11 +325,13 @@ function CadastrarTenisADM(props) {
                 var={credenciais.trava}
             />
 
-            <InputFormAdmTenis
-                nome={"img"}
-                handleInput={handleCredenciais}
-                placeholder={"Imagem 1"}
-                var={credenciais.img}
+            <input
+                type="file"
+                name="pictures"
+                accept="image/*"
+                className='input-file-cadtenis'
+                multiple
+                onChange={e => handleCredenciais(e)}
             />
 
             <InputFormAdmTenis
