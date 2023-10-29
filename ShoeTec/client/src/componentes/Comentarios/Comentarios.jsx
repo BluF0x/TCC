@@ -40,26 +40,30 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
     };
 
     const addComment = async (e) => {
-        e.preventDefault();
-        setCurrentComment(currentComment);
-        const res = await api.post('/comment', {
-            nota: 3,
-            corpo: currentComment.corpo_texto,
-            reviewerId: user.userid,
-            parenteId: null,
-            tenisId: tenisId
-        });
-        console.log(res);
-        const newComment = {
-            ...currentComment,
-            review_id: res.data.result.insertId,
-            reviewer_id: user.userid,
-            reviewer_name: user.username,
-            reviewer_pic: URL + "/images/" + user.pic
-        };
-        console.log(newComment)
-        setComments([newComment, ...comments]);
-        setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
+        if (currentComment.corpo_texto != "") { 
+            e.preventDefault();
+            setCurrentComment(currentComment);
+            const res = await api.post('/comment', {
+                nota: 3,
+                corpo: currentComment.corpo_texto,
+                reviewerId: user.userid,
+                parenteId: null,
+                tenisId: tenisId
+            });
+            console.log(res);
+            const newComment = {
+                ...currentComment,
+                review_id: res.data.result.insertId,
+                reviewer_id: user.userid,
+                reviewer_name: user.username,
+                reviewer_pic:  user.pic
+            };
+            console.log(newComment)
+            setComments([newComment, ...comments]);
+            setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
+        } else {
+            window.alert("Comentário não pode estar vazio")
+        }
     };
 
     const handleMostrarMaisClick = () => {
@@ -101,26 +105,30 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
         };
 
         const addComment = async (e) => {
-            e.preventDefault();
-            setCurrentComment(currentComment);
-            const res = await api.post('/comment', {
-                nota: 3,
-                corpo: currentComment.corpo_texto,
-                reviewerId: user.userid,
-                parenteId: parentComment.review_id,
-                tenisId: tenisId
-            });
-            console.log(res);
-            const newComment = {
-                ...currentComment,
-                review_id: res.data.result.insertId,
-                reviewer_id: user.userid,
-                reviewer_name: user.username,
-                reviewer_pic:  user.pic
-            };
-            console.log(newComment)
-            setComments([newComment, ...comments]);
-            setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
+            if (currentComment.corpo_texto != "") { 
+                e.preventDefault();
+                setCurrentComment(currentComment);
+                const res = await api.post('/comment', {
+                    nota: 3,
+                    corpo: currentComment.corpo_texto,
+                    reviewerId: user.userid,
+                    parenteId: null,
+                    tenisId: tenisId
+                });
+                console.log(res);
+                const newComment = {
+                    ...currentComment,
+                    review_id: res.data.result.insertId,
+                    reviewer_id: user.userid,
+                    reviewer_name: user.username,
+                    reviewer_pic:  user.pic
+                };
+                console.log(newComment)
+                setComments([newComment, ...comments]);
+                setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
+            } else {
+                window.alert("Comentário não pode estar vazio")
+            }
         };
 
         return (
