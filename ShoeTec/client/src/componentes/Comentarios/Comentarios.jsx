@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
-import { api, URL } from "../../services/api";
-import { Link } from "react-router-dom";
+import {api, URL} from "../../services/api";
+import { Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import EnviarIcon from '../../assets/icons/enviar.png'
 import CancelarIcon from '../../assets/icons/cancelar.png'
@@ -17,10 +17,8 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
         username: '',
         userid: null,
         genero: '',
-        authenticated: false,
-        admin: null
-    }
-}, isLogged = false }) => {
+        authenticated: false
+    }}, isLogged = false }) => {
 
     const [comments, setComments] = useState([]);
     const [currentComment, setCurrentComment] = useState({ corpo_texto: '', subComments: [] });
@@ -42,30 +40,26 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
     };
 
     const addComment = async (e) => {
-        if (currentComment.corpo_texto != "") {
-            e.preventDefault();
-            setCurrentComment(currentComment);
-            const res = await api.post('/comment', {
-                nota: 3,
-                corpo: currentComment.corpo_texto,
-                reviewerId: user.userid,
-                parenteId: null,
-                tenisId: tenisId
-            });
-            console.log(res);
-            const newComment = {
-                ...currentComment,
-                review_id: res.data.result.insertId,
-                reviewer_id: user.userid,
-                reviewer_name: user.username,
-                reviewer_pic: user.pic
-            };
-            console.log(newComment)
-            setComments([newComment, ...comments]);
-            setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
-        } else {
-            window.alert("Comentário não pode estar vazio")
-        }
+        e.preventDefault();
+        setCurrentComment(currentComment);
+        const res = await api.post('/comment', {
+            nota: 3,
+            corpo: currentComment.corpo_texto,
+            reviewerId: user.userid,
+            parenteId: null,
+            tenisId: tenisId
+        });
+        console.log(res);
+        const newComment = {
+            ...currentComment,
+            review_id: res.data.result.insertId,
+            reviewer_id: user.userid,
+            reviewer_name: user.username,
+            reviewer_pic: URL + "/images/" + user.pic
+        };
+        console.log(newComment)
+        setComments([newComment, ...comments]);
+        setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
     };
 
     const handleMostrarMaisClick = () => {
@@ -107,30 +101,26 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
         };
 
         const addComment = async (e) => {
-            if (currentComment.corpo_texto != "") {
-                e.preventDefault();
-                setCurrentComment(currentComment);
-                const res = await api.post('/comment', {
-                    nota: 3,
-                    corpo: currentComment.corpo_texto,
-                    reviewerId: user.userid,
-                    parenteId: null,
-                    tenisId: tenisId
-                });
-                console.log(res);
-                const newComment = {
-                    ...currentComment,
-                    review_id: res.data.result.insertId,
-                    reviewer_id: user.userid,
-                    reviewer_name: user.username,
-                    reviewer_pic: user.pic
-                };
-                console.log(newComment)
-                setComments([newComment, ...comments]);
-                setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
-            } else {
-                window.alert("Comentário não pode estar vazio")
-            }
+            e.preventDefault();
+            setCurrentComment(currentComment);
+            const res = await api.post('/comment', {
+                nota: 3,
+                corpo: currentComment.corpo_texto,
+                reviewerId: user.userid,
+                parenteId: parentComment.review_id,
+                tenisId: tenisId
+            });
+            console.log(res);
+            const newComment = {
+                ...currentComment,
+                review_id: res.data.result.insertId,
+                reviewer_id: user.userid,
+                reviewer_name: user.username,
+                reviewer_pic:  user.pic
+            };
+            console.log(newComment)
+            setComments([newComment, ...comments]);
+            setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
         };
 
         return (
@@ -144,7 +134,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                     placeholder="Comentar"
                                     value={currentComment.corpo_texto}
                                     onChange={e => updateCurrentComment(e)}
-                                    onKeyDown={e => { if (e.key === "Enter") { addComment(e) } }}
+                                    onKeyDown={e=> {if (e.key === "Enter") {addComment(e)}}}
                                 />
                                 <div className="buttons-coment">
                                     <button className="button" onClick={e => { setIsHidden(!isHidden) }}>
@@ -194,7 +184,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                         </span>
                                     )}
 
-                                    {value.reviewer_id == user.userid || user.admin == 1 ? ( 
+                                    {value.reviewer_id === user.userid || user.userid == 1 &&
                                         <div className="excluir-button">
                                             <button className="button excluir-btn" onClick={e => excluirComentario(e, value)}>
                                                 <img className="excluir" src={ExcluirIcon} alt="Excluir" />
@@ -203,7 +193,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                                 </p>
                                             </button>
                                         </div>
-                                    ) : null}
+                                    }
                                 </div>
                             </div>
                             <div className="replycoment-comentario-sub">
@@ -233,7 +223,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                             placeholder="Comentar"
                             value={currentComment.corpo_texto}
                             onChange={e => updateCurrentComment(e)}
-                            onKeyDown={e => { if (e.key === "Enter") { addComment(e) } }}
+                            onKeyDown={e=> {if (e.key === "Enter") {addComment(e)}}}
                         />
                         <button className="button" onClick={e => addComment(e)}>
                             <img className='img-button envit' src={EnviarIcon} alt="Enviar" />
@@ -252,7 +242,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                         <>
                             <div key={key} className="container-comentario">
                                 <div className="comentario-img-user">
-                                    <img className="img-usuario" src={value.reviewer_pic ? URL + "/images/" + value.reviewer_pic : Userpic} alt="Foto do Usuário" onClick={e => navigate(`/TelaUsuario/${value.reviewer_id}`)} />
+                                    <img className="img-usuario" src={value.reviewer_pic ? URL + "/images/" + value.reviewer_pic : Userpic} alt="Foto do Usuário" onClick={e=>navigate(`/TelaUsuario/${value.reviewer_id}`)} />
                                     {/* {value.reviewer_id} */}
                                 </div>
                                 <div className="comentario-texto-info">
@@ -288,7 +278,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
 
                                 </div>
                                 {value.subComments.length > 0 && (
-                                    <button className="button-ocultarmostrar" onClick={() => handleMostrarSubClick(value)}>
+                                    <button className="button-ocultarmostrar"  onClick={() => handleMostrarSubClick(value)}>
                                         <img className='responder' src={expandirMap[value.review_id] ? MostrarIcon : OcultarIcon} alt={expandirMap[value.review_id] ? "Mostrar" : "Ocultar"} />
                                         <span className='text-btn-ocultmost'>{expandirMap[value.review_id] ? "Mostrar Subcomentários" : "Ocultar Subcomentários"}</span>
                                     </button>
