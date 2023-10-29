@@ -27,7 +27,7 @@ const searchTenis = async(req, res) =>{
         // console.log("query:")
         // console.log(searchName)
 
-        const [result] = await tenisModel.searchTenis(req.query)
+        const result = await tenisModel.searchTenis(req.query)
 
         console.log(result)
         res.status(200).json({'msg': "ok", query: result})

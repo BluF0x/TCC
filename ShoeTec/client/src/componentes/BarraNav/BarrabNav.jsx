@@ -144,6 +144,8 @@ function BarraNav() {
                 })
             } else {
                 setIsPesquisando(false)
+                setSearch({searchName: pesquisa})
+                setQueryPesquisa([])
             }
         }
     

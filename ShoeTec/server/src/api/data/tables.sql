@@ -146,3 +146,5 @@ ADD COLUMN deletado TINYINT(0) DEFAULT 0;
 
 ALTER TABLE users
 ADD COLUMN picture VARCHAR(255);
+
+SELECT * FROM tenis WHERE nome LIKE CONCAT('%', 'Nike', '%');

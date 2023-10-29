@@ -27,23 +27,8 @@ const searchTenis = async(queryObj) => {
 
     try {
         console.log(queryObj)
-        const args = `SELECT * FROM tenis WHERE nome LIKE ? `
-        vals = [`%${queryObj.searchName}%`]
-        // for(key in queryObj){
-        //     console.log(queryObj[key])
-        // }
-        // args é um array que depois é concatenado em uma string formando a query 
-        // const args = [`SELECT * FROM tenis`]
-
-        //checa se é ordenado e por onde é ordenado
-        // if (queryObj.order.isTrue) args.push(`ORDER BY ${queryObj.order.argument}`)
-        // args.push('WHERE')
-        // args.push(queryObj.nome)
-        // args.push(';')
-
-        // const finalArg = args.join(" ")
-        // console.log(typeof(finalArg))
-
+        const args = `SELECT * FROM tenis WHERE nome LIKE CONCAT ( '%', ?, '%') ;`
+        vals = [queryObj.searchName]
 
         const [query] = await connection.execute(args, vals)
         // console.log(query)
