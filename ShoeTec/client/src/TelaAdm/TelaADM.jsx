@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { api, getUser } from '../services/api'
-import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
+import { getUser } from '../services/api'
+import { Link, useNavigate } from "react-router-dom";
 import './adm.css';
 
 export function TelaADM() {
@@ -15,6 +14,8 @@ export function TelaADM() {
             admin: 0
         }
     })
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         getUser()
@@ -42,14 +43,14 @@ export function TelaADM() {
                             <div className="titulo-div-adm">
                                 <h2 className='titulo-adm'>Tênis:</h2>
                             </div>
-                            <div className='div-adm div-tenis-adm'>
+                            <div className='div-adm div-tenis-adm' onClick={e=>navigate('/CadastrarTenis')}>
                                 <Link className="link-adm" to='/CadastrarTenis'>Tênis</Link>
                             </div>
 
-                            <div className="titulo-div-adm">
+                            <div className="titulo-div-adm" >
                                 <h2 className='titulo-adm'>Usuários:</h2>
                             </div>
-                            <div className='div-adm div-usuario'>
+                            <div className='div-adm div-usuario' onClick={e=>navigate('/EditarUsuario')}>
                                 <Link className="link-adm" to='/EditarUsuario'>Usuário</Link>
                             </div>
                             <div className='div-adm-voltar'>

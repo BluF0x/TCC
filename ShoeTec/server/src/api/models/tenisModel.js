@@ -47,21 +47,26 @@ const getTenisById = async(id) =>{
     return query
 }
 
-const criarTenis = async(userData)=>{
-
+const criarTenis = async (userData) => {
     try {
-    const { nome, img, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava, img2, img3, img4, desconto, cupom } = userData;
+        const { nome, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava } = userData;
 
+        const values = [nome, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola || null, trava || null];
 
-    const values = [nome, img, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola || null, trava || null, img2, img3, img4, desconto || null, cupom || null];
+        const args = `INSERT INTO tenis(nome, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+        
+        // Assumindo que você tem um objeto de conexão chamado 'connection' configurado anteriormente
+        const [result] = await connection.execute(args, values);
 
-    const args = `INSERT INTO tenis(nome, img, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava, img2, img3, img4, desconto, cupom) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
-    const [criarTenis] = await connection.execute(args, values)
-
-    return criarTenis
+        if (result.affectedRows === 1) {
+            return { success: true, message: 'Tênis criado com sucesso!', result };
+        } else {
+            return { success: false, message: 'Erro ao criar o tênis.', result };
+        }
     } catch (err) {
-        return err;
+        console.error('Erro ao criar tênis:', err);
+        return { success: false, message: 'Erro ao criar o tênis. Por favor, tente novamente mais tarde.' };
     }
-}
+};
 
 module.exports = {getTenis, getTenisById, searchTenis, criarTenis, insertImageNames}

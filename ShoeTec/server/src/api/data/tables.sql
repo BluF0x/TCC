@@ -27,7 +27,6 @@ CREATE TABLE Users(
 
 CREATE TABLE Tenis(
     tenis_id        INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    img             VARCHAR(255) NOT NULL,
     nome            VARCHAR(255) NOT NULL,
     descr           TEXT NOT NULL,
     medium_price    INT NOT NULL,
@@ -42,6 +41,7 @@ CREATE TABLE Tenis(
     cabedal         VARCHAR(255) NOT NULL,
     palmilha        VARCHAR(255) NOT NULL,
     entressola      VARCHAR(255),
+    trava           VARCHAR(255),
     picture         VARCHAR(255)
 );
 
@@ -87,20 +87,9 @@ ADD img VARCHAR(255) NOT NULL;
 -- "trava", chuteira de campo é a única que possui travas, por isso não é NOT NULL
 -- "img", o slider é feito para quatro fotos, por isso tem 4 imgs, a menos que faça outra de outro estilo
 
-ALTER TABLE Tenis
-ADD esporte VARCHAR(255) NOT NULL,
-ADD marca VARCHAR(255) NOT NULL,
-ADD categoria VARCHAR(255) NOT NULL,
-ADD peso VARCHAR(255) NOT NULL,
-ADD dropt VARCHAR(255) NOT NULL,
-ADD solado VARCHAR(255) NOT NULL,
-ADD cabedal VARCHAR(255) NOT NULL,
-ADD palmilha VARCHAR(255) NOT NULL,
-ADD entressola VARCHAR(255),
-ADD trava VARCHAR(255),
-ADD img2 VARCHAR(255) NOT NULL,
-ADD img3 VARCHAR(255) NOT NULL,
-ADD img4 VARCHAR(255) NOT NULL;
+ALTER TABLE Tenis ADD trava VARCHAR(255);
+
+ALTER TABLE Tenis DROP COLUMN img;
 
 -- Adiciona as colunas likes, e dislikes, e remove is_review, por ser redundante
 

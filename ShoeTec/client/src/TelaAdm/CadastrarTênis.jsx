@@ -53,6 +53,7 @@ export function CadastrarTenis() {
         inputValidation.setCreds(e, setCredenciais, credenciais) //setCreds adiciona o input a credenciais
     }
 
+
     return (
         <>
             <Popup
@@ -96,6 +97,8 @@ function InputFormAdmTenis(props) {
     const [warning, setWarning] = useState(undefined)
     const nome = props.nome
     const steps = props.steps
+
+
     if (props.tipo != "checkbox" && props.tipo != "radio") {
         return (
             <>
@@ -163,8 +166,7 @@ function InputFormAdmTenis(props) {
 }
 
 function CadastrarTenisADM(props) {
-    const isLogged = Cookies.get('loggedIn')
-
+    const [fotos, setFotos] = useState(null)
     const credenciais = props.cred
     const handleCredenciais = props.setCred
     const estadoLogin = props.estadoLog
@@ -172,17 +174,50 @@ function CadastrarTenisADM(props) {
     const setPopupOpen = props.setPopupOpen
     const setMensagemQuery = props.setMensagemQuery
 
+    const handleFotos = (e) => {
+        const files = e.target.files
+        setFotos(files)
+    }
+
     const cadastrartenis = async (e) => {
         e.preventDefault()
 
         const queryResult = await postCred.createTenis(credenciais)
+        console.log(queryResult)
+
+        const tenisId = queryResult.data.body.result.insertId; // Obtém o insertId da resposta da query
+        console.log(tenisId)
 
         if (queryResult.status > 199 && queryResult.status < 500) {
-            console.log(queryResult)
-            setPopupOpen(true)
-            setMensagemQuery(`Tênis cadastrado com sucesso!\nCod: ${queryResult.status}`)
-            setEstadoLogin(true)
+            try {
 
+
+
+                const formData = new FormData();
+
+                formData.append('tenisId', tenisId); // Anexe tenisId ao formData
+
+                
+                for (let i = 0; i < fotos.length; i++) {
+                    formData.append('images', fotos[i]);
+                }
+
+
+
+                const response = await api.post('/uploadImagesTenis', formData, {
+                    headers: {
+                    'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log(response)
+
+                console.log(queryResult)
+                setPopupOpen(true)
+                setMensagemQuery(`Tênis cadastrado com sucesso!\nCod: ${queryResult.status}`)
+                setEstadoLogin(true)
+            } catch(erro) {
+                console.log(erro)
+            }
         } else {
             console.log(queryResult)
             setPopupOpen(true)
@@ -331,42 +366,7 @@ function CadastrarTenisADM(props) {
                 accept="image/*"
                 className='input-file-cadtenis'
                 multiple
-                onChange={e => handleCredenciais(e)}
-            />
-
-            <InputFormAdmTenis
-                nome={"img2"}
-                handleInput={handleCredenciais}
-                placeholder={"Imagem 2"}
-                var={credenciais.img2}
-            />
-
-            <InputFormAdmTenis
-                nome={"img3"}
-                handleInput={handleCredenciais}
-                placeholder={"Imagem 3"}
-                var={credenciais.img3}
-            />
-
-            <InputFormAdmTenis
-                nome={"img4"}
-                handleInput={handleCredenciais}
-                placeholder={"Imagem 4"}
-                var={credenciais.img4}
-            />
-
-            <InputFormAdmTenis
-                nome={"desconto"}
-                handleInput={handleCredenciais}
-                placeholder={"Desconto"}
-                var={credenciais.desconto}
-            />
-
-            <InputFormAdmTenis
-                nome={"cupom"}
-                handleInput={handleCredenciais}
-                placeholder={"Cupom (link)"}
-                var={credenciais.cupom}
+                onChange={e => handleFotos(e)}
             />
 
             <div className="container-adm-btn">
