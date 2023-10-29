@@ -52,14 +52,6 @@ export function TelaADM() {
                             <div className='div-adm div-usuario'>
                                 <Link className="link-adm" to='/EditarUsuario'>Usuário</Link>
                             </div>
-
-                            <div className="titulo-div-adm">
-                                <h2 className='titulo-adm'>Comentários:</h2>
-                            </div>
-                            <div className='div-adm div-comentario'>
-                                <Link className="link-adm" >Comentários</Link>
-                            </div>
-
                             <div className='div-adm-voltar'>
                                 <Link className="link-adm-voltar" to='/'>Voltar</Link>
                             </div>

@@ -6,6 +6,7 @@ import AdicionarIcon from '../assets/icons/adicionar.png'
 import { useState, useEffect } from "react";
 import { api, getUser } from '../services/api'
 import { Link, useNavigate } from "react-router-dom";
+import VoltarIconLaranja from '../assets/icons/voltarlaranja.png'
 import postCred from '../Login/postCred.js';
 import inputValidation from '../Login/inputValidation.js';
 import Popup from 'reactjs-popup';
@@ -137,6 +138,9 @@ export function EditarUsuario(props) {
             {user.admin == "1" ? (
                 <div className='container-adm'>
                     <div className="container-form-adm-edit">
+                        <Link to={`/TelaADM`}>
+                            <img className="voltar-icon-editar" src={VoltarIconLaranja} alt="Voltar" />
+                        </Link>
                         <h1 className="titulo-form-adm">Usuário</h1>
 
                         <TabelaUsersADM

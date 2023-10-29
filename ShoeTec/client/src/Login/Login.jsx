@@ -41,11 +41,13 @@ export function Login() {
             >
                 <div className='popup'>
                     <div className='mensagem-login'>{mensagemQuery}</div>
-                    <button className='login-form-button' onClick={() => setPopupOpen(false)}>Fechar</button>
-
-                    <div className='text-center-popup'>
-                        <Link to="/" className='voltar-popup'>Voltar para página principal</Link>
+                    <div className="container-login-form">
+                        <button className='login-form-button' onClick={() => setPopupOpen(false)}>Fechar</button>
+                        <div className='text-center-popup'>
+                            <Link to="/" className='voltar-popup'>Voltar para página principal</Link>
+                        </div>
                     </div>
+                    
                 </div>
             </Popup>
 

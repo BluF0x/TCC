@@ -313,3 +313,13 @@
         font-size: 14px;
     }
   }
+
+  @media (max-width: 440px) {
+    .text-btn-ocultmost{
+        display: none;
+    }
+    .button-ocultarmostrar{
+        margin: 2px;
+        padding: 0;
+    }
+  }

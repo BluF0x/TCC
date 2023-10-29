@@ -192,7 +192,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                         </span>
                                     )}
 
-                                    {value.reviewer_id === user.userid &&
+                                    {value.reviewer_id === user.userid || user.userid == 1 &&
                                         <div className="excluir-button">
                                             <button className="button excluir-btn" onClick={e => excluirComentario(e, value)}>
                                                 <img className="excluir" src={ExcluirIcon} alt="Excluir" />
@@ -288,7 +288,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                                 {value.subComments.length > 0 && (
                                     <button className="button-ocultarmostrar"  onClick={() => handleMostrarSubClick(value)}>
                                         <img className='responder' src={expandirMap[value.review_id] ? MostrarIcon : OcultarIcon} alt={expandirMap[value.review_id] ? "Mostrar" : "Ocultar"} />
-                                        {expandirMap[value.review_id] ? "Mostrar Subcomentários" : "Ocultar Subcomentários"}
+                                        <span className='text-btn-ocultmost'>{expandirMap[value.review_id] ? "Mostrar Subcomentários" : "Ocultar Subcomentários"}</span>
                                     </button>
                                 )}
                             </div>
