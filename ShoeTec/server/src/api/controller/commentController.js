@@ -1,7 +1,4 @@
-const { array } = require('joi')
 const commentModel = require('../models/commentModel')
-const { query } = require('../models/connection')
-const { param } = require('../routes/router')
 
 const createComment = async(req, res) =>{
 
@@ -96,11 +93,13 @@ deleteComments = async (req, res) => {
     try {
         const {commentId} =  req.params
         const userid = req.session.userid
+        const isAdmin = req.session.admin
         console.log('userid: ' + userid)
         console.log('commentId: ' + commentId)
         console.log(req.session)
+        console.log(isAdmin)
 
-        if(!userid) {
+        if(!userid || isAdmin == 0) {
             res.status(401).json({msg: "Não autorizado"})
         } else {
 
@@ -116,8 +115,10 @@ deleteComments = async (req, res) => {
 
             console.log(`CommentPosterId: ${commentPosterId}`)
 
-
-            if (!commentPosterId || !userid) {
+            if (isAdmin == 1) {
+                const deleteQuery = await commentModel.deleteComment(commentId)
+                res.status(200).json({resultado: "Comentáro deletado com sucesso!", query: deleteQuery})
+            } else if (!commentPosterId || !userid) {
                 res.status(401).json({msg: "Não autorizado"})
             } else if (commentPosterId != userid) {
                 res.status(401).json({msg: "Não autorizado, id do usuário não é o mesmo do comentário"})

@@ -79,28 +79,6 @@ function BarraNav() {
         )
     }
 
-    function MenuFiltrar() {
-        return (
-            <div className="menu-list">
-                <ul>
-                    <li className="menu-list-item" >
-                        <input type="checkbox"></input>
-                    </li>
-                    <li className="menu-list-item" >
-                        <input type="checkbox"></input>
-                    </li>
-                    <li className="menu-list-item" >
-                        <input type="checkbox"></input>
-                    </li>
-                    <li className="menu-list-item" >
-                        <input type="checkbox"></input>
-                    </li>
-                    <li className="menu-list-item" ></li>
-                </ul>
-            </div>
-        )
-    }
-
     const BarraPesquisa = () => {
         const [search, setSearch] = useState({searchName: ""})
         const [queryPesquisa, setQueryPesquisa] = useState()
@@ -130,6 +108,27 @@ function BarraNav() {
             };
         }, []); // Empty dependency array means this effect will run once after initial render
 
+        const mudarFiltro = (e) =>{
+            console.log(e.target)
+            setSearch({...search,  marca: e.target.value})
+            api.get('/searchTenis', {params: search})
+            .then((val)=>{
+                console.log(val.data.query)
+                setQueryPesquisa(val.data.query)
+                setIsPesquisando(true)
+            })
+        }
+
+        const mudarFiltroEsporte = (e) =>{
+            console.log(e.target)
+            setSearch({...search,  esporte: e.target.value})
+            api.get('/searchTenis', {params: search})
+            .then((val)=>{
+                console.log(val.data.query)
+                setQueryPesquisa(val.data.query)
+                setIsPesquisando(true)
+            })
+        }
        
         const pesquisar = async(e) => {
             const pesquisa = e.target.value
@@ -164,6 +163,7 @@ function BarraNav() {
                     }
                 </div>
                 <Popup
+                    className="popup"
                     trigger={
                         <div className="btn-filtrar">
                             <img src={filter} className="icon" />
@@ -172,7 +172,29 @@ function BarraNav() {
                     closeOnDocumentClick
                     position={'bottom left'}
                     >
-                    <MenuFiltrar/>
+                    <div className="menu-list">
+                        <ul>
+                            <li className="menu-list-item" >
+                                <select name="marca" onChange={e=>mudarFiltro(e)} className="select-nav">
+                                    <option value={null}>Selecione a marca</option>
+                                    <option value="Nike">Nike</option>
+                                    <option value="Adidas">Adidas</option>
+                                    <option value="Olympus">Olympus</option>
+                                </select>
+                                <select name="marca" onChange={e=>mudarFiltroEsporte(e)} className="select-nav">
+                                    <option value={null}>Selecione o esporte</option>
+                                    <option value="Futebol">Futebol</option>
+                                    <option value="Futsal">Futsal</option>
+                                    <option value="Corrida">Corrida</option>
+                                    <option value="Voleibal">Voleibal</option>
+                                    <option value="Basquete">Basquete</option>
+                                    <option value="Tênis">Tênis</option>
+                                    <option value="Handebol">Handebol</option>
+                                    <option value="Musculação">Musculação</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
                 </Popup>
             </div>
         )
@@ -180,14 +202,6 @@ function BarraNav() {
 
     return(
         <div className="barra-superior">
-            {/* <button onClick={
-                async (e)=> {
-                    const query = await api.get('/checkSession', {
-                        withCredentials: true
-                    })
-                    console.log(query)
-                }
-            }>Checar sessão</button> */}
             <Popup
                 trigger={
                     <div className="menu-nav" onClick={(e)=>toggleMenuNav()}>

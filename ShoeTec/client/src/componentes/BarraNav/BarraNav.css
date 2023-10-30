@@ -140,12 +140,22 @@
     color: white;
     transition: background-color, 300ms;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
 
-.menu-list-item:hover {
-    background-color: var(--cor-secundaria);
+.select-nav {
+    margin: 0.5em;
 }
+
+/* .menu-list-item:hover {
+    background-color: var(--cor-secundaria);
+} */
 
 .iconeBtn {
     width: 20%;
+}
+
+.popup { 
+    position: relative;
 }
