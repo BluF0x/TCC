@@ -1,0 +1,28 @@
+.comentario-user-gerenciar {
+    width: 90%;
+    padding: 14px;
+    box-sizing: border-box;
+    border-color: #ff8100;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 4px;
+    background-color: #ff8100;
+    transition: 200ms;
+}
+
+.comentario-user-gerenciar:hover{
+    transition: 200ms;
+    transform: scale(1.01, 1.03);
+    box-shadow: 4px 4px 10px #844e084f;
+}
+
+.comentarios-container-gerenciar {
+    margin-left: 20px;
+    padding-bottom: 10px;
+}
+
+@media screen and (max-width: 700px) {
+    .comentario-user-gerenciar {
+        width: 95%;
+    }
+}

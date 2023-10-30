@@ -46,6 +46,16 @@ async function getCommentsByUser(reviewerId) {
     }
 }
 
+async function getAllCommentsByUser(reviewerId) {
+    try {
+        const query = await api.get(`/AllcommentsByReviewer/${reviewerId}`, { withCredentials: true });
+        return query.data.comments;
+    } catch (err) {
+        console.log(err);
+        return [];
+    }
+}
+
 async function getTenisById(tenisId) {
     try {
         const query = await api.get(`/tenisId/${tenisId}`);
@@ -57,4 +67,4 @@ async function getTenisById(tenisId) {
 }
 
 export default api
-export {getUser, api, getCommentsByUser, getTenisById, getPicPath, URL}
+export {getUser, api, getCommentsByUser, getTenisById, getPicPath, URL, getAllCommentsByUser}

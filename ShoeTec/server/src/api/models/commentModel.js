@@ -84,4 +84,14 @@ const getCommentsByReviewerId = async (reviewerId) => {
     }
 };
 
-module.exports = {creatComment, getChildComment, getTopComment, deleteComment, getCommentPosterId, getCommentsByReviewerId}
+const getAllCommentsByReviewerId = async (reviewerId) => {
+    try {
+        const args = `SELECT corpo_texto, tenis_id FROM Post WHERE reviewer_id = ${reviewerId}`;
+        const [comments] = await connection.execute(args);
+        return comments;
+    } catch (err) {
+        throw err;
+    }
+};
+
+module.exports = {creatComment, getChildComment, getTopComment, deleteComment, getCommentPosterId, getCommentsByReviewerId, getAllCommentsByReviewerId}

@@ -142,11 +142,29 @@
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    text-align: center;
+}
+
+.titulo-filtro{
+    font-weight: bold;
 }
 
 .select-nav {
     margin: 0.5em;
+    color: var(--cor-primaria);
+    border: none;
+    border-radius: 5px;
+    padding: 2px;
+    box-shadow: 2px 2px 5px white;
+    cursor: pointer;
+    transition: 200ms;
 }
+
+.select-nav:hover {
+    transform: scale(1.03, 1.04);
+    transition: 200ms;
+    box-shadow: 4px 4px 8px white;
+  }
 
 /* .menu-list-item:hover {
     background-color: var(--cor-secundaria);

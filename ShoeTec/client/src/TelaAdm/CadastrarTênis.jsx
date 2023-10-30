@@ -197,7 +197,7 @@ function CadastrarTenisADM(props) {
 
                 formData.append('tenisId', tenisId); // Anexe tenisId ao formData
 
-                
+
                 for (let i = 0; i < fotos.length; i++) {
                     formData.append('images', fotos[i]);
                 }
@@ -206,7 +206,7 @@ function CadastrarTenisADM(props) {
 
                 const response = await api.post('/uploadImagesTenis', formData, {
                     headers: {
-                    'Content-Type': 'multipart/form-data',
+                        'Content-Type': 'multipart/form-data',
                     },
                 });
                 console.log(response)
@@ -215,7 +215,7 @@ function CadastrarTenisADM(props) {
                 setPopupOpen(true)
                 setMensagemQuery(`Tênis cadastrado com sucesso!\nCod: ${queryResult.status}`)
                 setEstadoLogin(true)
-            } catch(erro) {
+            } catch (erro) {
                 console.log(erro)
             }
         } else {
@@ -230,21 +230,21 @@ function CadastrarTenisADM(props) {
             <InputFormAdmTenis
                 nome={"nome"}
                 handleInput={handleCredenciais}
-                placeholder={"Nome"}
+                placeholder={"Nome*"}
                 var={credenciais.nome}
             />
 
             <InputFormAdmTenis
                 nome={"descr"}
                 handleInput={handleCredenciais}
-                placeholder={"Descrição"}
+                placeholder={"Descrição*"}
                 var={credenciais.descr}
             />
 
             <InputFormAdmTenis
                 nome={"medium_price"}
                 handleInput={handleCredenciais}
-                placeholder={"Preço médio"}
+                placeholder={"Preço médio*"}
                 tipo={'number'}
                 var={credenciais.medium_price}
             />
@@ -300,42 +300,42 @@ function CadastrarTenisADM(props) {
             <InputFormAdmTenis
                 nome={"marca"}
                 handleInput={handleCredenciais}
-                placeholder={"Marca"}
+                placeholder={"Marca*"}
                 var={credenciais.marca}
             />
 
             <InputFormAdmTenis
                 nome={"categoria"}
                 handleInput={handleCredenciais}
-                placeholder={"Categoria"}
+                placeholder={"Categoria*"}
                 var={credenciais.categoria}
             />
 
             <InputFormAdmTenis
                 nome={"peso"}
                 handleInput={handleCredenciais}
-                placeholder={"Peso"}
+                placeholder={"Peso*"}
                 var={credenciais.peso}
             />
 
             <InputFormAdmTenis
                 nome={"dropt"}
                 handleInput={handleCredenciais}
-                placeholder={"Drop (Entressola)"}
+                placeholder={"Drop (Entressola)*"}
                 var={credenciais.dropt}
             />
 
             <InputFormAdmTenis
                 nome={"solado"}
                 handleInput={handleCredenciais}
-                placeholder={"Solado"}
+                placeholder={"Solado*"}
                 var={credenciais.solado}
             />
 
             <InputFormAdmTenis
                 nome={"cabedal"}
                 handleInput={handleCredenciais}
-                placeholder={"Cabedal"}
+                placeholder={"Cabedal*"}
                 var={credenciais.cabedal}
             />
 
@@ -349,7 +349,7 @@ function CadastrarTenisADM(props) {
             <InputFormAdmTenis
                 nome={"entressola"}
                 handleInput={handleCredenciais}
-                placeholder={"Entressola*"}
+                placeholder={"Entressola"}
                 var={credenciais.entressola}
             />
 
@@ -359,6 +359,8 @@ function CadastrarTenisADM(props) {
                 placeholder={"Trava"}
                 var={credenciais.trava}
             />
+
+
 
             <input
                 type="file"

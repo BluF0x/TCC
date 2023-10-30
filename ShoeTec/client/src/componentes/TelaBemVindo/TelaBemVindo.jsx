@@ -65,27 +65,14 @@ function TelaBemVindo() {
             <Link to={isLogged ? `/TelaUsuario/${user.userid}` : "/Login"} className="menus menu-entrar">
                 {isLogged ? "Tela de usuário" : "Entrar"}
             </Link>
-
-            {user.admin == "1" ? (
                 <>
                 <Link className="menus menu-adm" to='/TelaADM'>
                     Admin
                 </Link>
-                <Link className="menus menu-gerenciar">
+                <Link to={isLogged ? `/GerenciarComentarios/${user.userid}` : "/Login"} className="menus menu-gerenciar">
                     Gerenciar comentários
                 </Link>
                 </>
-
-            ) : (
-                <>
-                    <Link className="menus menu-reviews">
-                        Reviews
-                    </Link>
-                    <Link className="menus menu-gerenciar">
-                        Gerenciar comentários
-                    </Link>
-                </>
-            )}
         </div>
     )
 }

@@ -175,6 +175,7 @@ function BarraNav() {
                     <div className="menu-list">
                         <ul>
                             <li className="menu-list-item" >
+                                <p className="titulo-filtro">Filtros:</p>
                                 <select name="marca" onChange={e=>mudarFiltro(e)} className="select-nav">
                                     <option value={null}>Selecione a marca</option>
                                     <option value="Nike">Nike</option>

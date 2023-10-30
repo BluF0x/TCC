@@ -188,10 +188,12 @@
     border-style: solid;
     border-width: 4px;
     background-color: #ff8100;
+    transition: 200ms;
 }
 
 .comentario-user:hover {
     transform: scale(1.01, 1.03);
+    transition: 200ms;
 }
 
 .cabecalho-comentario {

@@ -14,6 +14,7 @@ import Lost from "./LostPage/Lost";
 import { EditarPerfil } from "./TelaUsuario/EditarPerfil";
 import './App.css'
 import EditarFotoPerfil from "./TelaUsuario/EditarFotoPerfil";
+import GerenciarComentarios from "./GerenciarComentarios/GerenciarComentarios";
 
 function App() {
   /*
@@ -37,6 +38,7 @@ function App() {
         <Route path="/CadastrarTenis" Component={CadastrarTenis} />
         <Route path="/EditarUsuario" Component={EditarUsuario} />
         <Route path="/EditarFotoPerfil" Component={EditarFotoPerfil} />
+        <Route path="/GerenciarComentarios/:id" Component={GerenciarComentarios} />
       </Routes>
     </Router>
   )
