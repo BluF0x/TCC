@@ -29,10 +29,12 @@
     flex-direction: column;
     top: 40px;
     background-color: rgb(255, 255, 255);
+    width: inherit;
 }
 
 .item-query {
     padding: 1em;
+    color: black;
     /* margin: 1em; */
     transition: 300ms;
 }

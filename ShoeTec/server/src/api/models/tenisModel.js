@@ -23,22 +23,28 @@ const insertImageNames = async (imageNames, tenisId) => {
 * arguments : [string] (um array de strings com os parametros para pesquisa)
 * data: [] usado na execução da conexão 
 */
-const searchTenis = async(queryObj) => {
-
+const searchTenis = async (queryObj) => {
+    console.log(queryObj)
     try {
-        console.log(queryObj)
-        const args = `SELECT * FROM tenis WHERE nome LIKE CONCAT ( '%', ?, '%') ;`
-        vals = [queryObj.searchName]
+        let args = "SELECT * FROM tenis WHERE nome LIKE CONCAT('%', ?, '%')";
+        const vals = [queryObj.searchName];
 
-        const [query] = await connection.execute(args, vals)
-        // console.log(query)
-        return query
+        if (queryObj.marca) {
+            args += ' AND marca = ?';
+            vals.push(queryObj.marca);
+        }
 
+        if (queryObj.esporte) {
+            args += ' AND esporte = ?';
+            vals.push(queryObj.esporte);
+        }
+
+        const [query] = await connection.execute(args, vals);
+        return query;
     } catch (err) {
-        return err
+        return err;
     }
-
-}
+};
 
 const getTenisById = async(id) =>{
     const args = "SELECT * FROM tenis WHERE tenis_id=?";

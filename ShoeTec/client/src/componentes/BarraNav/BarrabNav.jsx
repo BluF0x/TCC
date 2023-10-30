@@ -111,9 +111,10 @@ function BarraNav() {
         const mudarFiltro = (e) =>{
             console.log(e.target)
             setSearch({...search,  marca: e.target.value})
+            console.log(search)
             api.get('/searchTenis', {params: search})
             .then((val)=>{
-                console.log(val.data.query)
+                console.log(val)
                 setQueryPesquisa(val.data.query)
                 setIsPesquisando(true)
             })
@@ -121,10 +122,12 @@ function BarraNav() {
 
         const mudarFiltroEsporte = (e) =>{
             console.log(e.target)
-            setSearch({...search,  esporte: e.target.value})
+            const targetValue = e.target.value
+            setSearch({...search,  esporte: targetValue})
+            console.log(search)
             api.get('/searchTenis', {params: search})
             .then((val)=>{
-                console.log(val.data.query)
+                console.log(val)
                 setQueryPesquisa(val.data.query)
                 setIsPesquisando(true)
             })
@@ -134,16 +137,17 @@ function BarraNav() {
             const pesquisa = e.target.value
             console.log(pesquisa)
             if (pesquisa != "") {
-                setSearch({searchName: pesquisa})
+                setSearch({...search, searchName: pesquisa})
+                console.log(search)
                 api.get('/searchTenis', {params: search})
                 .then((val)=>{
-                    console.log(val.data.query)
+                    console.log(val)
                     setQueryPesquisa(val.data.query)
                     setIsPesquisando(true)
                 })
             } else {
                 setIsPesquisando(false)
-                setSearch({searchName: pesquisa})
+                setSearch({...search, searchName: pesquisa})
                 setQueryPesquisa([])
             }
         }

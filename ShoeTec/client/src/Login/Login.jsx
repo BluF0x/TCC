@@ -231,9 +231,10 @@ function LoginForm(props) {
             setPopupOpen(true)
             setMensagemQuery("Logado com sucesso!")
         } catch (err) {
+            const errorMessage = err.response.data.msg 
             console.log(err)
             setPopupOpen(true)
-            setMensagemQuery("Erro ao logar")
+            setMensagemQuery(errorMessage ? errorMessage : "Erro ao logar" )
         }
     }
 
