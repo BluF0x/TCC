@@ -42,7 +42,9 @@ CREATE TABLE Tenis(
     palmilha        VARCHAR(255) NOT NULL,
     entressola      VARCHAR(255),
     trava           VARCHAR(255),
-    picture         VARCHAR(255)
+    picture         VARCHAR(255),
+    cupom           VARCHAR(255),
+    desconto        VARCHAR(255)
 );
 
 -- "is_review" determina se é uma review ou não, quando "true" é uma review

@@ -49,11 +49,11 @@ const getTenisById = async(id) =>{
 
 const criarTenis = async (userData) => {
     try {
-        const { nome, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava } = userData;
+        const { nome, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava, desconto, cupom } = userData;
 
-        const values = [nome, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola || null, trava || null];
+        const values = [nome, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola || null, trava || null, desconto || null, cupom || null];
 
-        const args = `INSERT INTO tenis(nome, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+        const args = `INSERT INTO tenis(nome, descr, medium_price, esporte, marca, categoria, peso, dropt, solado, cabedal, palmilha, entressola, trava, cupom, desconto) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
         
         // Assumindo que você tem um objeto de conexão chamado 'connection' configurado anteriormente
         const [result] = await connection.execute(args, values);

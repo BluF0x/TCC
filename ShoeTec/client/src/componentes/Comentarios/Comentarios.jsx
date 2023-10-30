@@ -55,7 +55,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
             review_id: res.data.result.insertId,
             reviewer_id: user.userid,
             reviewer_name: user.username,
-            reviewer_pic: URL + "/images/" + user.pic
+            reviewer_pic:   user.pic
         };
         console.log(newComment)
         setComments([newComment, ...comments]);
@@ -87,7 +87,7 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
     //---------------------------------------------------------
 
     const ReplyComponent = (props) => {
-        const parentComment = props.parent;
+        let parentComment = props.parent;
         const [currentComment, setCurrentComment] = useState({ corpo_texto: "", subComments: [] });
         const [isHidden, setIsHidden] = useState(false);
         const [comments, setComments] = useState(parentComment.subComments);
@@ -119,6 +119,8 @@ const Comentarios = ({ inheritedComments = [], tenisId = 0, user = {
                 reviewer_pic:  user.pic
             };
             console.log(newComment)
+            parentComment.subComments = [...parentComment.subComments, newComment]
+            console.log(parentComment)
             setComments([newComment, ...comments]);
             setCurrentComment({ corpo_texto: '', subComments: [] }); // Clear the input field after adding the comment
         };

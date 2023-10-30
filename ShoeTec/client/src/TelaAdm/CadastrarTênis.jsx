@@ -360,6 +360,21 @@ function CadastrarTenisADM(props) {
                 var={credenciais.trava}
             />
 
+            <InputFormAdmTenis
+                nome={"cupom"}
+                handleInput={handleCredenciais}
+                placeholder={"cupom"}
+                var={credenciais.cupom}
+            />
+
+            <InputFormAdmTenis
+                nome={"desconto"}
+                handleInput={handleCredenciais}
+                placeholder={"Desconto"}
+                var={credenciais.desconto}
+            />
+        
+
 
 
             <input
