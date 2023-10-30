@@ -151,7 +151,7 @@ function BarraNav() {
         return (
             <div className="items-barra-superior" id="barra-pesquisa" ref={elementRef}>
                 <input type="text" placeholder="Pesquisar" id="pesquisar" onChange={(e)=>pesquisar(e)}></input>
-                <div className="barra-pesquisa container-itens-query " >
+                <div className="barra-pesquisa container-itens-query" >
                     { isPesquisando && 
                         queryPesquisa.map((val)=>{
                             return (
