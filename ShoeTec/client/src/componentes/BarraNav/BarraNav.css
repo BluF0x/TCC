@@ -170,6 +170,24 @@
     cursor: pointer;
 }
 
+.menu-list-filtro {
+    /* position: absolute; */
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+    background-color: red;
+    width: 200px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+    .menu-list-filtro{
+        display: none;
+    }
+}
+
 .menu-list-item {
     display: flex;
     flex-direction: row;

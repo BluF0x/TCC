@@ -176,7 +176,7 @@ function BarraNav() {
                     closeOnDocumentClick
                     position={'bottom left'}
                     >
-                    <div className="menu-list">
+                    <div className="menu-list-filtro">
                         <ul>
                             <li className="menu-list-item" >
                                 <p className="titulo-filtro">Filtros:</p>
